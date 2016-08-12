@@ -1,5 +1,3 @@
-# File: O (Python 2.4)
-
 import sys
 import time
 import string

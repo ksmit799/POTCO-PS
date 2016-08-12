@@ -1,5 +1,3 @@
-# File: L (Python 2.4)
-
 import math
 import copy
 import types
@@ -1538,7 +1536,7 @@ class LocalPirate(DistributedPlayerPirate, LocalAvatar):
         else:
             self.notify.warning('Tried to set interest when shard was closed')
 			
-  setInterest = report(types = [
+    setInterest = report(types = [
         'args',
         'deltaStamp',
         'module'], dConfigParam = 'teleport')(setInterest)
@@ -1550,7 +1548,7 @@ class LocalPirate(DistributedPlayerPirate, LocalAvatar):
             self.cr.removeInterest(contextInfo[1], event)
             self.interestHandles.remove(contextInfo)
 
-  clearInterest = report(types = ['args', 'deltaStamp', 'module'], dConfigParam = 'teleport')(clearInterest)
+    clearInterest = report(types = ['args', 'deltaStamp', 'module'], dConfigParam = 'teleport')(clearInterest)
 
     def clearInterestNamed(self, callback, interestTags):
         toBeRemoved = []
