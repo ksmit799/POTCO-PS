@@ -1,5 +1,5 @@
 # Window options...
-window-title Pirates Online Legacy
+window-title Pirates Online Remake
 icon-filename pirates.ico
 
 model-path resources/
@@ -30,10 +30,10 @@ dc-file astron/dclass/otp.dc
 # Server
 game-server 127.0.0.1
 server-port 7199
-server-version pol-dev
+server-version piratesremake-1.0.0
 
 # Disable cache
-want-cache #t
+want-cache #f
 
 # Disable tutorial
 skip-tutorial 1

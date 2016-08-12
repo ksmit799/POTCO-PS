@@ -1,5 +1,5 @@
 # Window options...
-window-title Pirates Online Legacy - Editor
+window-title Pirates Online Remake - Editor
 icon-filename pirates.ico
 
 # Filenames/filepaths...
@@ -18,7 +18,7 @@ dc-file astron/dclass/otp.dc
 # Server
 game-server 127.0.0.1
 server-port 7199
-server-version Pirates Online Legacy - Dev
+server-version piratesremake-1.0.0
 accountdb-type developer
 account-bridge-filename account-bridge.db
 

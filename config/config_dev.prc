@@ -1,5 +1,5 @@
 # Window options...
-window-title Pirates Online Legacy
+window-title Pirates Online Remake
 icon-filename pirates.ico
 
 # Filenames/filepaths...
@@ -10,6 +10,9 @@ model-path resources/phase_4
 model-path resources/phase_5
 
 default-model-extension .bam
+
+# Server
+server-version piratesremake-1.0.0
 
 # Graphics
 want-improved-graphics 1
