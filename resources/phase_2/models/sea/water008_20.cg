@@ -1,0 +1,379 @@
+//Cg
+//
+//Cg profile arbvp1 arbfp1
+
+
+#define enable_light_1 0
+#define enable_foam 0
+#define enable_reflection 1
+#define enable_specular 1
+#define enable_perturbation 1
+#define enable_smooth_perturbation_only 1
+#define enable_color_map 1
+#define enable_alpha_map 1
+
+#define debug_display_desintation_alpha 0
+
+
+void vshader(float3 vtx_position      : POSITION,
+             float3 vtx_normal        : NORMAL,
+//             float4 vtx_color         : COLOR,
+             float2 vtx_texcoord0     : TEXCOORD0,
+             out float4 l_position    : POSITION,
+             out float2 l_texcoord0   : TEXCOORD0,
+             out float4 l_texcoord1   : TEXCOORD1,  // reflection projective texture coordinates
+             out float3 l_normal      : TEXCOORD2,
+             out float3 l_surface_pos : TEXCOORD3,
+             out float3 l_interpolate : TEXCOORD4,  // xy = color map uv, z = fog factor
+             out float2 l_alpha_uv    : TEXCOORD5,  // xy = alpha color map uv
+//             out float4 l_color       : COLOR,
+ 
+             uniform float4 k_fogexpdensity,
+             uniform float4 k_map,                  // xy = map origin, zw = map scaling factor
+             uniform float4 k_alphamap,             // xy = alpha map origin, zw = alpha map scaling factor
+             uniform float4x4 trans_view_to_world,
+             uniform float4x4 trans_model_to_view,
+             uniform float4x4 trans_model_to_apiclip)
+{
+  float4 vertex;
+  float4 position;
+  
+  vertex.xyz = vtx_position.xyz;
+  vertex.w = 1.0;
+
+  position = mul (trans_model_to_apiclip, vertex);
+  
+  l_normal = vtx_normal;
+  l_surface_pos = vertex.xyz;
+  
+  l_texcoord0 = vtx_texcoord0;
+
+  float4 view_space_position = mul (trans_model_to_view, vertex);
+
+  // world coordinates to map UV 
+  float2 world_space_position;
+  
+//  world_space_position.xy = mul (trans_view_to_world, vertex);
+  world_space_position.xy = mul (trans_view_to_world, view_space_position).xy;
+  l_interpolate.xy = (world_space_position.xy - k_map.xy) * k_map.zw;
+
+  l_alpha_uv.xy = (world_space_position.xy - k_alphamap.xy) * k_alphamap.zw;
+
+  // FOG
+  l_interpolate.z = 1.0 - exp (-1.0 * (k_fogexpdensity.x * view_space_position.y));
+
+  float4x4 projection_adjustment_matrix =
+  {
+      0.5, 0.0, 0.0, 0.5,
+      0.0, 0.5, 0.0, 0.5,
+      0.0, 0.0, 0.5, 0.5,
+      0.0, 0.0, 0.0, 1.0,
+  };
+
+  l_texcoord1 = mul (projection_adjustment_matrix, position);
+
+  l_position = position;
+
+// debug  
+//  l_texcoord1 = mul (mat_modelproj, vertex);  
+
+//  l_color = vtx_color;
+}
+
+
+void fshader(float2 l_texcoord0   : TEXCOORD0,
+             float4 l_texcoord1   : TEXCOORD1,
+             float3 l_normal      : TEXCOORD2,
+             float3 l_surface_pos : TEXCOORD3,
+             float3 l_interpolate : TEXCOORD4,
+             float2 l_alpha_uv    : TEXCOORD5,
+//             float4 l_color       : COLOR,
+             uniform float4 k_fogcolor,
+             uniform float4 k_uvanim,
+             uniform float4 k_lightposition,
+             uniform float4 k_cameraposition,
+             uniform float4 k_ambientcolor,
+             uniform float4 k_diffusecolor,
+             uniform float4 k_specularcolor,
+             uniform float4 k_lightparameters,
+             uniform float4 k_watercolor,
+             uniform float4 k_reflectionparameters,
+             uniform float4 k_watercolorfactor,
+             uniform float4 k_watercoloradd,
+             uniform sampler2D tex_0,
+             uniform sampler2D tex_0_d,
+             uniform sampler2D tex_0_n,
+             uniform sampler2D tex_0_bb,
+             uniform sampler2D tex_0_low2,
+//             uniform sampler2D tex_0_f,
+             uniform sampler2D k_watercolortexture,
+             uniform sampler2D k_reflectiontexture,
+             uniform sampler2D k_wateralphatexture,
+             out float4 o_color : COLOR)
+{
+  float diffuse;
+  float specular;
+  float3 world_normal;
+  float3 light_direction;
+  float3 opposite_light_direction;
+  float3 reflection_vector;
+
+  float3 light_position;    
+  float4 world_position;
+  
+  float specular_factor;
+  float diffuse_factor = 0.35;
+  float specular_exponent = 20.0;
+  
+  float diffuse_factor2 = k_lightparameters.x;
+  float specular_factor2 = k_lightparameters.y;
+  float specular_exponent2 = k_lightparameters.z;
+  
+  float4 colormap_d = tex2D (tex_0_d, (l_texcoord0 + k_uvanim.xy) * 2.0);
+
+  // get the normal map texels and convert them from rgb [0,1] format into normal format [-1, 1]
+  float4 normalmap = (tex2D (tex_0_n, (l_texcoord0) + (k_uvanim.zw)) * 2.0) - 1.0;
+  float4 normalmap2 = (tex2D (tex_0_bb, (l_texcoord0) + k_uvanim.xy) * 2.0) - 1.0;
+  float4 normalmap3 = (tex2D (tex_0_low2, (l_texcoord0) + k_uvanim.xy)) - 1.0;
+
+  // LIGHT 1: this light puts a little bit shine on the surface
+  light_position.x = 0.0;
+  light_position.y = -200;
+  light_position.z = -1000;
+  specular_factor = 0.075;
+  
+  // point light    
+  light_direction = normalize (light_position - l_surface_pos);
+  
+  opposite_light_direction = normalize (-light_direction);
+
+  // blend normals
+  world_normal.xyz = (normalmap.xzy * 0.10) + (normalmap2.xzy * 0.25) + (l_normal * 0.70);  
+  world_normal = normalize (world_normal);
+  
+  diffuse = dot (world_normal, opposite_light_direction);
+  reflection_vector = normalize ((2.0 * diffuse * world_normal) - opposite_light_direction);
+  
+  // using opposite_light_direction instead of surface_to_camera_vector
+  specular = specular_factor * pow (saturate (dot (reflection_vector, opposite_light_direction)), specular_exponent);  
+  diffuse = diffuse * diffuse_factor;
+  if (diffuse < 0.0)
+  {
+    diffuse = 0.0;
+    specular = 0.0;
+  }
+
+  float4 base_water_color;
+  float4 water_color;
+
+  if (enable_color_map)  
+  {  
+    base_water_color = tex2D (k_watercolortexture, l_interpolate.xy);
+    base_water_color.xyz = (base_water_color.xyz * k_watercolorfactor.xyz) + k_watercoloradd.xyz;
+//    base_water_color.xyz *= 1.50;
+  }
+  else
+  {
+    base_water_color = k_watercolor;
+  }
+
+  if (enable_light_1)
+  {
+    water_color = (colormap_d * 0.10) + (diffuse * base_water_color) + (specular);
+  }
+  else
+  {
+    water_color = (colormap_d * 0.10) + base_water_color;
+  }
+
+  // REFLECTION
+  float reflection_factor;
+  float4 reflection_texel;
+
+  if (enable_reflection)
+  {
+    reflection_factor = k_reflectionparameters.z;
+
+    if (enable_perturbation)
+    {    
+      float2 projection_uv;
+      float2 perturbation_factor;
+     
+      projection_uv = l_texcoord1.xy / l_texcoord1.w;
+      perturbation_factor.xy = k_reflectionparameters.xy;
+
+      if (enable_smooth_perturbation_only)
+      {      
+        projection_uv = 
+            projection_uv + ((normalmap3.xy - normalmap3.yx) * perturbation_factor);
+      }
+      else
+      {
+        projection_uv = 
+            projection_uv + 
+            k_reflectionparameters.w * ((normalmap3.xy - normalmap3.yx) * perturbation_factor) + 
+            (1.0 - k_reflectionparameters.w) * ((normalmap2.xy - normalmap2.yx) * perturbation_factor);
+      }
+            
+      reflection_texel = tex2D (k_reflectiontexture, projection_uv);
+    }
+    else
+    {
+      reflection_texel = tex2Dproj (k_reflectiontexture, l_texcoord1);
+    }
+  }
+
+  // LIGHT 2: this is the primary light
+
+  float3 surface_to_camera_vector;
+
+  light_position = k_lightposition.xyz;  
+
+  // the camera only moves in the z direction for the water mesh
+  float3 camera_position;
+  
+  camera_position.x = 0.0;
+  camera_position.y = 0.0;
+  camera_position.z = k_cameraposition.z;
+  surface_to_camera_vector = normalize (camera_position.xyz - l_surface_pos); 
+
+  // point light    
+  light_direction = normalize (l_surface_pos - light_position);
+  
+  opposite_light_direction = normalize (-light_direction);
+
+  float3 surface_normal;
+  
+  // bias the normal pointing up and a little towards the camera
+  if (0)
+  {
+    surface_normal.x = 0.0;
+    surface_normal.y = -0.2;
+    surface_normal.z = 1.0;
+    surface_normal = normalize (surface_normal);
+  }
+  else
+  {
+    surface_normal.x = 0.0;
+    surface_normal.y = -0.1;
+    surface_normal.z = 1.0;
+    surface_normal = normalize (surface_normal);  
+  }
+  
+  // blend normals
+  // this is not true normal mapping since we do not have binormal and tangent vectors
+  surface_normal = (surface_normal + (l_normal * 0.10) + (normalmap2.xyz * 0.05));
+  surface_normal = normalize (surface_normal);
+
+  diffuse = dot (surface_normal, opposite_light_direction);
+
+  reflection_vector = normalize ((2.0 * diffuse * surface_normal) - opposite_light_direction);  
+  specular = specular_factor2 * pow (saturate (dot (reflection_vector, surface_to_camera_vector)), specular_exponent2);
+
+  diffuse = diffuse * diffuse_factor2;
+  
+  // DEBUG OVERRIDE
+  if (0)
+  {
+    diffuse = diffuse_factor2;
+    specular = 0;
+  }
+  
+  if (diffuse < 0.0)
+  {
+    diffuse = 0.0;
+    specular = 0.0;
+  }
+
+  if (enable_specular == 0)
+  {
+    specular = 0.0;
+  }
+
+  if (enable_reflection)
+  {
+    if (reflection_texel.w > 0.0)
+    {
+      specular = 0.0;
+    }
+  }
+  
+  float4 output_color;
+  
+  output_color = (k_ambientcolor * water_color) + (diffuse * k_diffusecolor * water_color) + (specular * k_specularcolor);
+
+  // FOAM
+  if (enable_foam)
+  {
+    light_position.x = 0.0;
+    light_position.y = -4100.0;
+    light_position.z = 13600.0;
+
+    opposite_light_direction = normalize (light_position - l_surface_pos);
+
+    float3 normal_bias;
+    
+    normal_bias.x = 0.0;
+    normal_bias.y = 0.0;
+    normal_bias.z = 0.0;
+
+    surface_normal = normalize (l_normal + (normalmap2.xyz * 0.2) + (normal_bias * 0.25));
+    diffuse = dot (surface_normal, opposite_light_direction);
+
+    float3 surface_to_camera_vector2;
+    float3 camera_position2;
+
+    camera_position2.x = 0.0;
+    camera_position2.y = 0.0;
+    camera_position2.z = -5.0;
+    surface_to_camera_vector2 = normalize (camera_position2.xyz - l_surface_pos); 
+
+    reflection_vector = normalize ((2.0 * diffuse * surface_normal) - opposite_light_direction);  
+    specular = saturate (dot (reflection_vector, surface_to_camera_vector2));
+
+    // foam altitude attenuation
+    float z_factor;
+    float maximum_altitude;
+
+    maximum_altitude = 500.0;
+    z_factor = (maximum_altitude - min (camera_position.z, maximum_altitude)) / maximum_altitude;
+
+    // foam distance attenuation
+    float y_factor;
+    float maximum_distance;
+    
+    maximum_distance = 350.0;
+    y_factor = (maximum_distance - min (l_surface_pos.y, maximum_distance)) / maximum_distance;
+    
+    output_color.xyz += specular * z_factor * y_factor;
+  }
+
+  if (enable_reflection)
+  {
+    output_color.xyz = (output_color.xyz) + (reflection_factor * reflection_texel.xyz);
+  }
+
+  // FOG
+  output_color.xyz = lerp (output_color.xyz, k_fogcolor.xyz, l_interpolate.z);
+
+  // ALPHA
+  if (enable_alpha_map)
+  {  
+    float2 alpha_uv;
+
+    alpha_uv = l_alpha_uv.xy;
+    output_color.w = 1.0 - tex2D (k_wateralphatexture, alpha_uv).x;
+  }
+  else
+  {
+    output_color.w = k_watercolor.w;
+  }
+
+  if (debug_display_desintation_alpha)
+  {
+    output_color.xyz = reflection_texel.w;
+    output_color.w = 1.0;
+  }
+  
+  o_color = output_color;
+}

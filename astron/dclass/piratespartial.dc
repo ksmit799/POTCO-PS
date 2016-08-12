@@ -1,0 +1,309 @@
+from pirates.band import DistributedCrewMatchManager/AI/UD
+from pirates.coderedemption import CodeRedemption/UD
+from pirates.distributed import PiratesDistrict/AI
+from pirates.distributed import DistributedPopulationTracker/AI
+from pirates.friends import PCAvatarFriendsManager/UD
+from pirates.friends import PCPlayerFriendsManager/UD
+from pirates.friends import PCGuildManager/AI/UD
+from pirates.instance import DistributedMatchMaker/AI/UD
+from pirates.instance import DistributedTravelAgent/UD
+from pirates.pirate import HumanDNA
+from pirates.pirate import DistributedPlayerPirate/AI/UD
+from pirates.uberdog import ClientServicesManager/UD
+from pirates.uberdog import DistributedAvatarManager/AI/UD
+from pirates.uberdog import DistributedShipLoader/AI/UD
+from pirates.uberdog import PiratesSpeedchatRelay/UD
+from pirates.web import PiratesSettingsMgr/AI/UD
+
+struct PotentialPirate {
+  uint32 avNum;
+  string avName;
+  string avDNA;
+  uint8 avPosition;
+  uint8 aname;
+};
+
+struct AvatarType {
+  int8 faction;
+  int8 track;
+  int8 id;
+  uint8 boss;
+};
+
+dclass DistributedCrewMatchManager : DistributedObject {
+  requestCrewAdd(uint8, uint32, uint32, uint32, uint32, uint32) airecv clsend;
+  requestCrewAddUD(uint32, string, uint8, string, uint32, uint8, uint32, uint32, uint8, bool, uint32, uint32, uint32);
+  responseCrewAdd(int8);
+  requestCrewDelete() airecv clsend;
+  requestCrewDeleteUD(uint32);
+  responseCrewDelete(uint8);
+  requestCrewUpdate(uint32, uint8, string, uint32);
+  requestCrewChangeOptions(uint8, uint32, uint32) airecv clsend;
+  addBandMember(uint32, uint32, uint32, uint32, uint8);
+  removeAvatarFromLookoutList(uint32);
+  removeCrewFromLookoutList(uint32);
+  requestInitialAvatarAdd(uint8) airecv clsend;
+  requestInitialAvatarAddUD(uint32, string, uint8, uint32, uint32, uint8, uint32);
+  responseInitialAvatarAdd(uint8, string, uint32, string, uint8);
+  requestInitialAvatarAddResponse(uint8, uint8) airecv clsend;
+  responseInitialAvatarAddResponse(uint8);
+  requestPutAvatarOnLookoutList(uint8) airecv clsend;
+  requestPutAvatarOnLookoutListUD(uint32, string, uint8, uint32, uint32, uint8, uint32);
+  requestDeleteAvatarFromLookoutList() airecv clsend;
+  requestDeleteAvatarFromLookoutListUD(uint32) airecv clsend;
+  responseCrewFound(string, uint32, string);
+  responseCrewGone();
+  requestAcceptInvite(uint32) airecv clsend;
+  requestCrewOfOneCreation() airecv clsend;
+  requestCrewOfOneDelete() airecv clsend;
+  notifySponsorNewMember(uint32, string);
+  responseNewMemberRequest(uint32, string, uint8, uint32);
+  requestNewMember(uint32, uint8, uint8, uint32) airecv clsend;
+  notifyNewMemberAskingCrewLeader(uint32, string);
+  notifyNewMemberAccept(uint32, string);
+  notifyNewMemberDecline(uint32, string);
+  notifyNewMemberTeleport(uint32, string);
+  notifyNewMemberTeleportToNewShard(uint32, string, uint32, uint32, uint32);
+  requestTeleportQuery(uint32, uint32, uint32, uint32, uint32) airecv clsend;
+  requestTeleportResponse(uint32, int8, uint32, uint32, uint32) airecv clsend;
+  teleportQuery(uint32, uint32, uint32, uint32, uint32) airecv clsend;
+  teleportResponse(uint32, int8, uint32, uint32, uint32) airecv clsend;
+  requestRemoveHandle(uint32);
+};
+
+dclass CodeRedemption : DistributedObject, CallbackObject {
+  online();
+  recvAvatarGender(uint32, string, uint32);
+  sendCodeForRedemption(string, string, uint32) airecv clsend;
+  notifyClientCodeRedeemStatus(uint8, int32, uint32);
+};
+
+dclass PiratesDistrict : DistributedDistrict {
+  setParentingRules(string, string) broadcast ram;
+  setAvatarCount(uint32) broadcast required;
+  setNewAvatarCount(uint32) broadcast required;
+  setMainWorld(string) broadcast required;
+  setShardType(uint8) broadcast required ram;
+  setStats : setAvatarCount, setNewAvatarCount;
+  setPopulationLimits(uint16, uint16);
+};
+
+dclass DistributedPopulationTracker : DistributedObject {
+  setShardId(uint32) required broadcast ram;
+  setPopulation(uint16) required broadcast ram;
+  setPopLimits(uint16, uint16) required broadcast ram;
+};
+
+dclass PCAvatarFriendsManager : AvatarFriendsManager {
+  setShipState(uint32, uint8, uint32);
+  setBandId(uint32, uint32, uint32);
+  requestDinghyFriendsList(uint32, uint32, uint32);
+};
+
+dclass PCPlayerFriendsManager : PlayerFriendsManager {
+};
+
+dclass PCGuildManager : GuildManager {
+  sendSCQuest(uint16, uint8, uint16) clsend airecv;
+  recvSCQuest(uint32, uint16, uint8, uint16);
+};
+
+struct resultPair {
+  string valueDesc;
+  string value;
+};
+
+dclass DistributedMatchMaker : DistributedObject {
+  requestActivity(uint32, uint32, int32, resultPair [], uint32 [], uint32, uint16);
+  requestJoin(uint32) airecv clsend;
+  skipJoin(uint32, bool) airecv clsend;
+  cancelRequest(uint32) airecv clsend;
+  instanceCreated(uint32, uint32, uint32);
+  instanceRemoved(uint32, uint32, uint32);
+  printStatus(uint32);
+  newDistrictOnline(uint32);
+  initiateTeleportResp(uint32, uint32);
+  avatarOffline(uint32);
+};
+
+typedef uint32 shipList[];
+
+dclass DistributedTravelAgent : DistributedObject {
+  registerShard(uint32, uint8, uint32, uint32, uint32, uint32);
+  shardOffline(uint32);
+  requestPopLimits(uint32);
+  initiateTeleportUD(string, uint8, uint8, uint32, string, uint32, uint32 [], uint32, uint32, int32, shipList [], uint32, uint32);
+  requestTutorialTeleport() clsend;
+  requestWelcomeWorldTeleport() clsend;
+  requestLoginTeleport(DoId) clsend;
+  requestLeaveWelcomeWorldTeleport(DoId, DoId);
+  requestPlayerTeleport(DoId, DoId, DoId);
+  requestShardTeleport(DoId, DoId);
+  requestInstanceTeleport(DoId [], uint8, string);
+};
+
+dclass HumanDNA {
+  setTutorial(uint8) required broadcast db ownsend ownrecv airecv;
+  setGender(char) required broadcast db airecv;
+  setBodyShape(uint8) required broadcast db airecv;
+  setBodyHeight(int8/100) required broadcast db airecv;
+  setBodyColor(uint8) required broadcast db airecv;
+  setBodySkin(uint8) required broadcast db airecv;
+  setBody : setBodyShape, setBodyHeight, setBodyColor, setBodySkin;
+  setHeadSize(int8/100) required broadcast db airecv;
+  setHeadWidth(int8/100) required broadcast db airecv;
+  setHeadHeight(int8/100) required broadcast db airecv;
+  setHeadRoundness(int8/100) required broadcast db airecv;
+  setHeadTexture(uint8) required broadcast db airecv;
+  setJawWidth(int8/100) required broadcast db airecv;
+  setJawRoundness(int8/100) required broadcast db airecv;
+  setJawChinSize(int8/100) required broadcast db airecv;
+  setJawAngle(int8/100) required broadcast db airecv;
+  setJawLength(int8/100) required broadcast db airecv;
+  setMouthWidth(int8/100) required broadcast db airecv;
+  setMouthLipThickness(int8/100) required broadcast db airecv;
+  setMouthFrown(int8/100) required broadcast db airecv;
+  setCheekBoneHeight(int8/100) required broadcast db airecv;
+  setCheekBoneWidth(int8/100) required broadcast db airecv;
+  setCheekFat(int8/100) required broadcast db airecv;
+  setBrowWidth(int8/100) required broadcast db airecv;
+  setBrowProtruding(int8/100) required broadcast db airecv;
+  setBrowAngle(int8/100) required broadcast db airecv;
+  setBrowHeight(int8/100) required broadcast db airecv;
+  setEyeCorner(int8/100) required broadcast db airecv;
+  setEyeOpeningSize(int8/100) required broadcast db airecv;
+  setEyeBulge(int8/100) required broadcast db airecv;
+  setEyesColor(uint8) required broadcast db airecv;
+  setNoseBridgeWidth(int8/100) required broadcast db airecv;
+  setNoseNostrilWidth(int8/100) required broadcast db airecv;
+  setNoseLength(int8/100) required broadcast db airecv;
+  setNoseBump(int8/100) required broadcast db airecv;
+  setNoseNostrilHeight(int8/100) required broadcast db airecv;
+  setNoseNostrilAngle(int8/100) required broadcast db airecv;
+  setNoseNostrilIndent(int8/100) required broadcast db airecv;
+  setNoseBridgeBroke(int8/100) required broadcast db airecv;
+  setNoseNostrilBroke(int8/100) required broadcast db airecv;
+  setEarScale(int8/100) required broadcast db airecv;
+  setEarFlapAngle(int8/100) required broadcast db airecv;
+  setEarPosition(int8/100) required broadcast db airecv;
+  setEarLobe(int8/100) required broadcast db airecv;
+  setHead : setHeadSize, setHeadWidth, setHeadHeight, setHeadRoundness, setHeadTexture;
+  setJaw : setJawWidth, setJawRoundness, setJawChinSize, setJawAngle, setJawLength;
+  setMouth : setMouthWidth, setMouthLipThickness, setMouthFrown;
+  setCheek : setCheekBoneHeight, setCheekBoneWidth, setCheekFat;
+  setBrow : setBrowWidth, setBrowProtruding, setBrowAngle, setBrowHeight;
+  setEyes : setEyeCorner, setEyeOpeningSize, setEyeBulge, setEyesColor;
+  setNose : setNoseBridgeWidth, setNoseNostrilWidth, setNoseLength, setNoseBump, setNoseNostrilHeight, setNoseNostrilAngle, setNoseNostrilIndent, setNoseBridgeBroke, setNoseNostrilBroke;
+  setEars : setEarScale, setEarFlapAngle, setEarPosition, setEarLobe;
+  setHairHair(uint8) required broadcast db airecv;
+  setHairBeard(uint8) required broadcast db airecv;
+  setHairMustache(uint8) required broadcast db airecv;
+  setHairColor(uint8) required broadcast db airecv;
+  setHighLightColor(uint8) required broadcast db airecv;
+  setHair : setHairHair, setHairBeard, setHairMustache, setHairColor;
+  setHatIdx(uint8) required broadcast db airecv;
+  setHatTexture(uint8) required broadcast db airecv;
+  setHatColor(uint8) required broadcast db airecv;
+  setHat : setHatIdx, setHatTexture, setHatColor;
+  setClothesShirt(uint8, uint8) required broadcast db airecv;
+  setClothesPant(uint8, uint8) required broadcast db airecv;
+  setClothesShoe(uint8, uint8) required broadcast db airecv;
+  setClothesVest(uint8, uint8) required broadcast db airecv;
+  setClothesCoat(uint8, uint8) required broadcast db airecv;
+  setClothesBelt(uint8, uint8) required broadcast db airecv;
+  setClothesTopColor(uint8, uint8, uint8) required broadcast db airecv;
+  setClothesBotColor(uint8, uint8, uint8) required broadcast db airecv;
+  setClothes : setHatIdx, setHatTexture, setHatColor, setClothesShirt, setClothesVest, setClothesCoat, setClothesBelt, setClothesPant, setClothesShoe, setClothesTopColor, setClothesBotColor;
+  setTattooChest(uint16, int16/100, int16/100, uint16/100, uint16/100, uint16) required broadcast db airecv;
+  setTattooZone2(uint16, int16/100, int16/100, uint16/100, uint16/100, uint16) required broadcast db airecv;
+  setTattooZone3(uint16, int16/100, int16/100, uint16/100, uint16/100, uint16) required broadcast db airecv;
+  setTattooZone4(uint16, int16/100, int16/100, uint16/100, uint16/100, uint16) required broadcast db airecv;
+  setTattooZone5(uint16, int16/100, int16/100, uint16/100, uint16/100, uint16) required broadcast db airecv;
+  setTattooZone6(uint16, int16/100, int16/100, uint16/100, uint16/100, uint16) required broadcast db airecv;
+  setTattooZone7(uint16, int16/100, int16/100, uint16/100, uint16/100, uint16) required broadcast db airecv;
+  setTattooZone8(uint16, int16/100, int16/100, uint16/100, uint16/100, uint16) required broadcast db airecv;
+  setTattoos : setTattooChest, setTattooZone2, setTattooZone3, setTattooZone4, setTattooZone5, setTattooZone6, setTattooZone7, setTattooZone8;
+  setJewelryZone1(uint8, uint16, uint16) required broadcast db airecv;
+  setJewelryZone2(uint8, uint16, uint16) required broadcast db airecv;
+  setJewelryZone3(uint8, uint16, uint16) required broadcast db airecv;
+  setJewelryZone4(uint8, uint16, uint16) required broadcast db airecv;
+  setJewelryZone5(uint8, uint16, uint16) required broadcast db airecv;
+  setJewelryZone6(uint8, uint16, uint16) required broadcast db airecv;
+  setJewelryZone7(uint8, uint16, uint16) required broadcast db airecv;
+  setJewelryZone8(uint8, uint16, uint16) required broadcast db airecv;
+  setJewelry : setJewelryZone1, setJewelryZone2, setJewelryZone3, setJewelryZone4, setJewelryZone5, setJewelryZone6, setJewelryZone7, setJewelryZone8;
+  setCompositeDNA : setGender, setBodyShape, setBodyHeight, setBodyColor, setBodySkin, setHeadSize, setHeadWidth, setHeadHeight, setHeadRoundness, setHeadTexture, setJawWidth, setJawRoundness, setJawChinSize, setJawAngle, setJawLength, setMouthWidth, setMouthLipThickness, setMouthFrown, setCheekBoneHeight, setCheekBoneWidth, setCheekFat, setBrowWidth, setBrowProtruding, setBrowAngle, setBrowHeight, setEyeCorner, setEyeOpeningSize, setEyeBulge, setEyesColor, setNoseBridgeWidth, setNoseNostrilWidth, setNoseLength, setNoseBump, setNoseNostrilHeight, setNoseNostrilAngle, setNoseNostrilIndent, setNoseBridgeBroke, setNoseNostrilBroke, setEarScale, setEarFlapAngle, setEarPosition, setEarLobe, setHairHair, setHairBeard, setHairMustache, setHairColor, setHighLightColor, setHatIdx, setHatTexture, setHatColor, setClothesShirt, setClothesVest, setClothesCoat, setClothesBelt, setClothesPant, setClothesShoe, setClothesTopColor, setClothesBotColor, setTattooChest, setTattooZone2, setTattooZone3, setTattooZone4, setTattooZone5, setTattooZone6, setTattooZone7, setTattooZone8, setJewelryZone1, setJewelryZone2, setJewelryZone3, setJewelryZone4, setJewelryZone5, setJewelryZone6, setJewelryZone7, setJewelryZone8;
+  announceClothingChange : setHairHair, setHairBeard, setHairMustache, setHairColor, setHighLightColor, setHatIdx, setHatTexture, setHatColor, setClothesShirt, setClothesVest, setClothesCoat, setClothesBelt, setClothesPant, setClothesShoe, setClothesTopColor, setClothesBotColor, setTattooChest, setTattooZone2, setTattooZone3, setTattooZone4, setTattooZone5, setTattooZone6, setTattooZone7, setTattooZone8, setJewelryZone1, setJewelryZone2, setJewelryZone3, setJewelryZone4, setJewelryZone5, setJewelryZone6, setJewelryZone7, setJewelryZone8;
+};
+
+struct AvatarInfo {
+  string name;
+  HumanDNA dna;
+  uint8 slot;
+  uint32 doId;
+  uint32 creatorId;
+  bool isShared;
+  bool isOnline;
+  string wishName;
+  string wishState;
+  uint32 defaultShard;
+  uint32 lastLogout;
+};
+
+struct AccountInfo {
+  uint32 subId;
+  uint8 numPending;
+  uint8 maxAvatars;
+  uint8 maxSlots;
+  AvatarInfo avatarData[];
+};
+
+dclass ClientServicesManager : DistributedObjectGlobal {
+  login(string cookie) clsend;
+  acceptLogin();
+
+  requestAvatars() clsend;
+  setAvatars(PotentialPirate[]);
+
+  createAvatar(blob dna, uint8 index) clsend;
+  createAvatarResp(uint32 avId);
+
+  chooseAvatar(uint32 avId) clsend;
+  avatarResponse(uint32 avId, blob avdata);
+};
+
+dclass DistributedAvatarManager : OtpAvatarManager {
+  requestCreateAvatar(uint32, uint32) airecv clsend;
+  requestPopulateAvatar(uint32, uint32, HumanDNA, bool, uint16, uint16, uint16, uint16) airecv clsend;
+  populateAvatarResponse(bool);
+  requestPatternName(uint32, uint32, uint16, uint16, uint16, uint16) airecv clsend;
+  patternNameResponse(bool);
+  requestFinalize(uint32, uint32) airecv clsend;
+  sendAvIdList(uint32 []);
+  avatarListResponse(AccountInfo [], uint16);
+  requestAwardableAvatars(uint32, uint32);
+  requestAvatarGender(uint32, uint32);
+  requestAvatar(uint32, uint32, uint32, uint32);
+};
+
+dclass DistributedShipLoader : DistributedObject {
+  requestCreateShip(uint32, uint8, string, string, uint32);
+  rejectCreateShip(uint32);
+  createShipResponse(uint32, uint32, uint32);
+  loadShipResponse(uint32, uint32);
+  upfitShipRequest(DoId, uint8, uint8, DoId, uint32, uint32);
+  confirmShipUpfit(uint32, uint8, uint8, uint32, uint32);
+  rejectShipUpfit(uint32, uint8, uint8, uint32, uint32);
+  requestLoadOwnerview(uint32, uint32, uint32) airecv clsend;
+  rejectLoadOwnerview(uint32);
+  loadOwnerviewResponse(uint32, uint32);
+  requestDeleteOwnerview(uint32, uint32, uint32) airecv clsend;
+  rejectDeleteOwnerview(uint32);
+  deleteOwnerviewResponse(uint32, uint32);
+};
+
+dclass PiratesSpeedchatRelay : SpeedchatRelay {
+};
+
+dclass PiratesSettingsMgr : SettingsMgr {
+};

@@ -1,0 +1,292 @@
+1399435486
+2 2
+12 libp3gsgbase 4 Oe1b 4 core 
+23
+23 6 output 0 6 46 25 DisplayRegionBase::output 0 1 1 0
+63
+virtual void DisplayRegionBase::output(ostream &out) const = 0;
+
+24 14 get_class_type 0 4 46 33 DisplayRegionBase::get_class_type 0 1 2 0
+58
+static TypeHandle DisplayRegionBase::get_class_type(void);
+
+25 8 set_sort 0 6 48 28 GraphicsOutputBase::set_sort 0 1 3 0
+56
+virtual void GraphicsOutputBase::set_sort(int sort) = 0;
+
+26 11 get_texture 0 6 48 31 GraphicsOutputBase::get_texture 0 2 4 5 0
+72
+virtual Texture *GraphicsOutputBase::get_texture(int i = (0)) const = 0;
+
+27 14 get_class_type 0 4 48 34 GraphicsOutputBase::get_class_type 0 1 6 0
+59
+static TypeHandle GraphicsOutputBase::get_class_type(void);
+
+28 19 ~GraphicsOutputBase 0 4 48 39 GraphicsOutputBase::~GraphicsOutputBase 0 0 0
+46
+GraphicsOutputBase::~GraphicsOutputBase(void);
+
+29 21 get_incomplete_render 0 6 50 48 GraphicsStateGuardianBase::get_incomplete_render 0 1 7 0
+78
+virtual bool GraphicsStateGuardianBase::get_incomplete_render(void) const = 0;
+
+30 31 get_effective_incomplete_render 0 6 50 58 GraphicsStateGuardianBase::get_effective_incomplete_render 0 1 8 0
+88
+virtual bool GraphicsStateGuardianBase::get_effective_incomplete_render(void) const = 0;
+
+31 23 prefers_triangle_strips 0 6 50 50 GraphicsStateGuardianBase::prefers_triangle_strips 0 1 9 0
+80
+virtual bool GraphicsStateGuardianBase::prefers_triangle_strips(void) const = 0;
+
+32 26 get_max_vertices_per_array 0 6 50 53 GraphicsStateGuardianBase::get_max_vertices_per_array 0 1 10 0
+82
+virtual int GraphicsStateGuardianBase::get_max_vertices_per_array(void) const = 0;
+
+33 30 get_max_vertices_per_primitive 0 6 50 57 GraphicsStateGuardianBase::get_max_vertices_per_primitive 0 1 11 0
+86
+virtual int GraphicsStateGuardianBase::get_max_vertices_per_primitive(void) const = 0;
+
+34 25 get_max_texture_dimension 0 6 50 52 GraphicsStateGuardianBase::get_max_texture_dimension 0 1 12 0
+81
+virtual int GraphicsStateGuardianBase::get_max_texture_dimension(void) const = 0;
+
+35 38 get_supports_compressed_texture_format 0 6 50 65 GraphicsStateGuardianBase::get_supports_compressed_texture_format 0 1 13 0
+111
+virtual bool GraphicsStateGuardianBase::get_supports_compressed_texture_format(int compression_mode) const = 0;
+
+36 24 get_supports_multisample 0 6 50 51 GraphicsStateGuardianBase::get_supports_multisample 0 1 14 0
+81
+virtual bool GraphicsStateGuardianBase::get_supports_multisample(void) const = 0;
+
+37 28 get_supported_geom_rendering 0 6 50 55 GraphicsStateGuardianBase::get_supported_geom_rendering 0 1 15 0
+84
+virtual int GraphicsStateGuardianBase::get_supported_geom_rendering(void) const = 0;
+
+38 28 get_supports_occlusion_query 0 6 50 55 GraphicsStateGuardianBase::get_supports_occlusion_query 0 1 16 0
+85
+virtual bool GraphicsStateGuardianBase::get_supports_occlusion_query(void) const = 0;
+
+39 26 get_supports_shadow_filter 0 6 50 53 GraphicsStateGuardianBase::get_supports_shadow_filter 0 1 17 0
+83
+virtual bool GraphicsStateGuardianBase::get_supports_shadow_filter(void) const = 0;
+
+40 15 get_default_gsg 0 4 50 42 GraphicsStateGuardianBase::get_default_gsg 0 1 18 651
+////////////////////////////////////////////////////////////////////
+//     Function: GraphicsStateGuardianBase::get_default_gsg
+//       Access: Published, Static
+//  Description: Returns a pointer to the "default" GSG.  This is
+//               typically the first GSG created in an application; in
+//               a single-window application, it will be the only GSG.
+//               This GSG is used to determine default optimization
+//               choices for loaded geometry.
+//
+//               The return value may be NULL if a GSG has not been
+//               created.
+////////////////////////////////////////////////////////////////////
+83
+static GraphicsStateGuardianBase *GraphicsStateGuardianBase::get_default_gsg(void);
+
+41 15 set_default_gsg 0 4 50 42 GraphicsStateGuardianBase::set_default_gsg 0 1 19 346
+////////////////////////////////////////////////////////////////////
+//     Function: GraphicsStateGuardianBase::set_default_gsg
+//       Access: Published, Static
+//  Description: Specifies a particular GSG to use as the "default"
+//               GSG.  See get_default_gsg().
+////////////////////////////////////////////////////////////////////
+95
+static void GraphicsStateGuardianBase::set_default_gsg(GraphicsStateGuardianBase *default_gsg);
+
+42 12 get_num_gsgs 0 4 50 39 GraphicsStateGuardianBase::get_num_gsgs 0 1 20 297
+////////////////////////////////////////////////////////////////////
+//     Function: GraphicsStateGuardianBase::get_num_gsgs
+//       Access: Published, Static
+//  Description: Returns the total number of GSG's in the universe.
+////////////////////////////////////////////////////////////////////
+57
+static int GraphicsStateGuardianBase::get_num_gsgs(void);
+
+43 7 get_gsg 0 4 50 34 GraphicsStateGuardianBase::get_gsg 0 1 21 420
+////////////////////////////////////////////////////////////////////
+//     Function: GraphicsStateGuardianBase::get_gsg
+//       Access: Published, Static
+//  Description: Returns the nth GSG in the universe.  GSG's
+//               automatically add themselves and remove themselves
+//               from this list as they are created and destroyed.
+////////////////////////////////////////////////////////////////////
+76
+static GraphicsStateGuardianBase *GraphicsStateGuardianBase::get_gsg(int n);
+
+44 14 get_class_type 0 4 50 41 GraphicsStateGuardianBase::get_class_type 0 1 22 0
+66
+static TypeHandle GraphicsStateGuardianBase::get_class_type(void);
+
+45 26 ~GraphicsStateGuardianBase 0 4 50 53 GraphicsStateGuardianBase::~GraphicsStateGuardianBase 0 0 0
+60
+GraphicsStateGuardianBase::~GraphicsStateGuardianBase(void);
+
+22
+1 14 Dtool_Oe1bo80u 0 4 3 55 0 14 Dtool_Oe1bo80u 0 2 4 this 3 51  3 out 1 53  
+2 14 Dtool_Oe1bYqgJ 0 7 4 57 0 14 Dtool_Oe1bYqgJ 0 0 
+3 14 Dtool_Oe1bn_8Z 0 4 7 55 0 14 Dtool_Oe1bn_8Z 0 2 4 this 3 58  4 sort 1 59  
+4 14 Dtool_Oe1bUz71 0 6 8 62 0 14 Dtool_Oe1bUz71 0 2 4 this 3 60  1 i 1 59  
+5 14 Dtool_Oe1baQUI 0 6 8 62 0 14 Dtool_Oe1baQUI 0 1 4 this 3 60  
+6 14 Dtool_Oe1bsLOx 0 7 9 57 0 14 Dtool_Oe1bsLOx 0 0 
+7 14 Dtool_Oe1bi6QR 0 6 12 66 0 14 Dtool_Oe1bi6QR 0 1 4 this 3 64  
+8 14 Dtool_Oe1bETOR 0 6 13 66 0 14 Dtool_Oe1bETOR 0 1 4 this 3 64  
+9 14 Dtool_Oe1bVMaR 0 6 14 66 0 14 Dtool_Oe1bVMaR 0 1 4 this 3 64  
+10 14 Dtool_Oe1byNID 0 6 15 59 0 14 Dtool_Oe1byNID 0 1 4 this 3 64  
+11 14 Dtool_Oe1bkPW2 0 6 16 59 0 14 Dtool_Oe1bkPW2 0 1 4 this 3 64  
+12 14 Dtool_Oe1bDnE7 0 6 17 59 0 14 Dtool_Oe1bDnE7 0 1 4 this 3 64  
+13 14 Dtool_Oe1bKQsG 0 6 18 66 0 14 Dtool_Oe1bKQsG 0 2 4 this 3 64  16 compression_mode 1 59  
+14 14 Dtool_Oe1bqkID 0 6 19 66 0 14 Dtool_Oe1bqkID 0 1 4 this 3 64  
+15 14 Dtool_Oe1bE6bP 0 6 20 59 0 14 Dtool_Oe1bE6bP 0 1 4 this 3 64  
+16 14 Dtool_Oe1b_NuT 0 6 21 66 0 14 Dtool_Oe1b_NuT 0 1 4 this 3 64  
+17 14 Dtool_Oe1bUaiW 0 6 22 66 0 14 Dtool_Oe1bUaiW 0 1 4 this 3 64  
+18 14 Dtool_Oe1bE0Tv 0 7 23 67 45 14 Dtool_Oe1bE0Tv 651 ////////////////////////////////////////////////////////////////////
+//     Function: GraphicsStateGuardianBase::get_default_gsg
+//       Access: Published, Static
+//  Description: Returns a pointer to the "default" GSG.  This is
+//               typically the first GSG created in an application; in
+//               a single-window application, it will be the only GSG.
+//               This GSG is used to determine default optimization
+//               choices for loaded geometry.
+//
+//               The return value may be NULL if a GSG has not been
+//               created.
+//////////////////////////////////////////////////////////////////// 0 
+19 14 Dtool_Oe1bFCpk 0 4 24 55 0 14 Dtool_Oe1bFCpk 346 ////////////////////////////////////////////////////////////////////
+//     Function: GraphicsStateGuardianBase::set_default_gsg
+//       Access: Published, Static
+//  Description: Specifies a particular GSG to use as the "default"
+//               GSG.  See get_default_gsg().
+//////////////////////////////////////////////////////////////////// 1 11 default_gsg 1 67  
+20 14 Dtool_Oe1bSVHn 0 6 25 59 0 14 Dtool_Oe1bSVHn 297 ////////////////////////////////////////////////////////////////////
+//     Function: GraphicsStateGuardianBase::get_num_gsgs
+//       Access: Published, Static
+//  Description: Returns the total number of GSG's in the universe.
+//////////////////////////////////////////////////////////////////// 0 
+21 14 Dtool_Oe1bE6Q7 0 7 26 67 45 14 Dtool_Oe1bE6Q7 420 ////////////////////////////////////////////////////////////////////
+//     Function: GraphicsStateGuardianBase::get_gsg
+//       Access: Published, Static
+//  Description: Returns the nth GSG in the universe.  GSG's
+//               automatically add themselves and remove themselves
+//               from this list as they are created and destroyed.
+//////////////////////////////////////////////////////////////////// 1 1 n 1 59  
+22 14 Dtool_Oe1buwjz 0 7 27 57 0 14 Dtool_Oe1buwjz 0 0 
+22
+46 17 DisplayRegionBase 0 75777 17 DisplayRegionBase 17 DisplayRegionBase 0 0 0 0 0 0 2 23 24 0 0 1 0 47 0 0 0 0 307
+////////////////////////////////////////////////////////////////////
+//       Class : DisplayRegionBase
+// Description : An abstract base class for DisplayRegion, mainly so
+//               we can store DisplayRegion pointers in a Camera.
+////////////////////////////////////////////////////////////////////
+
+47 19 TypedReferenceCount 0 2049 19 TypedReferenceCount 19 TypedReferenceCount 0 0 0 0 0 0 0 0 0 0 0 0 710
+////////////////////////////////////////////////////////////////////
+//       Class : TypedReferenceCount
+// Description : A base class for things which need to inherit from
+//               both TypedObject and from ReferenceCount.  It's
+//               convenient to define this intermediate base class
+//               instead of multiply inheriting from the two classes
+//               each time they are needed, so that we can sensibly
+//               pass around pointers to things which are both
+//               TypedObjects and ReferenceCounters.
+//               
+//               See also TypedObject for detailed instructions.
+////////////////////////////////////////////////////////////////////
+
+48 18 GraphicsOutputBase 0 141313 18 GraphicsOutputBase 18 GraphicsOutputBase 0 0 0 0 28 0 3 25 26 27 0 0 1 0 49 0 0 0 0 277
+////////////////////////////////////////////////////////////////////
+//       Class : GraphicsOutputBase
+// Description : An abstract base class for GraphicsOutput, for all
+//               the usual reasons.
+////////////////////////////////////////////////////////////////////
+
+49 27 TypedWritableReferenceCount 0 2049 27 TypedWritableReferenceCount 27 TypedWritableReferenceCount 0 0 0 0 0 0 0 0 0 0 0 0 722
+////////////////////////////////////////////////////////////////////
+//       Class : TypedWritableReferenceCount
+// Description : A base class for things which need to inherit from
+//               both TypedWritable and from ReferenceCount.  It's
+//               convenient to define this intermediate base class
+//               instead of multiply inheriting from the two classes
+//               each time they are needed, so that we can sensibly
+//               pass around pointers to things which are both
+//               TypedWritables and ReferenceCounters.
+//               
+//               See also TypedObject for detailed instructions.
+////////////////////////////////////////////////////////////////////
+
+50 25 GraphicsStateGuardianBase 0 141313 25 GraphicsStateGuardianBase 25 GraphicsStateGuardianBase 0 0 0 0 45 0 16 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 1 68 0 1 0 49 0 0 0 0 957
+////////////////////////////////////////////////////////////////////
+//       Class : GraphicsStateGuardianBase
+// Description : This is a base class for the GraphicsStateGuardian
+//               class, which is itself a base class for the various
+//               GSG's for different platforms.  This class contains
+//               all the function prototypes to support the
+//               double-dispatch of GSG to geoms, transitions, etc.  It
+//               lives in a separate class in its own package so we
+//               can avoid circular build dependency problems.
+//
+//               GraphicsStateGuardians are not actually writable to
+//               bam files, of course, but they may be passed as event
+//               parameters, so they inherit from
+//               TypedWritableReferenceCount instead of
+//               TypedReferenceCount for that convenience.
+////////////////////////////////////////////////////////////////////
+
+51 25 DisplayRegionBase const * 0 8576 25 DisplayRegionBase const * 25 DisplayRegionBase const * 0 0 52 0 0 0 0 0 0 0 0 0 0
+
+52 23 DisplayRegionBase const 0 8832 23 DisplayRegionBase const 23 DisplayRegionBase const 0 0 46 0 0 0 0 0 0 0 0 0 0
+
+53 9 ostream * 0 8576 9 ostream * 9 ostream * 0 0 54 0 0 0 0 0 0 0 0 0 0
+
+54 7 ostream 0 2048 7 ostream 7 ostream 0 0 0 0 0 0 0 0 0 0 0 0 0
+
+55 4 void 0 8194 4 void 4 void 0 6 0 0 0 0 0 0 0 0 0 0 0
+
+56 10 TypeHandle 0 2048 10 TypeHandle 10 TypeHandle 0 0 0 0 0 0 0 0 0 0 0 0 1098
+////////////////////////////////////////////////////////////////////
+//       Class : TypeHandle
+// Description : TypeHandle is the identifier used to differentiate
+//               C++ class types.  Any C++ classes that inherit from
+//               some base class, and must be differentiated at run
+//               time, should store a static TypeHandle object that
+//               can be queried through a static member function
+//               named get_class_type().  Most of the time, it is also
+//               desirable to inherit from TypedObject, which provides
+//               some virtual functions to return the TypeHandle for a
+//               particular instance.
+//
+//               At its essence, a TypeHandle is simply a unique
+//               identifier that is assigned by the TypeRegistry.  The
+//               TypeRegistry stores a tree of TypeHandles, so that
+//               ancestry of a particular type may be queried, and the
+//               type name may be retrieved for run-time display.
+////////////////////////////////////////////////////////////////////
+
+57 12 TypeHandle * 0 8576 12 TypeHandle * 12 TypeHandle * 0 0 56 0 0 0 0 0 0 0 0 0 0
+
+58 20 GraphicsOutputBase * 0 8576 20 GraphicsOutputBase * 20 GraphicsOutputBase * 0 0 48 0 0 0 0 0 0 0 0 0 0
+
+59 3 int 0 8194 3 int 3 int 0 1 0 0 0 0 0 0 0 0 0 0 0
+
+60 26 GraphicsOutputBase const * 0 8576 26 GraphicsOutputBase const * 26 GraphicsOutputBase const * 0 0 61 0 0 0 0 0 0 0 0 0 0
+
+61 24 GraphicsOutputBase const 0 8832 24 GraphicsOutputBase const 24 GraphicsOutputBase const 0 0 48 0 0 0 0 0 0 0 0 0 0
+
+62 9 Texture * 0 8576 9 Texture * 9 Texture * 0 0 63 0 0 0 0 0 0 0 0 0 0
+
+63 7 Texture 0 2048 7 Texture 7 Texture 0 0 0 0 0 0 0 0 0 0 0 0 0
+
+64 33 GraphicsStateGuardianBase const * 0 8576 33 GraphicsStateGuardianBase const * 33 GraphicsStateGuardianBase const * 0 0 65 0 0 0 0 0 0 0 0 0 0
+
+65 31 GraphicsStateGuardianBase const 0 8832 31 GraphicsStateGuardianBase const 31 GraphicsStateGuardianBase const 0 0 50 0 0 0 0 0 0 0 0 0 0
+
+66 4 bool 0 8194 4 bool 4 bool 0 4 0 0 0 0 0 0 0 0 0 0 0
+
+67 27 GraphicsStateGuardianBase * 0 8576 27 GraphicsStateGuardianBase * 27 GraphicsStateGuardianBase * 0 0 50 0 0 0 0 0 0 0 0 0 0
+
+0
+0
+1
+68 0 0 11 8 get_gsgs 12 get_num_gsgs 7 get_gsg 

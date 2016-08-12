@@ -1,0 +1,98 @@
+//Cg
+
+#define PI 3.1415926535897932384626433832795
+#define ONE_OVER_PI 0.31830988618379099966263573583325
+
+void vshader(float4 vtx_position : POSITION,
+             float2 vtx_texcoord0 : TEXCOORD0,
+             float3 vtx_normal : NORMAL,
+             
+             in uniform float4x4 mat_modelproj,
+             in uniform float4x4 mat_modelview,
+             in uniform float4x4 inv_modelview,
+             in uniform float4x4 inv_modelproj,
+             in uniform float4x4 trans_model_to_world,
+             in uniform float4x4 trans_world_to_model,
+
+			 in uniform float4 k_sunWorldLocation,
+
+             out float4 l_position : POSITION,
+             out float2 l_texcoord0 : TEXCOORD0,
+             out float3 l_halfVec : TEXCOORD1,
+             out float4 l_eyevec : TEXCOORD2,
+			 out float3 l_normal : TEXCOORD3,
+			 out float4 l_worldPos : TEXCOORD4,
+             out float4 l_lightVec0
+             ){
+	//Calculate early for lighting equations
+	float4 l_wsvtxposition = mul(trans_model_to_world,vtx_position);
+
+	//color and texture coordinate passthrough
+	l_texcoord0 = vtx_texcoord0;
+	l_position = mul(mat_modelproj, vtx_position);
+	l_worldPos = mul(trans_model_to_world, vtx_position);
+
+	l_normal.xyz = normalize(vtx_normal); 
+	float4 sunObjectLocation = mul(trans_world_to_model, k_sunWorldLocation);
+//	l_lightVec0.xyz = normalize(sunObjectLocation.xyz - vtx_position.xyz);
+
+//	float4 sunObjectLocation = mul(trans_world_to_model, float4(0.0, 0.0, 1.0, 0.0) );
+	l_lightVec0.xyz = normalize(sunObjectLocation.xyz);
+
+
+	//camera vector
+	float4 eyePos = mul(inv_modelview, float4(0,0,0,1));
+	l_eyevec.xyz = normalize((float3)(eyePos - vtx_position));
+	l_eyevec.w = length(eyePos.xyz);
+	l_halfVec = normalize(l_eyevec + l_lightVec0.xyz);
+
+	l_eyevec *= 0.5;
+	l_eyevec += 0.5;
+}
+
+void fshader(float2 l_texcoord0 : TEXCOORD0,
+             float3 l_halfVec : TEXCOORD1,
+             float4 l_eyevec : TEXCOORD2,
+			 float3 l_normal : TEXCOORD3,
+			 float4 l_worldPos : TEXCOORD4,
+             float4 l_lightVec0,
+
+			 in uniform float4 k_causticsParams, // .x is texture scale, .yz is .uv movement rates, .w is caustic intensity.
+			 in uniform float4 k_causticsParams2, // .x is texture scale, .yz is .uv movement rates, .w is caustic intensity.
+			 in uniform float4 k_causticsParams3, // .x is texture scale, .yz is .uv movement rates, .w is caustic intensity.
+			 in uniform float4 k_causticsToWorldScale,
+			 in uniform float4 k_fogInfo, // .x is the fog start distance, .y is the fog end distance, .z is the max fog percentage.
+			 in uniform float4 k_fogColor,
+			 in uniform float4 k_timeInfo,
+			 uniform sampler2D tex_0 : TEXUNIT0,
+			 uniform sampler2D k_caustics : TEXUNIT1,
+
+			 out float4 o_color:COLOR0)
+{
+  //map lookup
+	float4 baseColor = tex2D(tex_0, l_texcoord0.xy);
+	float2 causticsUVs = l_worldPos.xy;
+
+	causticsUVs *= k_causticsToWorldScale.xy;
+	float4 causticsColor = tex2D(k_caustics, causticsUVs.xy * k_causticsParams.x + k_causticsParams.yz * k_timeInfo.y );
+	float4 causticsColor2 = tex2D(k_caustics, causticsUVs.xy * k_causticsParams2.x + k_causticsParams2.yz * k_timeInfo.y);
+	float4 causticsColor3 = tex2D(k_caustics, causticsUVs.xy * k_causticsParams2.x + 
+		float2( sin(k_timeInfo.y * k_causticsParams3.y), cos(k_timeInfo.y * k_causticsParams3.z) ) );
+	float3 normal = normalize(l_normal);
+
+	float3 diffuseLight = float3(0.0, 0.0, 0.0);
+	float3 specularLight = float3(0.0, 0.0, 0.0);
+	diffuseLight += float3(0.9, 0.9, 0.9) * max( 0.0, dot( normal, normalize(l_lightVec0.xyz) ) );
+	specularLight += saturate(	causticsColor.rgb * k_causticsParams.w + 
+						causticsColor2.rgb * k_causticsParams2.w + 
+						causticsColor3.rgb * k_causticsParams3.w) * max( 0.0, dot( normal, l_lightVec0 ) );
+	diffuseLight = saturate(diffuseLight);
+	float fogPercentage = saturate( (l_eyevec.w - k_fogInfo.x) / (k_fogInfo.y - k_fogInfo.x) );
+	o_color.rgb = lerp(baseColor.rgb * diffuseLight + specularLight, k_fogColor.rgb, min( k_fogInfo.z, fogPercentage ) );
+
+	// el hackery
+	o_color.rgb = lerp(baseColor.rgb + specularLight, k_fogColor.rgb, min( k_fogInfo.z, fogPercentage ) );
+
+	
+	o_color.a = baseColor.a;
+}
