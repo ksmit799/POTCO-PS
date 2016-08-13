@@ -1,21 +1,17 @@
-# File: D (Python 2.4)
-
 from direct.directnotify import DirectNotifyGlobal
-from direct.distributed.DistributedNode import DistributedNode
-from direct.distributed.GridChild import GridChild
+from direct.distributed import DistributedNode
 from pirates.piratesgui import InteractGUI
-from pirates.interact.InteractiveBase import InteractiveBase
-from pirates.world.DistributedLocatableObject import DistributedLocatableObject
+from pirates.interact import InteractiveBase
+from pirates.world import DistributedLocatableObject
 from direct.showbase.PythonUtil import report
 
-class DistributedInteractive(DistributedNode, InteractiveBase, DistributedLocatableObject, GridChild):
+class DistributedInteractive(DistributedNode.DistributedNode, InteractiveBase.InteractiveBase, DistributedLocatableObject.DistributedLocatableObject):
     notify = DirectNotifyGlobal.directNotify.newCategory('DistributedInteractive')
     
     def __init__(self, cr):
-        DistributedNode.__init__(self, cr)
-        InteractiveBase.__init__(self)
-        DistributedLocatableObject.__init__(self, cr)
-        GridChild.__init__(self)
+        DistributedNode.DistributedNode.__init__(self, cr)
+        InteractiveBase.InteractiveBase.__init__(self)
+        DistributedLocatableObject.DistributedLocatableObject.__init__(self, cr)
         self.interactGUI = None
         self.hideHpMeterFlag = 0
         self.userId = 0
@@ -23,27 +19,26 @@ class DistributedInteractive(DistributedNode, InteractiveBase, DistributedLocata
 
     
     def delete(self):
-        DistributedNode.delete(self)
-        InteractiveBase.delete(self)
-        DistributedLocatableObject.delete(self)
-        GridChild.delete(self)
+        DistributedNode.DistributedNode.delete(self)
+        InteractiveBase.InteractiveBase.delete(self)
+        DistributedLocatableObject.DistributedLocatableObject.delete(self)
 
     
     def generate(self):
-        DistributedNode.generate(self)
-        InteractiveBase.generate(self)
-        DistributedLocatableObject.generate(self)
+        DistributedNode.DistributedNode.generate(self)
+        InteractiveBase.InteractiveBase.generate(self)
+        DistributedLocatableObject.DistributedLocatableObject.generate(self)
 
     
     def disable(self):
-        DistributedNode.disable(self)
-        InteractiveBase.disable(self)
-        DistributedLocatableObject.disable(self)
+        DistributedNode.DistributedNode.disable(self)
+        InteractiveBase.InteractiveBase.disable(self)
+        DistributedLocatableObject.DistributedLocatableObject.disable(self)
 
     
     def announceGenerate(self):
-        DistributedNode.announceGenerate(self)
-        DistributedLocatableObject.announceGenerate(self)
+        DistributedNode.DistributedNode.announceGenerate(self)
+        DistributedLocatableObject.DistributedLocatableObject.announceGenerate(self)
 
     
     def isBattleable(self):
@@ -65,7 +60,7 @@ class DistributedInteractive(DistributedNode, InteractiveBase, DistributedLocata
         'deltaStamp'], dConfigParam = 'shipboard')(requestInteraction)
     
     def setLocation(self, parentId, zoneId):
-        DistributedNode.setLocation(self, parentId, zoneId)
+        DistributedNode.DistributedNode.setLocation(self, parentId, zoneId)
 
     
     def requestExit(self):
@@ -145,8 +140,11 @@ class DistributedInteractive(DistributedNode, InteractiveBase, DistributedLocata
 
     
     def setUniqueId(self, uid):
-        if self.uniqueId != '' and uid != self.uniqueId:
-            base.cr.uidMgr.removeUid(self.uniqueId)
+        try:
+            if self.uniqueId != '' and uid != self.uniqueId:
+                base.cr.uidMgr.removeUid(self.uniqueId)
+        except:
+            pass
         
         self.uniqueId = uid
         base.cr.uidMgr.addUid(self.uniqueId, self.getDoId())
@@ -162,5 +160,3 @@ class DistributedInteractive(DistributedNode, InteractiveBase, DistributedLocata
     
     def isInvisibleGhost(self):
         return 0
-
-
