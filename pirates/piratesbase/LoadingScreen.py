@@ -1,3 +1,4 @@
+from panda3d.core import ConfigVariable, ConfigVariableBool, TextNode
 from pirates.piratesbase import PiratesGlobals
 from pirates.piratesbase import PLocalizer
 from pirates.piratesgui import PiratesGuiGlobals
@@ -6,6 +7,7 @@ from direct.showbase import DirectObject
 from direct.distributed.ClockDelta import *
 from direct.task import Task
 from direct.gui.DirectGui import *
+from direct.gui.DirectGuiGlobals import NO_FADE_SORT_INDEX
 from pirates.uberdog.UberDogGlobals import InventoryType
 from pirates.world.LocationConstants import *
 from otp.otpbase import OTPGlobals

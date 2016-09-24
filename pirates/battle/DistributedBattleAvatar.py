@@ -3,7 +3,8 @@ import random
 import types
 from direct.showbase.DirectObject import *
 from direct.interval.IntervalGlobal import LerpFunc, Sequence
-from direct.showbase.PythonUtil import lerp, clampScalar
+from pirates.util.PythonUtil import lerp
+from pirates.util.PythonUtilPOD import clampScalar
 from direct.interval.IntervalGlobal import *
 from direct.distributed.ClockDelta import *
 from direct.directnotify.DirectNotifyGlobal import directNotify

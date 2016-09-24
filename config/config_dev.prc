@@ -14,6 +14,9 @@ default-model-extension .bam
 # Server
 server-version piratesremake-1.0.0
 
+#Resolution
+win-size 800 600
+
 # Graphics
 want-improved-graphics 1
 want-portal-cull 1

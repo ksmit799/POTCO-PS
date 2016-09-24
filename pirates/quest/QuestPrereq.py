@@ -1,6 +1,5 @@
-# File: Q (Python 2.4)
-
-from direct.showbase.PythonUtil import POD, makeTuple
+from direct.showbase.PythonUtil import makeTuple
+from pirates.util.PythonUtilPOD import POD
 from pirates.uberdog.UberDogGlobals import InventoryType
 from pirates.inventory import ItemGlobals
 

@@ -25,6 +25,9 @@ account-bridge-filename account-bridge.db
 # Editor
 want-npc-editor 1
 
+#Resolution
+win-size 800 600
+
 # Graphics
 want-improved-graphics 1
 want-portal-cull 1

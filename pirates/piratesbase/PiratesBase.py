@@ -197,7 +197,7 @@ class PiratesBase(OTPBase):
             self.loadingScreen.beginStep('PiratesBase', 34, 25)
         except:
             try:
-    			print("Fatal Error: Unable to create main window")
+                print("Fatal Error: Unable to create main window")
                 #launcher.setPandaErrorCode(7)
             except:
                 pass
@@ -730,9 +730,12 @@ class PiratesBase(OTPBase):
             VertexDataPage.getGlobalLru(VertexDataPage.RCResident).setMaxSize(5242880)
             taskMgr.setupTaskChain('background', numThreads = 0)
         else:
-            GeomVertexArrayData.getIndependentLru().setMaxSize(0xFFFFFFFFL)
-            VertexDataPage.getGlobalLru(VertexDataPage.RCResident).setMaxSize(0xFFFFFFFFL)
-            taskMgr.setupTaskChain('background', numThreads = 1)
+            #GeomVertexArrayData.getIndependentLru().setMaxSize(0xFFFFFFFFL)
+            #VertexDataPage.getGlobalLru(VertexDataPage.RCResident).setMaxSize(0xFFFFFFFFL)
+            #taskMgr.setupTaskChain('background', numThreads = 1)
+            GeomVertexArrayData.getIndependentLru().setMaxSize(5242880)
+            VertexDataPage.getGlobalLru(VertexDataPage.RCResident).setMaxSize(5242880)
+            taskMgr.setupTaskChain('background', numThreads = 0)
         for filename in [
             'models/misc/male_face.bam',
             'models/misc/female_face.bam']:

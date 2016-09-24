@@ -1,5 +1,3 @@
-# File: A (Python 2.4)
-
 from pandac.PandaModules import *
 from otp.nametag import Nametag, NametagGroup
 from otp.nametag.NametagConstants import CFSpeech, CFThought, CFTimeout, CFPageButton, CFNoQuitButton, CFQuitButton
@@ -11,7 +9,7 @@ from direct.distributed import ClockDelta
 from otp.avatar.ShadowCaster import ShadowCaster
 import random
 from otp.otpbase import OTPRender
-from direct.showbase.PythonUtil import recordCreationStack
+from pirates.util.PythonUtil import recordCreationStack
 teleportNotify = DirectNotifyGlobal.directNotify.newCategory('Teleport')
 teleportNotify.showTime = True
 if config.GetBool('want-teleport-debug', 1):
