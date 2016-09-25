@@ -3,6 +3,7 @@ import string
 import os
 import sys
 import datetime
+import random
 from direct.gui.DirectGui import *
 from pandac.PandaModules import *
 from pirates.piratesbase import PiratesGlobals
@@ -28,7 +29,6 @@ try:
 except:
     pass
 
-
 class OptionSpace:
     notify = DirectNotifyGlobal.directNotify.newCategory('OptionSpace')
     
@@ -41,7 +41,7 @@ class OptionSpace:
         if self.debug:
             print s
         
-        return string.atoi(s)
+        return int(s)
 
     
     def read_float(self, input_file):
@@ -49,7 +49,7 @@ class OptionSpace:
         if self.debug:
             print s
         
-        return string.atof(s)
+        return float(s)
 
     
     def read_string(self, input_file):
@@ -100,7 +100,7 @@ class DisplayOptions:
             restrict = 0
             change_display = False
         
-        self.restrict_to_embedded = choice(restrict, 1, 0)
+        self.restrict_to_embedded = restrict
         self.notify.debug('restrict_to_embedded: %s' % self.restrict_to_embedded)
         if change_display:
             self.set(base.options, base.pipe, base.options.getWidth(), base.options.getHeight())
@@ -556,8 +556,8 @@ class Options(OptionSpace):
     
     def config_resolution(self):
         self.resolution = base.width_to_resolution_id(base.config.GetInt('win-size', 800))
-        horizontal_resolution = win_size.getIntWord(0)
-        vertical_resolution = win_size.getIntWord(1)
+        horizontal_resolution = int(win_size[0])
+        vertical_resolution = int(win_size[1])
         self.widescreen = 0
         if horizontal_resolution == 1280 and vertical_resolution == 720:
             self.widescreen = 1
@@ -577,8 +577,8 @@ class Options(OptionSpace):
         self.default()
         win_size = ConfigVariableInt('win-size')
         self.resolution = GameOptions.width_to_resolution_id(base.config.GetInt('win-size', 800))
-        horizontal_resolution = win_size.getIntWord(0)
-        vertical_resolution = win_size.getIntWord(1)
+        horizontal_resolution = int(win_size[0])
+        vertical_resolution = int(win_size[1])
         self.widescreen = 0
         if horizontal_resolution == 1280 and vertical_resolution == 720:
             self.widescreen = 1
@@ -606,7 +606,7 @@ class Options(OptionSpace):
         self.shader = base.config.GetBool('want-shaders', 1)
         self.shadow = base.config.GetBool('want-avatar-shadows', 0)
         self.texture = base.config.GetInt('max-texture-dimension', Options.default_max_texture_dimension)
-        self.textureCompression = base.config.GetInt('compressed-textures', 0)
+        self.textureCompression = base.config.GetBool('compressed-textures', False)
         self.texture_scale = base.config.GetFloat('texture-scale', 1.0)
         self.sound = base.config.GetBool('audio-sfx-active', 1)
         self.sound_volume = base.config.GetFloat('audio-sfx-volume', 1.0)
