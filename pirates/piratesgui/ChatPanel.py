@@ -1,5 +1,3 @@
-# File: C (Python 2.4)
-
 from direct.gui.DirectGui import *
 from direct.interval.IntervalGlobal import *
 from direct.fsm.FSM import FSM
@@ -475,7 +473,7 @@ class ChatPanel(DirectFrame, FSM):
             if wantReceiver:
                 useName = plainName
             else:
-                useName = '\x1Super\x1.\x2 ' + plainName
+                useName = '\x01Super\x01.\x02 ' + plainName
         elif message.getTalkType() == INFO_OPEN:
             if message.getSenderAvatarId() == localAvatar.doId:
                 useName = ''
@@ -507,15 +505,15 @@ class ChatPanel(DirectFrame, FSM):
         elif message.getTalkType() == TALK_GUILD:
             useName = '[' + PLocalizer.TalkGuildLabel + '] ' + plainName + divider
         elif message.getTalkType() == UPDATE_GUILD:
-            useName = '\x1Super\x1.\x2 [' + PLocalizer.TalkGuildLabel + '] ' + plainName
+            useName = '\x01Super\x01.\x02 [' + PLocalizer.TalkGuildLabel + '] ' + plainName
         elif message.getTalkType() == TALK_PARTY:
             useName = '[' + PLocalizer.TalkCrewLabel + '] ' + plainName + divider
         elif message.getTalkType() == UPDATE_PARTY:
-            useName = '\x1Super\x1.\x2 [' + PLocalizer.TalkCrewLabel + '] ' + plainName
+            useName = '\x01Super\x01.\x02 [' + PLocalizer.TalkCrewLabel + '] ' + plainName
         elif message.getTalkType() == TALK_PVP:
             useName = '[' + extraInfo + '] ' + plainName + divider
         elif message.getTalkType() == UPDATE_PVP:
-            useName = '\x1Super\x1.\x2 [' + extraInfo + '] ' + plainName
+            useName = '\x01Super\x01.\x02 [' + extraInfo + '] ' + plainName
         
         return useName
 
@@ -575,14 +573,14 @@ class ChatPanel(DirectFrame, FSM):
                 message.getReceiverAvatarId(),
                 useName2]
         
-        nameArray = ('\x1' + MESSAGE_COLOR_TABLE[message.getTalkType()][self.fontColorStyle] + '\x1' + useName + '\x2', '\x1' + MESSAGE_COLOR_TABLE[message.getTalkType()][self.fontColorStyle] + '\x1' + useName + '\x2', '\x1' + MESSAGE_OVER_TABLE[message.getTalkType()][self.fontColorStyle] + '\x1' + useName + '\x2', '\x1' + MESSAGE_COLOR_TABLE[message.getTalkType()][self.fontColorStyle] + '\x1' + useName + '\x2')
+        nameArray = ('\x01' + MESSAGE_COLOR_TABLE[message.getTalkType()][self.fontColorStyle] + '\x01' + useName + '\x02', '\x01' + MESSAGE_COLOR_TABLE[message.getTalkType()][self.fontColorStyle] + '\x01' + useName + '\x02', '\x01' + MESSAGE_OVER_TABLE[message.getTalkType()][self.fontColorStyle] + '\x01' + useName + '\x02', '\x01' + MESSAGE_COLOR_TABLE[message.getTalkType()][self.fontColorStyle] + '\x01' + useName + '\x02')
         nameButton = DirectButton(parent = NodePath(), relief = None, text = nameArray, text_align = TextNode.ALeft, text_pos = (0.0, 0.0), text_shadow = self.shadowColor, text_shadowOffset = self.shadowOffset, text_font = self.nameFont, textMayChange = 0, command = buttonCommand, extraArgs = buttonArgs)
         (left, right, bottom, top) = nameButton.getBounds()
         nameGFX = TextGraphic(nameButton, left, right, 0, 1)
         buttonName = '%s%s' % (message.getTalkType(), useName)
         tpMgr.setGraphic(buttonName, nameGFX)
         if wantTwoNames:
-            nameArray2 = ('\x1' + MESSAGE_COLOR_TABLE[message.getTalkType()][self.fontColorStyle] + '\x1' + useName2 + '\x2', '\x1' + MESSAGE_COLOR_TABLE[message.getTalkType()][self.fontColorStyle] + '\x1' + useName2 + '\x2', '\x1' + MESSAGE_OVER_TABLE[message.getTalkType()][self.fontColorStyle] + '\x1' + useName2 + '\x2', '\x1' + MESSAGE_COLOR_TABLE[message.getTalkType()][self.fontColorStyle] + '\x1' + useName2 + '\x2')
+            nameArray2 = ('\x01' + MESSAGE_COLOR_TABLE[message.getTalkType()][self.fontColorStyle] + '\x01' + useName2 + '\x02', '\x01' + MESSAGE_COLOR_TABLE[message.getTalkType()][self.fontColorStyle] + '\x01' + useName2 + '\x02', '\x01' + MESSAGE_OVER_TABLE[message.getTalkType()][self.fontColorStyle] + '\x01' + useName2 + '\x02', '\x01' + MESSAGE_COLOR_TABLE[message.getTalkType()][self.fontColorStyle] + '\x01' + useName2 + '\x02')
             nameButton2 = DirectButton(parent = NodePath(), relief = None, text = nameArray2, text_align = TextNode.ALeft, text_pos = (0.0, 0.0), text_shadow = self.shadowColor, text_shadowOffset = self.shadowOffset, text_font = self.nameFont, textMayChange = 0, command = buttonCommand2, extraArgs = buttonArgs2)
             (left, right, bottom, top) = nameButton2.getBounds()
             nameGFX2 = TextGraphic(nameButton2, left, right, 0, 1)
@@ -592,9 +590,9 @@ class ChatPanel(DirectFrame, FSM):
         del tpMgr
         self.lineDict[message.getMessageId()] = (message, nameButton, buttonName)
         if nameButton:
-            messageName = '\x5' + buttonName + '\x5'
+            messageName = '\x05' + buttonName + '\x05'
             if wantTwoNames:
-                messageName2 = '\x5' + buttonName2 + '\x5'
+                messageName2 = '\x05' + buttonName2 + '\x05'
             
         else:
             messageName = message.getSenderAvatarName() + ': '
@@ -621,10 +619,10 @@ class ChatPanel(DirectFrame, FSM):
         for i in range(len(wrappedText)):
             if i == 0:
                 if chatCode:
-                    wrappedText[i] = '\x1' + chatCode + '\x1' + wrappedText[i] + '\x2'
+                    wrappedText[i] = '\x01' + chatCode + '\x01' + wrappedText[i] + '\x02'
                 
             elif i > 0:
-                wrappedText[i] = '    ' + '\x1' + chatCode + '\x1' + wrappedText[i] + '\x2'
+                wrappedText[i] = '    ' + '\x01' + chatCode + '\x01' + wrappedText[i] + '\x02'
             
             if i < len(wrappedText) - 1:
                 wrappedText[i] += '\n'

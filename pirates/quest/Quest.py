@@ -1,8 +1,7 @@
-# File: Q (Python 2.4)
-
 import copy
 from direct.directnotify import DirectNotifyGlobal
-from direct.showbase.PythonUtil import POD, makeTuple
+from pirates.util.PythonUtilPOD import POD
+from pirates.util.PythonUtil import makeTuple
 from direct.task.Task import Task
 from pirates.piratesbase import PLocalizer
 from pirates.quest import QuestDB, QuestReward, QuestTaskDNA
