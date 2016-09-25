@@ -241,8 +241,8 @@ def pickNavy(navylow, navyhigh):
 TownfolkTracks = [AvatarType(base=Townfolk, track=x) for x in xrange(3)]
 Commoner, StoreOwner, Cast = TownfolkTracks
 
-Commoners = [AvatarType(base=Commoner, id=x) for x in xrange(1)]
-Peasant = Commoners
+Commoners = [AvatarType(base=Commoner, id=1)]
+Peasant = Commoners[0]
 
 StoreOwners = [AvatarType(base=StoreOwner, id=x) for x in xrange(21)]
 Gypsy, Blacksmith, Shipwright, Cannoneer, Merchant, Bartender, Gunsmith, Grenadier, MedicineMan, Tailor, Tattoo, Jeweler, Barber, Musician, Trainer, PvPRewards, Stowaway, Fishmaster, Cannonmaster, CatalogRep, ScrimmageMaster = StoreOwners

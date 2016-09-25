@@ -1,7 +1,5 @@
-# File: M (Python 2.4)
-
-from pandac.PandaModules import *
-from libotp import CMover
+from panda3d.core import *
+from otp.movement.CMover import CMover
 from direct.directnotify import DirectNotifyGlobal
 from otp.movement.PyVec3 import PyVec3
 from direct.showbase import PythonUtil
