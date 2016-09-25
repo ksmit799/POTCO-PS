@@ -1,6 +1,4 @@
-# File: D (Python 2.4)
-
-from pandac.PandaModules import *
+from panda3d.core import *
 from direct.showbase.ShowBaseGlobal import *
 from direct.directnotify.DirectNotifyGlobal import directNotify
 from direct.distributed.ClockDelta import *
@@ -23,7 +21,8 @@ from pirates.quest import QuestOffer
 from pirates.reputation.ReputationGlobals import getLevelFromTotalReputation
 from pirates.quest.DialogTree import *
 from pirates.quest.DialogProcessMaster import *
-from libotp import CFSpeech, CFTimeout
+#from libotp import CFSpeech, CFTimeout
+# ^ Important?
 
 class DistributedQuestGiver(Avatar.Avatar):
     notify = directNotify.newCategory('DistributedQuestGiver')
@@ -597,7 +596,7 @@ class DistributedQuestGiver(Avatar.Avatar):
                 else:
                     self.playingQuestString = True
                     if self.newOffer == False:
-                        questStr += '\x7'
+                        questStr += '\x07'
                     
                     base.localAvatar.guiMgr.subtitler.setPageChat(questStr, confirm = confirm)
                     self.dialogOpen = True

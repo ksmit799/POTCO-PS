@@ -1,5 +1,3 @@
-# File: D (Python 2.4)
-
 from direct.directnotify import DirectNotifyGlobal
 from pirates.uberdog.UberDogGlobals import InventoryCategory, InventoryType, InventoryId, getSkillCategory, isLocatable, getWeaponCategory
 from pirates.uberdog.InventoryInit import AccumulatorLimits
@@ -108,7 +106,6 @@ class DistributedInventoryBase:
                 
                 try:
                     overallRep = accumulators[InventoryType.OverallRep]
-                    continue
                     calculatedOverallRep = _[1]([ accumulators.get(category, 0) for category in xrange(InventoryType.GeneralRep, InventoryType.end_Accumulator) ])
                     if overallRep != calculatedOverallRep:
                         callback(False, 'OverallRep does not add up!')
@@ -265,7 +262,6 @@ class DistributedInventoryBase:
     
     def setDoIds(self, categoriesAndDoIds):
         old = self.doIds
-        continue
         self.doIds = _[1]([ (doId, category) for (category, doId) in categoriesAndDoIds ])
         self.doIdsInCategory = { }
         for (category, doId) in categoriesAndDoIds:
@@ -601,8 +597,7 @@ class DistributedInventoryBase:
 
     
     def getTonics(self):
-        return dict(lambda [outmost-iterable]: for tonicId in [outmost-iterable]:
-(tonicId, self.getStackQuantity(tonicId))(InventoryType.Potions))
+        return {self.getStackQuantity(tonicId): tonicId for tonicId in InventoryType.Potions}
 
     
     def getShipRepairKits(self):

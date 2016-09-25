@@ -166,12 +166,12 @@ class StatusTray(GuiTray.GuiTray):
         color = base.cr.battleMgr.getExperienceColor(base.localAvatar, target)
         avType = target.getAvatarType()
         if avType.isA(AvatarTypes.JollyRoger):
-            color = '\x1red\x1'
-            text = '%s  \x1smallCaps\x1%s%s%s\x2\x2' % (name, color, PLocalizer.Lv, PLocalizer.InvasionLv)
+            color = '\x01red\x01'
+            text = '%s  \x01smallCaps\x01%s%s%s\x02\x02' % (name, color, PLocalizer.Lv, PLocalizer.InvasionLv)
         elif target.isInInvasion():
             text = '%s' % self.name
         elif color:
-            text = '%s  \x1smallCaps\x1%s%s%s\x2\x2' % (name, color, PLocalizer.Lv, self.level)
+            text = '%s  \x01smallCaps\x01%s%s%s\x02\x02' % (name, color, PLocalizer.Lv, self.level)
         else:
             text = '%s' % self.name
         self.nameLabel['text'] = text
@@ -276,7 +276,7 @@ class StatusTray(GuiTray.GuiTray):
                     self.hpMeter['text'] = '%s/%s' % (hp, maxHp)
                 else:
                     modHp = int(maxHp * 0.75)
-                    self.hpMeter['text'] = '%s\x1Bred\x1/%s\x2' % (hp, modHp)
+                    self.hpMeter['text'] = '%s\x01Bred\x01/%s\x02' % (hp, modHp)
             else:
                 self.hpMeter['text'] = '%s/%s' % (hp, maxHp)
         
@@ -388,7 +388,7 @@ class StatusTray(GuiTray.GuiTray):
                     self.voodooMeter['text'] = '%s/%s' % (voodoo, maxVoodoo)
                 else:
                     modVoodoo = int(maxVoodoo * 0.75)
-                    self.voodooMeter['text'] = '%s\x1Bred\x1/%s\x2' % (voodoo, modVoodoo)
+                    self.voodooMeter['text'] = '%s\x01Bred\x01/%s\x02' % (voodoo, modVoodoo)
             else:
                 self.voodooMeter['text'] = '%s/%s' % (voodoo, maxVoodoo)
         

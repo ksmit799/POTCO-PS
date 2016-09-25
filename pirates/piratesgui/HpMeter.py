@@ -74,7 +74,7 @@ class HpMeter(DirectFrame):
         self.name = name
         self.level = level
         self.doId = doId
-        name = '%s  \x1smallCaps\x1%s%s\x2' % (self.name, PLocalizer.Lv, self.level)
+        name = '%s  \x01smallCaps\x01%s%s\x02' % (self.name, PLocalizer.Lv, self.level)
         self.categoryLabel['text'] = name
 
     

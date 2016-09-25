@@ -1,6 +1,4 @@
-# File: Q (Python 2.4)
-
-from direct.showbase.PythonUtil import ParamObj
+from pirates.util.PythonUtilPOD import ParamObj
 
 class QuestTaskState(ParamObj):
     

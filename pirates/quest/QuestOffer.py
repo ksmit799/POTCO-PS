@@ -1,6 +1,5 @@
-# File: Q (Python 2.4)
-
-from direct.showbase.PythonUtil import POD, makeTuple
+from pirates.util.PythonUtilPOD import POD
+from pirates.util.PythonUtil import makeTuple
 from pirates.quest import QuestReward, QuestDB, QuestLadderDB
 
 class QuestOffer(POD):

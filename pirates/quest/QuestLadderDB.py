@@ -406,21 +406,18 @@ def printContainerStrings(container, printAll = True):
     
     def raw(text):
         charDict = {
-            '\x7': '\\a',
-            '\x1': '\\1',
-            '\x2': '\\2' }
+            '\x07': '\\a',
+            '\x01': '\\1',
+            '\x02': '\\2' }
         new_string = ''
         for char in text:
             
             try:
                 new_string += charDict[char]
-            continue
+            	continue
             except KeyError:
                 new_string += char
                 continue
-            
-
-        
         return new_string
 
     if isinstance(container, QuestLadderDNA):
@@ -501,7 +498,7 @@ def printContainerStrings(container, printAll = True):
         
         if container.getTasks():
             taskStr = container.getTasks()[0].getDescriptionText(0)
-            taskStr = taskStr.replace('\x1questObj\x1', '').replace('\x2', '')
+            taskStr = taskStr.replace('\x01questObj\x01', '').replace('\x02', '')
             print raw('Task: ' + taskStr)
         
         if printAll:

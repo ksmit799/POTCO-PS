@@ -1,0 +1,884 @@
+# NOTE: \a is the delimiter for chat pages
+# Quest ids can be found in Quests.py
+
+ID quest_tut_jack_intro_100
+LOAD_DIALOGUE jackSparrowD1 "audio/dialog/jack_sparrow_D1.mp3"
+LOAD_DIALOGUE jackSparrowD2 "audio/dialog/jack_sparrow_D2.mp3"
+SUBTITLE_CLEAR_CHAT
+HIDE_GUI
+START_LETTERBOX
+START_INTERACT
+LOCK_LOCALTOON
+POS camera npc 0 6 1
+HPR camera npc 180 22.5 0
+SETX camera npc 0.3
+SETNAMETAGZ npc 3
+LERP_HPR npc 200 0 0 0.5
+WAIT 2.0
+SUBTITLE_CHAT QuestScriptTutorialJack_1 jackSparrowD1 
+WAIT 4.5
+SUBTITLE_CHAT_CONFIRM QuestScriptTutorialJack_2 jackSparrowD2 
+#FREE_LOCALTOON
+STOP_INTERACT
+STOP_LETTERBOX
+SEND_EVENT "doneJackIntro"
+FINISH_QUEST_MOVIE
+
+ID quest_tut_lock_avatar_100
+#LOCK_LOCALTOON
+FINISH_QUEST_MOVIE
+
+ID quest_tut_free_avatar_100
+FREE_LOCALTOON
+FINISH_QUEST_MOVIE
+
+ID quest_tut_clothes_intro_100
+LOAD_DIALOGUE jackSparrowD3 "audio/dialog/jack_sparrow_D3.mp3"
+SUBTITLE_CLEAR_CHAT
+SUBTITLE_CHAT QuestScriptTutorialJack_5 jackSparrowD3
+FINISH_QUEST_MOVIE
+
+ID quest_tut_name_intro_100
+LOAD_DIALOGUE jackSparrowD4 "audio/dialog/jack_sparrow_D4.mp3"
+LOAD_DIALOGUE jackSparrowD5 "audio/dialog/jack_sparrow_D5.mp3"
+SUBTITLE_CLEAR_CHAT
+SUBTITLE_CHAT QuestScriptTutorialJack_6 jackSparrowD4
+WAIT 5
+SUBTITLE_CHAT QuestScriptTutorialJack_10 jackSparrowD5
+WAIT 3
+FINISH_QUEST_MOVIE
+
+ID quest_tut_name_picked_100
+LOAD_DIALOGUE jackSparrowD6 "audio/dialog/jack_sparrow_D6.mp3"
+SUBTITLE_CLEAR_CHAT
+START_LETTERBOX
+START_INTERACT
+SUBTITLE_CHAT QuestScriptTutorialJack_11 jackSparrowD6
+FINISH_QUEST_MOVIE
+
+ID quest_tut_jack_break_lock_100
+LOAD_DIALOGUE jackSparrowD7 "audio/dialog/jack_sparrow_D7.mp3"
+SUBTITLE_CLEAR_CHAT
+START_LETTERBOX
+START_INTERACT
+LOOKATFACE camera npc
+SETNAMETAGZ npc -1
+SUBTITLE_CHAT QuestScriptTutorialJack_12 jackSparrowD7
+WAIT 6
+#STOP_INTERACT
+STOP_LETTERBOX
+SEND_EVENT "breakLock"
+FINISH_QUEST_MOVIE
+
+ID quest_tut_jack_wait_walk_100
+LOAD_DIALOGUE jackSparrowD8 "audio/dialog/jack_sparrow_D8.mp3"
+LOAD_DIALOGUE jackSparrowD9 "audio/dialog/jack_sparrow_D9.mp3"
+SUBTITLE_CLEAR_CHAT
+START_LETTERBOX
+#START_INTERACT
+#POS camera npc 0.5 7 4
+#SETX camera npc 0.3
+#SETNAMETAGZ npc -1
+SUBTITLE_CHAT QuestScriptTutorialJack_14 jackSparrowD8
+WAIT 1.5
+SUBTITLE_CHAT QuestScriptTutorialJack_15
+WAIT 4.5
+#SEND_EVENT "waitForWalk"
+#FREE_LOCALTOON
+#FINISH_QUEST_MOVIE
+#
+#ID quest_tut_jack_bye_100
+#SUBTITLE_CLEAR_CHAT
+#WAIT 10
+#LOCK_LOCALTOON
+SUBTITLE_CHAT QuestScriptTutorialJack_16 jackSparrowD9
+WAIT 3.5
+SUBTITLE_CHAT_CONFIRM QuestScriptTutorialJack_17
+STOP_INTERACT
+STOP_LETTERBOX
+FREE_LOCALTOON
+SEND_EVENT "doneJackBye"
+FINISH_QUEST_MOVIE
+
+FUNC_DEF func_tutorialDan_a
+SEND_EVENT "playNellAnimationDan_a"
+SUBTITLE_CHAT QuestScriptTutorialDan_a_1
+WAIT 31.0
+SEND_EVENT "loopNellAnimationDan_a_idle"
+
+## # function definitions called from script 'quest_tut_dan_intro_100'
+## FUNC_DEF func_tutorialDan_pt1
+## SUBTITLE_CHAT QuestScriptTutorialDan_1
+## WAIT 6.0
+## SUBTITLE_CHAT QuestScriptTutorialDan_2
+## WAIT 6.0
+## SUBTITLE_CHAT QuestScriptTutorialDan_3
+## WAIT 8.0
+## SUBTITLE_CHAT QuestScriptTutorialDan_4
+## #WAIT 6.0
+
+## FUNC_DEF func_tutorialDan_pt2
+## SUBTITLE_CHAT QuestScriptTutorialDan_5
+## #WAIT 1.0
+
+## FUNC_DEF func_tutorialDan_pt3
+## SUBTITLE_CHAT QuestScriptTutorialDan_5b
+## WAIT 8.0
+## SUBTITLE_CHAT QuestScriptTutorialDan_6
+## WAIT 5.0
+## SHOW_QUEST_PANEL
+## SUBTITLE_CHAT QuestScriptTutorialDan_7
+## WAIT 4.5
+## SUBTITLE_CHAT QuestScriptTutorialDan_8
+## WAIT 5.0
+## SUBTITLE_CHAT QuestScriptTutorialDan_9
+## WAIT 7.0
+## SUBTITLE_CHAT QuestScriptTutorialDan_9b
+## WAIT 3.0
+## SUBTITLE_CHAT QuestScriptTutorialDan_10
+## WAIT 5.0
+## SUBTITLE_CHAT_CONFIRM QuestScriptTutorialDan_10b
+
+ID quest_tut_dan_intro_100
+SEND_EVENT ""
+LOAD_DIALOGUE doggerelDanA1 "audio/mp_tut_1_1_5_1_dan.mp3"
+LOAD_DIALOGUE doggerelDanA2 "audio/mp_tut_1_1_5_2_dan.mp3"
+LOAD_DIALOGUE doggerelDanA3 "audio/mp_tut_1_1_5_3_dan.mp3"
+LOAD_DIALOGUE doggerelDanA4 "audio/mp_tut_1_1_5_4_dan.mp3"
+LOAD_DIALOGUE doggerelDanA5 "audio/mp_tut_1_1_5_5_dan.mp3"
+SUBTITLE_CLEAR_CHAT
+START_LETTERBOX
+HIDE_GUI
+LOCK_LOCALTOON
+START_INTERACT
+LOOKATFACE camera npc
+SETY camera npc 5
+SETZ camera npc 5.5
+SETP camera npc -12
+SETR camera npc -1
+SETNAMETAGZ npc -2
+SUBTITLE_CHAT_ANIM func_tutorialDan_pt1 doggerelDanA1 npc "tut_1_1_5_1_dan" "tut_1_1_5_idle_dan"
+#LOOP_ANIM npc "tut_1_1_5_idle_dan"
+
+# show seachest and how to open it
+ENABLE_SEA_CHEST
+CREATE_MSG_PANEL 'seachestOpen'
+WAIT_EVENT "seachestOpened"
+
+# TODO: This dialog should only play if you time-out waiting for the tab key
+# Come on - open er up.
+# SUBTITLE_CHAT_ANIM func_tutorialDan_pt2 doggerelDanA2 npc "tut_1_1_5_2_dan" "tut_1_1_5_idle_dan"
+
+# tell the player how to open their weapons page
+CREATE_MSG_PANEL 'questPageOpen'
+WAIT_EVENT "questPageOpened"
+HPR camera npc 160 -10.0 0
+
+SUBTITLE_CHAT_ANIM func_tutorialDan_pt3 doggerelDanA3 npc "tut_1_1_5_3_dan" "tut_1_1_5_idle_dan"
+
+# make sure dan keeps his idle with his hands on the bar
+LOOP_ANIM npc "tut_1_1_5_idle_dan"
+
+#FREE_LOCALTOON
+# need to go into a UI mode where only the journal is usable?
+#SHOW_GUI
+#STOP_INTERACT
+#STOP_LETTERBOX
+SEND_EVENT "assignStumpyQuest"
+# for some reason I have to send this to close the 'seachestOpen' panel when skipping the script?
+SEND_EVENT "seachestOpened"
+# hide GUI to make sure seachest goes away?
+PERFORM_STANDARD_CLEANUP
+HIDE_GUI
+FINISH_QUEST_MOVIE
+
+ID quest_tut_dan_re_intro_100
+LOAD_DIALOGUE doggerelDanA6 "audio/dialog/doggerel_dan_A6.mp3"
+SUBTITLE_CLEAR_CHAT
+SUBTITLE_CHAT QuestScriptTutorialDan_11 doggerelDanA6
+WAIT 3
+SUBTITLE_CHAT_CONFIRM QuestScriptTutorialDan_12
+FINISH_QUEST_MOVIE
+
+## ID quest_tut_dan_nell_intro_100
+## LOAD_DIALOGUE doggerelDan_a "audio/cs_tut_1_1_5_a_dan.mp3"
+## #LOAD_DIALOGUE doggerelDan_b "audio/cs_tut_1_1_5_b_dan.mp3"
+## SUBTITLE_CLEAR_CHAT
+## START_LETTERBOX
+## HIDE_GUI
+## LOCK_LOCALTOON
+## START_INTERACT
+## LOOKATFACE camera npc
+## SETH npc -180
+## SETX camera npc -8
+## SETY camera npc 7
+## SETZ camera npc 5.5
+## SETH camera npc -180
+## SETP camera npc 0
+## SETR camera npc 0
+## SUBTITLE_CHAT_ANIM func_tutorialDan_a doggerelDan_a npc "tut_1_1_5_a_dan" "tut_1_1_5_a_idle_dan"
+
+#############################################
+# SEACHEST TUTORIAL
+#############################################
+
+ID quest_tut_seachest_intro_100
+# show seachest and how to open it
+LOCK_LOCALTOON
+HIDE toon
+ENABLE_SEA_CHEST
+CREATE_MSG_PANEL 'seachestOpen'
+WAIT_EVENT "seachestOpened"
+
+# TODO: This dialog should only play if you time-out waiting for the tab key
+# Come on - open er up.
+# SUBTITLE_CHAT_ANIM func_tutorialDan_pt2 doggerelDanA2 npc "tut_1_1_5_2_dan" "tut_1_1_5_idle_dan"
+
+# tell the player how to open their weapons page
+CREATE_MSG_PANEL 'questPageOpen'
+WAIT_EVENT "questPageOpened"
+#SETX camera npc -9
+
+CREATE_MSG_PANEL 'questPageClose'
+#WAIT_EVENT "questPageOpened"
+WAIT_EVENT "questPageClosed" "seachestClosed"
+#SETX camera npc -9
+
+## STOP_LETTERBOX
+SEND_EVENT "assignStumpyQuest"
+## # hide GUI to make sure seachest goes away?
+## STOP_INTERACT
+## HIDE_GUI
+#CLEAR_MSG_PANEL
+PERFORM_STANDARD_CLEANUP
+FINISH_QUEST_MOVIE
+
+ID quest_tut_dan_nell_bye_100
+FREE_LOCALTOON
+# need to go into a UI mode where only the journal is usable?
+HIDE_GUI
+FINISH_QUEST_MOVIE
+
+# If user pressed escape then do following
+ID quest_tut_dan_nell_intro_101
+# for some reason I have to send this to close the 'seachestOpen' panel when skipping the script?
+SEND_EVENT "seachestOpened"
+SEND_EVENT "questPageOpened"
+FREE_LOCALTOON
+# need to go into a UI mode where only the journal is usable?
+STOP_INTERACT
+HIDE_GUI
+FINISH_QUEST_MOVIE
+
+###################################START_NO_LONGER_USED#############################
+ID quest_tut_stumpy_intro_100
+#SIMPLE_DIALOGUE
+#LOAD_DIALOGUE stumpyMcGeeB1 "audio/beck_tell_cannon.mp3"
+LOAD_DIALOGUE stumpyMcGeeB1 "audio/beck_cs12_4_4c_tell_to_shoot.mp3"
+SUBTITLE_CLEAR_CHAT
+CLEAR_CHAT npc
+HIDE_GUI
+#START_LETTERBOX
+SUBTITLE_CHAT QuestScriptTutorialStumpy_1 stumpyMcGeeB1
+#STOP_LETTERBOX
+#SHOW_GUI
+FINISH_QUEST_MOVIE
+
+ID quest_tut_stumpy_intro_101
+#LOAD_DIALOGUE stumpyMcGeeB2 "audio/beck_tell_praise.mp3"
+LOAD_DIALOGUE stumpyMcGeeB2 "audio/beck_cs12_5_5a_tell_praise.mp3"
+SUBTITLE_CLEAR_CHAT
+CLEAR_CHAT npc
+HIDE_GUI
+LOCK_CAMERAFSM
+#START_LETTERBOX
+SUBTITLE_CHAT QuestScriptTutorialStumpy_6 stumpyMcGeeB2
+#STOP_LETTERBOX
+#SHOW_GUI
+FINISH_QUEST_MOVIE
+
+ID quest_tut_stumpy_intro_102
+#LOAD_DIALOGUE stumpyMcGeeB3 "audio/beck_tell_more_praise.mp3"
+#SIMPLE_DIALOGUE
+LOAD_DIALOGUE stumpyMcGeeB3 "audio/beck_cs12_9_11b_tell_warning.mp3"
+SUBTITLE_CLEAR_CHAT
+HIDE_GUI
+#START_LETTERBOX
+SUBTITLE_CHAT QuestScriptTutorialStumpy_8 stumpyMcGeeB3
+#STOP_LETTERBOX
+SEND_EVENT "targetPracticeDone"
+FINISH_QUEST_MOVIE
+
+ID quest_tut_stumpy_intro_103
+LOAD_DIALOGUE beckTellAimHigher "audio/beck_cs12_6_6b_tell_aim_higher.mp3"
+SUBTITLE_CLEAR_CHAT
+CLEAR_CHAT npc
+HIDE_GUI
+START_LETTERBOX
+#SUBTITLE_CHAT QuestScriptTutorialStumpy_6 beckTellAimHigher
+STOP_LETTERBOX
+FINISH_QUEST_MOVIE
+
+ID quest_tut_stumpy_intro_104
+LOAD_DIALOGUE beckTellAimLower "audio/beck_cs12_7_7b_tell_aim_lower.mp3"
+SUBTITLE_CLEAR_CHAT
+CLEAR_CHAT npc
+HIDE_GUI
+START_LETTERBOX
+#SUBTITLE_CHAT QuestScriptTutorialStumpy_6 stumpyMcGeeB3
+STOP_LETTERBOX
+FINISH_QUEST_MOVIE
+
+ID quest_tut_stumpy_intro_105
+LOAD_DIALOGUE beckTellPractice "audio/beck_cs12_8_10c_tell_practice.mp3"
+SUBTITLE_CLEAR_CHAT
+CLEAR_CHAT npc
+HIDE_GUI
+START_LETTERBOX
+#SUBTITLE_CHAT QuestScriptTutorialStumpy_6 stumpyMcGeeB3
+STOP_LETTERBOX
+FINISH_QUEST_MOVIE
+
+ID quest_tut_stumpy_intro_106
+LOAD_DIALOGUE beckTellWarning 
+SUBTITLE_CLEAR_CHAT
+CLEAR_CHAT npc
+HIDE_GUI
+START_LETTERBOX
+#SUBTITLE_CHAT QuestScriptTutorialStumpy_6 stumpyMcGeeB3
+STOP_LETTERBOX
+FINISH_QUEST_MOVIE
+
+###################################END_NO_LONGER_USED#############################
+
+##################################################
+# POST TUTORIAL INTRODUCTIONS
+##################################################
+
+ID quest_tut_shipwright_warning_100
+SUBTITLE_CLEAR_CHAT
+CLEAR_CHAT npc
+HIDE_GUI
+START_LETTERBOX
+START_INTERACT
+LOCK_LOCALTOON
+SUBTITLE_CHAT_CONFIRM QuestScriptShipwrightWarningA_1
+SUBTITLE_CHAT_CONFIRM QuestScriptShipwrightWarningA_2
+SUBTITLE_CHAT_CONFIRM QuestScriptShipwrightWarningA_3
+FREE_LOCALTOON
+STOP_INTERACT
+STOP_LETTERBOX
+SHOW_GUI
+SEND_EVENT "finishTutorial"
+FINISH_QUEST_MOVIE
+
+ID quest_tut_shipwright_intro_100
+SUBTITLE_CLEAR_CHAT
+CLEAR_CHAT npc
+HIDE_GUI
+START_LETTERBOX
+START_INTERACT
+LOCK_LOCALTOON
+SUBTITLE_CHAT_CONFIRM QuestScriptShipwrightIntro_1
+SUBTITLE_CHAT_CONFIRM QuestScriptShipwrightIntro_2
+SUBTITLE_CHAT_CONFIRM QuestScriptShipwrightIntro_3
+SUBTITLE_CHAT_CONFIRM QuestScriptShipwrightIntro_4
+SUBTITLE_CHAT_CONFIRM QuestScriptShipwrightIntro_5
+FREE_LOCALTOON
+STOP_INTERACT
+STOP_LETTERBOX
+SHOW_GUI
+SEND_EVENT "finishTutorial"
+FINISH_QUEST_MOVIE
+
+
+#############################################
+# NEW VERSION OF CUTLASS TUTORIAL (8/24/2006)
+#############################################
+
+### CHOICE OF IF DOING THE TUTORIAL OR NOT
+ID quest_tut_blacksmith_intro_100_v2
+
+# enable collision barriers so the player cannot jump
+# out of the pit
+#ENABLE_BARRIERS masad: no longer needed; GameArea takes care of it
+
+PERFORM_STANDARD_INIT
+
+#CHAT npc QuestScriptCutlassTutorial_1
+FUNCTION npc "swordTutorialPt1"
+HIDE_CHEST_TRAY
+DISABLE_SEA_CHEST
+IGNORE_MAIN_MENU_KEY_ON
+# hide crates to prevent escape, mmwhaahahahaaaaaa
+STASH_UID '1159918935.67jubutler' '1159918930.42jubutler' '1159918893.65jubutler'
+
+WAIT 1
+# creates the panel asking the player if they want to do
+# the tutorial, starts script 'quest_tut_blacksmith_intro_101'
+# if they click yes, or 'quest_tut_blacksmith_intro_102' if
+# they click no
+CREATE_MSG_PANEL 'doCutlassTutorial' 'quest_tut_blacksmith_intro_101' 'quest_tut_blacksmith_intro_102'
+
+### YES, DO TUTORIAL
+ID quest_tut_blacksmith_intro_101
+
+LOAD_DIALOGUE willTurner1 "audio/wtd_draw_sword.mp3"
+LOAD_DIALOGUE willTurner2 "audio/wtd_draw_sword_really.mp3"
+LOAD_DIALOGUE willTurner3 "audio/wtd_lethargy.mp3"
+LOAD_DIALOGUE willTurner4 "audio/wtd_advance_and_strike.mp3"
+#  willTurner4 alternate?
+# LOAD_DIALOGUE willTurner4 "audio/wtd_advance_and_strike_with_sword.mp3"
+LOAD_DIALOGUE willTurner5 "audio/wtd_accurate.mp3"
+LOAD_DIALOGUE willTurner6 "audio/wtd_move_close.mp3"
+LOAD_DIALOGUE willTurner7 "audio/wtd_not_over.mp3"
+LOAD_DIALOGUE willTurner8 "audio/wtd_timing_finess.mp3"
+LOAD_DIALOGUE willTurner9 "audio/wtd_too_late.mp3"
+LOAD_DIALOGUE willTurner10 "audio/wtd_slow_down.mp3"
+LOAD_DIALOGUE willTurner11 "audio/wtd_reputation.mp3"
+LOAD_DIALOGUE willTurner12 "audio/wtd_try_skill.mp3"
+LOAD_DIALOGUE willTurner13 "audio/wtd_well_done.mp3"
+
+#Equip your sword
+CLEAR_CHAT npc
+# make sure the player has no weapons equipped since the first step
+# is to tell them to eqiuip the cutlass
+#UNEQUIP_WEAPON
+INTERACTIONAL_CHAT npc QuestScriptCutlassTutorial_3 willTurner1
+WAIT 0.5
+# TODO: play QuestScriptCutlassTutorial_3_5 willTurner2
+# TODO: play QuestScriptCutlassTutorial_3_6 willTurner3
+CREATE_MSG_PANEL 'drawSword'
+WAIT_EVENT "weaponEquipped"
+CLEAR_CHAT npc
+IGNORE_WEAPON_KEYS_ON
+#INTERACTIONAL_CHAT npc QuestScriptCutlassTutorial_4 
+WAIT 0.2
+INTERACTIONAL_CHAT npc QuestScriptCutlassTutorial_5 willTurner4
+
+#Hit a target
+# TODO: play QuestScriptCutlassTutorial_6 willTurner5
+# TODO: play QuestScriptCutlassTutorial_7 willTurner6
+# TODO: play QuestScriptCutlassTutorial_7_5 willTurner7
+FUNCTION npc "watchDistance"
+CREATE_MSG_PANEL 'attackSword'
+WAIT_EVENT "properHit"
+FUNCTION npc "ignoreDistance"
+CLEAR_CHAT npc
+
+# Do a combo
+WAIT 0.2
+INTERACTIONAL_CHAT npc QuestScriptCutlassTutorial_8 willTurner8
+WAIT 0.2
+# TODO: play QuestScriptCutlassTutorial_8_6 willTurner9
+# TODO: play QuestScriptCutlassTutorial_8_7 willTurner10
+#INTERACTIONAL_CHAT npc QuestScriptCutlassTutorial_8_5
+#WAIT 3
+FUNCTION npc "listenTime"
+CREATE_MSG_PANEL 'comboSword'
+WAIT_EVENT "didSlash"
+CLEAR_CHAT npc
+WAIT 0.5
+INTERACTIONAL_CHAT npc QuestScriptCutlassTutorial_13 willTurner13
+FUNCTION npc "putAwayWeapon"
+FUNCTION npc "ignoreTime"
+SHOW_CHEST_TRAY
+ALLOW_SKILL_PAGE_ONLY
+# open chest panel
+CREATE_MSG_PANEL 'cutlassLvl'
+WAIT_EVENT "seachestOpened"
+
+# open your skill menu
+#WAIT 2
+INTERACTIONAL_CHAT npc QuestScriptCutlassTutorial_9_25 willTurner11
+WAIT 0.5
+#INTERACTIONAL_CHAT npc QuestScriptCutlassTutorial_9_5
+#WAIT 2
+IGNORE_WEAPON_KEYS_OFF
+CREATE_MSG_PANEL 'cutlassSkillOpen'
+SEND_EVENT "flagTutorialSweep"
+WAIT_EVENT "skillPanelOpened"
+#FUNCTION npc "checkSkillPanelOpen"
+
+# spend point
+CLEAR_INTERACTIONAL_CHAT
+IGNORE_WEAPON_KEYS_ON
+CREATE_MSG_PANEL 'cutlassSkillUnlock'
+WAIT_EVENT "skillImprovementAttempted"
+IGNORE_WEAPON_KEYS_OFF
+
+# close skill menu
+CREATE_MSG_PANEL 'cutlassDoneLvl'
+WAIT_EVENT "skillPanelClosed" "seachestClosed"
+SEND_EVENT "closePointSpendPanel"
+
+# Trigger Sweep skill
+WAIT 0.2
+INTERACTIONAL_CHAT npc QuestScriptCutlassTutorial_10 willTurner12
+CREATE_MSG_PANEL 'specialMenu'
+# perform special skill, Sweep
+WAIT_EVENT "usedSpecialAttack"
+
+# inform person about more skills
+ALLOW_SKILL_PAGE_ONLY
+INTERACTIONAL_CHAT npc QuestScriptCutlassTutorial_9
+WAIT 2.0
+TOGGLE_SKILL_PAGE_DEMO_ON
+CREATE_MSG_PANEL 'skillLearning' 'closeSkillLearning'
+WAIT_EVENT "closeSkillLearning"
+TOGGLE_SKILL_PAGE_DEMO_OFF
+IGNORE_WEAPON_KEYS_OFF
+
+# put away weapon (will this be part of a cutscene, no longer needed?)
+CLEAR_INTERACTIONAL_CHAT
+WAIT 0.2
+CREATE_MSG_PANEL 'sheatheSword'
+WAIT_EVENT "weaponSheathed"
+
+#INTERACTIONAL_CHAT npc QuestScriptCutlassTutorial_13 willTurner13
+WAIT 1
+FUNCTION npc "levelUpCutlass"
+WAIT 3
+FUNCTION npc "requestStopInteract"
+IGNORE_WEAPON_KEYS_OFF
+IGNORE_MAIN_MENU_KEY_OFF
+TOGGLE_SKILL_PAGE_DEMO_OFF
+SEND_EVENT "finishTutorial"
+#CLEAR_INTERACTIONAL_CHAT
+PERFORM_STANDARD_CLEANUP
+FINISH_QUEST_MOVIE
+
+#### SKIP TUTORIAL
+ID quest_tut_blacksmith_intro_102
+CLEAR_CHAT npc
+CHAT npc QuestScriptCutlassTutorial_2
+FUNCTION npc "levelUpCutlass"
+WAIT 3
+FUNCTION npc "requestStopInteract"
+IGNORE_WEAPON_KEYS_OFF
+IGNORE_MAIN_MENU_KEY_OFF
+TOGGLE_SKILL_PAGE_DEMO_OFF
+WAIT 1
+SEND_EVENT "finishTutorial"
+PERFORM_STANDARD_CLEANUP
+FINISH_QUEST_MOVIE
+
+###########################################
+# END OF NEW CUTLASS TUTORIAL
+###########################################
+
+
+
+#############################################
+# Barbossa Pistolero Tutorialero
+#############################################
+
+ID quest_tut_barbossa_pistol_tutorial
+
+#FUNCTION npc "pistolTutorialPt1"
+HIDE_CHEST_TRAY
+# show the monkey (hidden by the cutscene that
+# plays before this)
+UNSTASH_UID '1175912064.0JB2'
+
+# aim at the target
+CLEAR_CHAT npc
+# don't let the player move around, they only
+# need to be able to aim at the target, also
+# limit the range of the aiming to only be able
+# to shoot at the target
+EQUIP_WEAPON 2001
+LOCK_LOCALTOON
+ENABLE_AIM
+# position the player at a good spot to be able to
+# see the target and far enough away from Barbossa
+#POS toon render -5.4 11.6 4.2
+# allow the player to only be able to aim in the
+# direction of the target (these numbers are in deegreez)
+SET_AIM_BOUNDS 190 150 230
+#SET_EQUIPPED_WEAPONS None
+CREATE_MSGi_PANEL 'pistolAim'
+IGNORE_WEAPON_KEYS_ON
+IGNORE_MAIN_MENU_KEY_ON
+WAIT_EVENT "pistolMoved"
+
+CREATE_MSG_PANEL 'pistolTarget'
+WAIT_EVENT "pistolAimedTarget"
+
+CREATE_MSG_PANEL 'pistolHit'
+WAIT_EVENT "pistolHitTarget"
+
+INTERACTIONAL_CHAT npc QuestScriptPistolTutorial_3
+CREATE_MSG_PANEL 'pistolPractice'
+WAIT_EVENT "weaponSheathed"
+
+# hide the monkey now so we don't see it during any addtional
+# cutscenes
+STASH_UID '1175912064.0JB2'
+
+SET_EQUIPPED_WEAPONS All
+IGNORE_WEAPON_KEYS_OFF
+IGNORE_MAIN_MENU_KEY_OFF
+CLEAR_INTERACTIONAL_CHAT
+FREE_LOCALTOON
+CLEAR_AIM_BOUNDS
+CLEAR_MSG_PANEL
+FINISH_QUEST_MOVIE
+
+
+###########################################
+# End Barbossa Pistolero Tutorialero
+###########################################
+
+
+#############################################
+# Barbossa Lookout Tutorial
+#############################################
+
+ID quest_tut_barbossa_lookout_tutorial
+#IGNORE_WEAPON_KEYS_ON
+#IGNORE_MAIN_MENU_KEY_ON
+#SHOW_CHEST_TRAY
+#ALLOW_LOOKOUT_PAGE_ONLY
+# show the player the lookout panel and briefly
+# describe its use
+CLEAR_CHAT npc
+# don't let the player move around yet
+#ENABLE_AIM
+#LOCK_LOCALTOON
+#CREATE_MSG_PANEL 'lookoutChestOpen'
+#WAIT_EVENT "seachestOpened"
+#IGNORE_WEAPON_KEYS_OFF
+#CREATE_MSG_PANEL 'lookoutOpen'
+#WAIT_EVENT "lookoutOpened"
+#CREATE_MSG_PANEL 'lookoutClose'
+#WAIT_EVENT "lookoutClosed" "seachestClosed"
+#FREE_LOCALTOON
+KICK_OUT_OF_AREA
+#STOP_INTERACT
+#IGNORE_WEAPON_KEYS_OFF
+#IGNORE_MAIN_MENU_KEY_OFF
+PERFORM_STANDARD_CLEANUP
+FINISH_QUEST_MOVIE
+
+###########################################
+# End Barbossa Lookout Tutorial
+###########################################
+
+
+
+
+ID quest_tut_gypsy_intro_100
+SUBTITLE_CLEAR_CHAT
+CLEAR_CHAT npc
+HIDE_GUI
+START_LETTERBOX
+START_INTERACT
+LOCK_LOCALTOON
+SUBTITLE_CHAT_CONFIRM QuestScriptTutorialStumpy_1
+SUBTITLE_CHAT_CONFIRM QuestScriptTutorialStumpy_2
+FREE_LOCALTOON
+STOP_INTERACT
+STOP_LETTERBOX
+SHOW_GUI
+SEND_EVENT "finishTutorial"
+FINISH_QUEST_MOVIE
+
+###########################################
+# Tia Dalma compass tutorial
+###########################################
+ID quest_tut_tia_dalma_compass_intro_100
+LOCK_LOCALTOON
+SUBTITLE_CLEAR_CHAT
+HIDE_GUI
+START_LETTERBOX
+ENABLE_AIM
+CREATE_MSG_PANEL 'receiveCompass' 'quest_tia_dalma_compass_intro_101' 'quest_tia_dalma_compass_intro_102'
+
+### YES, DO TUTORIAL
+ID quest_tia_dalma_compass_intro_101
+IGNORE_MAIN_MENU_KEY_ON
+## # show compass
+TOGGLE_COMPASS RECEIVE -1.85 0 -1.5
+WAIT 0.5
+DEMO_COMPASS_ICON_SHOW quest
+CREATE_MSG_PANEL 'compassActiveQuest' 'closeCompassActiveQuest'
+WAIT_EVENT 'closeCompassActiveQuest'
+CLEAR_COMPASS_EFFECTS
+
+WAIT 0.5
+DEMO_COMPASS_ICON_SHOW exit0
+WAIT 0.5
+DEMO_COMPASS_ICON_SHOW exit1
+WAIT 0.5
+DEMO_COMPASS_ICON_SHOW localAvatar
+CREATE_MSG_PANEL 'compassIconsBearing' 'closeCompassIconsBearing'
+WAIT_EVENT 'closeCompassIconsBearing'
+CLEAR_COMPASS_EFFECTS
+
+WAIT 0.5
+DEMO_COMPASS_ICON_SHOW enemy
+WAIT 0.25
+DEMO_COMPASS_ICON_SHOW friend
+WAIT 0.25
+DEMO_COMPASS_ICON_SHOW localAvatar
+CREATE_MSG_PANEL 'compassIconsPeople' 'closeCompassIconsPeople'
+WAIT_EVENT 'closeCompassIconsPeople'
+CLEAR_COMPASS_EFFECTS
+
+TOGGLE_COMPASS RECEIVE
+#WAIT 0.5
+#CREATE_MSG_PANEL 'compassTutHint' 'closeCompassTutHint'
+#WAIT_EVENT 'closeCompassTutHint'
+
+#ID quest_tia_dalma_chapter2_rung1_8
+WAIT 2.0
+PERFORM_STANDARD_CLEANUP
+FINISH_QUEST_MOVIE
+
+#### SKIP COMPASS TUTORIAL
+ID quest_tia_dalma_compass_intro_102
+FINISH_QUEST_MOVIE
+
+#### FINISH COMPASS TUTORIAL
+ID quest_tut_tia_dalma_compass_finish
+DEMO_COMPASS_ICON_HIDE
+# show gui to make sure we re-enable weapon hotkeys
+IGNORE_MAIN_MENU_KEY_OFF
+SHOW_GUI
+KICK_OUT_OF_AREA
+PERFORM_STANDARD_CLEANUP
+FINISH_QUEST_MOVIE
+
+## ID quest_tia_dalma_chapter2_rung1
+## SUBTITLE_CLEAR_CHAT
+## CLEAR_CHAT npc
+## # hide most UI, including the compass/radar
+## HIDE_GUI
+## START_LETTERBOX
+## START_INTERACT
+## LOCK_LOCALTOON
+## SUBTITLE_CHAT_CONFIRM QuestScriptTiaDalmaCh2Rung1_1
+## SUBTITLE_CHAT_CONFIRM QuestScriptTiaDalmaCh2Rung1_2
+## CREATE_MSG_PANEL 'receiveCompass' 'quest_tia_dalma_chapter2_rung1_2'
+## # show compass
+## # TODO: draw attention to the newly displayed compass
+## TOGGLE_COMPASS RECEIVE
+
+## FINISH_QUEST_MOVIE
+###########################################
+# END Tia Dalma compass tutorial
+###########################################
+
+#############################################
+# Darby Drydock ship "tutorial"
+#############################################
+ID quest_tut_darby_ship1
+HIDE_GUI
+START_NPC_INTERACT
+ENABLE_LOCKFSM
+SUBTITLE_CHAT_CONFIRM QuestScriptShipIntro
+FUNCTION npc "shipTutorialPt1"
+FINISH_QUEST_MOVIE
+
+ID quest_tut_darby_ship2
+DISABLE_LOCKFSM
+SUBTITLE_CHAT_CONFIRM QuestScriptShipFinal
+END_NPC_INTERACT
+SHOW_GUI
+FINISH_QUEST_MOVIE
+
+#############################################
+# END Darby Drydock ship "tutorial"
+#############################################
+
+ID quest_graham_marsh_part_1_before
+SUBTITLE_CLEAR_CHAT
+CLEAR_CHAT npc
+HIDE_GUI
+START_LETTERBOX
+START_INTERACT
+LOCK_LOCALTOON
+SUBTITLE_CHAT_CONFIRM QuestScriptGrahamMarsh_1b_1
+SUBTITLE_CHAT_CONFIRM QuestScriptGrahamMarsh_1b_2
+SUBTITLE_CHAT_CONFIRM QuestScriptGrahamMarsh_1b_3
+SUBTITLE_CHAT_CONFIRM QuestScriptGrahamMarsh_1b_4
+SEND_EVENT "localAvatarAcceptedQuest"
+FREE_LOCALTOON
+STOP_INTERACT
+STOP_LETTERBOX
+SHOW_GUI
+FINISH_QUEST_MOVIE
+
+ID quest_graham_marsh_part_1_after
+SUBTITLE_CLEAR_CHAT
+CLEAR_CHAT npc
+HIDE_GUI
+START_LETTERBOX
+START_INTERACT
+LOCK_LOCALTOON
+SUBTITLE_CHAT_CONFIRM QuestScriptGrahamMarsh_1a_1
+SEND_EVENT "localAvatarReturnedQuest"
+FREE_LOCALTOON
+STOP_INTERACT
+STOP_LETTERBOX
+SHOW_GUI
+FINISH_QUEST_MOVIE
+
+ID quest_graham_marsh_part_2_before
+SUBTITLE_CLEAR_CHAT
+CLEAR_CHAT npc
+HIDE_GUI
+START_LETTERBOX
+START_INTERACT
+LOCK_LOCALTOON
+SUBTITLE_CHAT_CONFIRM QuestScriptGrahamMarsh_2b_1
+SUBTITLE_CHAT_CONFIRM QuestScriptGrahamMarsh_2b_2
+SUBTITLE_CHAT_CONFIRM QuestScriptGrahamMarsh_2b_3
+SUBTITLE_CHAT_CONFIRM QuestScriptGrahamMarsh_2b_4
+SUBTITLE_CHAT_CONFIRM QuestScriptGrahamMarsh_2b_5
+SEND_EVENT "localAvatarAcceptedQuest"
+FREE_LOCALTOON
+STOP_INTERACT
+STOP_LETTERBOX
+SHOW_GUI
+FINISH_QUEST_MOVIE
+
+ID quest_graham_marsh_part_2_after
+SUBTITLE_CLEAR_CHAT
+CLEAR_CHAT npc
+HIDE_GUI
+START_LETTERBOX
+START_INTERACT
+LOCK_LOCALTOON
+SUBTITLE_CHAT_CONFIRM QuestScriptGrahamMarsh_2a_1
+SUBTITLE_CHAT_CONFIRM QuestScriptGrahamMarsh_2a_2
+SUBTITLE_CHAT_CONFIRM QuestScriptGrahamMarsh_2a_3
+SUBTITLE_CHAT_CONFIRM QuestScriptGrahamMarsh_2a_4
+SEND_EVENT "localAvatarReturnedQuest"
+FREE_LOCALTOON
+STOP_INTERACT
+STOP_LETTERBOX
+SHOW_GUI
+FINISH_QUEST_MOVIE
+
+ID quest_tut_map_teleport_intro
+CREATE_MSG_PANEL 'teleport_tut1'
+WAIT_EVENT "didSlash"
+CREATE_MSG_PANEL 'teleport_tut2'
+WAIT_EVENT "didSlash"
+CREATE_MSG_PANEL 'teleport_tut3'
+WAIT_EVENT "didSlash"
+FINISH_QUEST_MOVIE
+
+###########################################
+# Tia Dalma show voodoo doll
+###########################################
+ID quest_tia_dalma_show_voodoo_doll
+START_NPC_INTERACT
+ENABLE_LOCKFSM
+FUNCTION npc "showVoodooDollToAvatar"
+WAIT_EVENT 'doneChatPage'
+DISABLE_LOCKFSM
+END_NPC_INTERACT
+FINISH_QUEST_MOVIE

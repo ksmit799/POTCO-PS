@@ -1,10 +1,9 @@
-# File: D (Python 2.4)
-
-from direct.showbase.PythonUtil import POD, makeTuple
+from pirates.util.PythonUtilPOD import POD
+from pirates.util.PythonUtil import makeTuple
 from direct.showbase.DirectObject import DirectObject
 from direct.interval.IntervalGlobal import *
 from direct.gui.DirectGui import *
-from pandac.PandaModules import *
+from panda3d.core import *
 from pirates.piratesgui import PiratesGuiGlobals
 from pirates.piratesgui import GuiButton
 from pirates.piratesbase import PiratesGlobals
@@ -130,7 +129,7 @@ class NPCDialog(DialogProcess):
         self.dialogBox.setBin('gui-fixed', 0)
         self.nametagLabel = DirectLabel(parent = aspect2d, relief = None, text = self.npc.getName(), text_font = PiratesGlobals.getPirateFont(), text_shadow = PiratesGuiGlobals.TextShadow, text_align = TextNode.ARight, text_fg = PiratesGuiGlobals.TextFG8, text_scale = 0.055, pos = (0.29999999999999999, 0, -0.44))
         self.nametagLabel.setBin('gui-fixed', 1)
-        dialogStr = self._NPCDialog__getDialogText() + '\x7'
+        dialogStr = self._NPCDialog__getDialogText() + '\x07'
         self.dialogAnimSet = self._NPCDialog__getDialogEmotes()
         localAvatar.guiMgr.dialogSubtitler.setPageChat(dialogStr)
         self._NPCDialog__playAnimation(0)
@@ -216,7 +215,7 @@ class PlayerDialog(DialogProcess):
         self.dialogBox.setBin('gui-fixed', 0)
         self.nametagLabel = DirectLabel(parent = aspect2d, relief = None, text = localAvatar.getName(), text_font = PiratesGlobals.getPirateFont(), text_shadow = PiratesGuiGlobals.TextShadow, text_align = TextNode.ALeft, text_fg = PiratesGuiGlobals.TextFG8, text_scale = 0.055, pos = (-0.59999999999999998, 0, -0.44))
         self.nametagLabel.setBin('gui-fixed', 1)
-        dialogStr = self._PlayerDialog__getDialogText() + '\x7'
+        dialogStr = self._PlayerDialog__getDialogText() + '\x07'
         self.dialogAnimSet = self._PlayerDialog__getDialogEmotes()
         localAvatar.guiMgr.dialogSubtitler.setPageChat(dialogStr)
         self._PlayerDialog__playAnimation(0)

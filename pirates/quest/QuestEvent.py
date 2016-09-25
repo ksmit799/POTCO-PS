@@ -1,6 +1,4 @@
-# File: Q (Python 2.4)
-
-from direct.showbase.PythonUtil import POD
+from pirates.util.PythonUtilPOD import POD
 from direct.task.Task import Task
 from pirates.piratesbase import PiratesGlobals
 import random

@@ -1,7 +1,5 @@
-# File: Q (Python 2.4)
-
 from direct.directnotify import DirectNotifyGlobal
-from direct.showbase.PythonUtil import POD
+from pirates.util.PythonUtilPOD import POD
 from pirates.quest.QuestLadder import QuestLadder, QuestChoice, QuestBranch
 from pirates.quest.QuestDNA import QuestDNA
 from pirates.quest.QuestTaskDNA import VisitTaskDNA

@@ -1,7 +1,6 @@
-# File: Q (Python 2.4)
-
 from direct.directnotify.DirectNotifyGlobal import directNotify
-from direct.showbase.PythonUtil import POD, invertDict, makeTuple
+from pirates.util.PythonUtilPOD import POD
+from pirates.util.PythonUtil import invertDict, makeTuple
 from pirates.quest import QuestEvent, QuestTaskState
 from pirates.piratesbase import PLocalizer
 from pirates.pirate import AvatarTypes

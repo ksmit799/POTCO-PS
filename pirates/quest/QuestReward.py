@@ -1,7 +1,6 @@
-# File: Q (Python 2.4)
-
 import random
-from direct.showbase.PythonUtil import POD, invertDict, getSetterName
+from pirates.util.PythonUtilPOD import POD
+from pirates.util.PythonUtil import invertDict, getSetterName
 from direct.directnotify import DirectNotifyGlobal
 from pirates.quest import QuestRewardStruct
 from pirates.uberdog.UberDogGlobals import InventoryType, InventoryCategory
@@ -30,7 +29,7 @@ class QuestReward(POD):
         if amount is not None:
             kwArgs['amount'] = amount
         
-        POD.__init__(self, **None)
+        POD.__init__(self, **kwArgs)
         self.bonus = bonus
 
     

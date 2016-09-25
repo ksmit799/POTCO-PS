@@ -1,8 +1,6 @@
-# File: Q (Python 2.4)
-
 from direct.directnotify import DirectNotifyGlobal
-from direct.showbase.PythonUtil import ParamObj, makeTuple
-from direct.showbase.PythonUtil import getSetter, POD
+from pirates.util.PythonUtilPOD import ParamObj, POD
+from pirates.util.PythonUtil import makeTuple, getSetter
 from pirates.piratesbase import PLocalizer
 from pirates.quest.QuestLadder import QuestStub
 import random
@@ -53,7 +51,7 @@ class QuestDNA(ParamObj):
 
     
     def __init__(self, *args, **kwArgs):
-        ParamObj.__init__(self, *args, **args)
+        ParamObj.__init__(self, *args, **kwArgs)
         self.goal = 0
 
     
