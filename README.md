@@ -14,7 +14,7 @@ When commiting, make sure to follow the general commit format "(FILE): (COMMIT)"
 Panda3D 1.10.0 with Astron support is the game engine used by POTCO-PS. You can find the repo with build instructions [here](https://github.com/Astron/panda3d).
 
 ### Resources
-The resource files (Commonly refered to as "Phase Files") are the assets for the game (3D Models, Texture Maps, etc.) You can clone/download the repo they are stored in [here](https://github.com/ksmit799/Pirates-Online-Remake-Resources).
+The resource files (Commonly refered to as "Phase Files") are the assets for the game (3D Models, Texture Maps, etc.) You can clone/download the repo they are stored in [here](https://github.com/ksmit799/POTCO-PS-Resources).
 
 ## Usage
 In order to run the source (uncompiled) navigate to the POTCO-PS folder (Where you cloned the repo) and issue the following commands.
