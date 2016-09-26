@@ -1,7 +1,5 @@
-# Source Generated with Decompyle++
-# File: pirates/ai/NewsManager.pyc (Python 2.4)
-
-from pandac.PandaModules import *
+from panda3d.core import *
+from pirates.util.BpDb import BpDb
 from direct.distributed import DistributedObject
 from direct.directnotify import DirectNotifyGlobal
 from direct.interval.IntervalGlobal import *
@@ -125,7 +123,8 @@ class NewsManager(DistributedObject.DistributedObject):
         base.localAvatar.guiMgr.messageStack.addModalTextMessage(message, seconds = 45, priority = 0, color = PiratesGuiGlobals.TextFG14, icon = icon, modelName = 'general_frame_f')
         base.talkAssistant.receiveGameMessage(message)
 
-    displayMessage = bpdb.bpCall()(displayMessage)
+    #TODO: Fox
+    #displayMessage = BpDb.bpCall()(displayMessage)
     
     def playMusic(self, musicInfo):
         if musicInfo[-1] and not base.cr.getDo(musicInfo[-1]):
@@ -188,7 +187,6 @@ class NewsManager(DistributedObject.DistributedObject):
 
     
     def getActiveHolidayList(self):
-        continue
         return _[1]
 
     

@@ -1,5 +1,3 @@
-# File: C (Python 2.4)
-
 from direct.showbase import DirectObject
 from otp.otpbase import OTPGlobals
 import sys
@@ -146,33 +144,14 @@ class ChatInputTyped(DirectObject.DirectObject):
     def _ChatInputTyped__execMessage(self, message):
         if not ChatInputTyped.ExecNamespace:
             ChatInputTyped.ExecNamespace = { }
-            exec 'from pandac.PandaModules import *' in globals(), self.ExecNamespace
+            exec 'from panda3d.core import *' in globals(), self.ExecNamespace
             self.importExecNamespace()
-        
         
         try:
             return str(eval(message, globals(), ChatInputTyped.ExecNamespace))
         except SyntaxError:
-            
-            try:
-                exec message in globals(), ChatInputTyped.ExecNamespace
-                return 'ok'
-            exception = sys.exc_info()[0]
-            extraInfo = sys.exc_info()[1]
-            if extraInfo:
-                return str(extraInfo)
-            else:
-                return str(exception)
-
-        
-
-        exception = sys.exc_info()[0]
-        extraInfo = sys.exc_info()[1]
-        if extraInfo:
-            return str(extraInfo)
-        else:
-            return str(exception)
-
+            #TODO
+            pass
     
     def cancelButtonPressed(self):
         self.chatEntry.set('')

@@ -1,9 +1,7 @@
-# File: G (Python 2.4)
-
 import os
 import webbrowser
 from direct.gui.DirectGui import *
-from pandac.PandaModules import *
+from panda3d.core import *
 from direct.interval.IntervalGlobal import *
 from direct.showbase import DirectObject
 from direct.directnotify import DirectNotifyGlobal
@@ -2666,7 +2664,7 @@ class GuiManager(FSM.FSM):
 
     
     def setMoney(self, money):
-        self.moneyDisplay['text'] = '\x1white\x1%s\x2' % money
+        self.moneyDisplay['text'] = '\x01white\x01%s\x02' % money
 
     
     def setUIScale(self, scale):

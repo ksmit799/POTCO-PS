@@ -1,8 +1,6 @@
-# File: S (Python 2.4)
-
 from direct.directnotify.DirectNotifyGlobal import directNotify
 from direct.gui.DirectGui import *
-from pandac.PandaModules import *
+from panda3d.core import *
 from pirates.ai import HolidayGlobals
 from pirates.battle import WeaponGlobals
 from pirates.economy import EconomyGlobals

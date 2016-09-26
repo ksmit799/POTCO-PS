@@ -1,8 +1,6 @@
-# File: T (Python 2.4)
-
 from direct.directnotify.DirectNotifyGlobal import directNotify
 from direct.gui.DirectGui import *
-from pandac.PandaModules import *
+from panda3d.core import *
 from pirates.piratesgui import PiratesGuiGlobals
 from pirates.piratesgui import GuiPanel, RedeemCodeGUI
 from pirates.piratesgui import GuiButton, DialogButton
@@ -907,7 +905,7 @@ class TattooStoreGUI(DirectFrame):
     
     def setPage(self, pageName, startIndex = 0, refreshWardrobe = True):
         self.tabBar.unstash()
-        self.titleLabel['text'] = '\x1smallCaps\x1' + self.rootTitle + ' - ' + TattooZones[pageName][1] + '\x2'
+        self.titleLabel['text'] = '\x01smallCaps\x01' + self.rootTitle + ' - ' + TattooZones[pageName][1] + '\x02'
         previousPage = self.currentPage
         if self.currentPage != pageName:
             self.prevIdx = 0

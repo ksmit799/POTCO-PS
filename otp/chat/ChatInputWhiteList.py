@@ -1,5 +1,3 @@
-# File: C (Python 2.4)
-
 from direct.fsm import FSM
 from otp.otpbase import OTPGlobals
 import sys
@@ -275,33 +273,14 @@ class ChatInputWhiteList(FSM.FSM, DirectEntry):
         print '_execMessage %s' % message
         if not ChatInputTyped.ExecNamespace:
             ChatInputTyped.ExecNamespace = { }
-            exec 'from pandac.PandaModules import *' in globals(), self.ExecNamespace
+            exec 'from panda3d.core import *' in globals(), self.ExecNamespace
             self.importExecNamespace()
-        
-        
+
         try:
             return str(eval(message, globals(), ChatInputTyped.ExecNamespace))
         except SyntaxError:
-            
-            try:
-                exec message in globals(), ChatInputTyped.ExecNamespace
-                return 'ok'
-            exception = sys.exc_info()[0]
-            extraInfo = sys.exc_info()[1]
-            if extraInfo:
-                return str(extraInfo)
-            else:
-                return str(exception)
-
-        
-
-        exception = sys.exc_info()[0]
-        extraInfo = sys.exc_info()[1]
-        if extraInfo:
-            return str(extraInfo)
-        else:
-            return str(exception)
-
+            #TODO
+            pass
     
     def applyFilter(self, keyArgs, strict = False):
         text = self.get(plain = True)
@@ -326,14 +305,14 @@ class ChatInputWhiteList(FSM.FSM, DirectEntry):
                 newwords.append(word)
                 continue
             okayToSubmit = False
-            newwords.append('\x1WLEnter\x1' + word + '\x2')
+            newwords.append('\x01WLEnter\x01' + word + '\x02')
         
         if not strict:
             lastword = words[-1]
             if lastword == '' or self.whiteList.isPrefix(lastword):
                 newwords[-1] = lastword
             else:
-                newwords[-1] = '\x1WLEnter\x1' + lastword + '\x2'
+                newwords[-1] = '\x01WLEnter\x01' + lastword + '\x02'
         
         if not okayToSubmit:
             pass

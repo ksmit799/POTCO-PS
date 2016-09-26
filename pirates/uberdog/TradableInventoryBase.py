@@ -1,6 +1,4 @@
-# File: T (Python 2.4)
-
-from pandac.PandaModules import *
+from panda3d.core import *
 from pirates.uberdog.UberDogGlobals import receiveSwitchField, prepareSwitchField, InventoryType, isLocatable, GiftOrigin
 from pirates.uberdog.DistributedInventoryBase import DistributedInventoryBase
 from pirates.inventory.InventoryGlobals import *
@@ -406,13 +404,13 @@ class TradableInventoryBase(DistributedInventoryBase):
                 if currValue != currItem[currField]:
                     break
                     continue
-            elif countsOnly:
+            if countsOnly:
                 currItemType = currItem.getType()
                 itemCount = currItem.getCount()
                 if itemCount == None:
                     itemCount = 1
                 
-                if locatables.has_key(currItemType):
+                elif locatables.has_key(currItemType):
                     locatables[currItemType] += itemCount
                 else:
                     locatables[currItemType] = itemCount
@@ -624,11 +622,10 @@ class TradableInventoryBase(DistributedInventoryBase):
                 continue
         
 
-    
     def _TradableInventoryBase__runSelfTest_giving(self, itemCatFilter, itemTypeFilter = None, count = None, verbose = None):
         itemIds = ItemGlobals.getAllItemIds()
-        itemIds = filter(lambda x: if not itemTypeFilter == None:
-passitemTypeFilter == x, itemIds)
+        #itemIds = filter(lambda x: if not itemTypeFilter == None:
+#passitemTypeFilter == x, itemIds)
         for currItemId in itemIds:
             itemCat = ItemGlobals.getClass(currItemId)
             if itemCatFilter != None and itemCat != itemCatFilter:

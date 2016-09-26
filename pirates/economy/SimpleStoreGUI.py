@@ -1,8 +1,6 @@
-# File: S (Python 2.4)
-
 from direct.directnotify.DirectNotifyGlobal import directNotify
 from direct.gui.DirectGui import *
-from pandac.PandaModules import *
+from panda3d.core import *
 from pirates.ai import HolidayGlobals
 from pirates.battle import WeaponGlobals
 from pirates.economy import EconomyGlobals
@@ -936,9 +934,9 @@ class SimpleStoreGUI(DirectFrame):
         
         self.setupGrid()
         titleText = ''
-        titleText += '\x1smallCaps\x1'
+        titleText += '\x01smallCaps\x01'
         titleText += self.storeName
-        titleText += '\x2'
+        titleText += '\x02'
         self.cartFrame.nameTagLabel['text'] = titleText
         self.cartFrame.resetDecorations()
         itemIds = self.getTabItemIds(tabId)
@@ -1127,7 +1125,6 @@ class SimpleStoreGUI(DirectFrame):
     
     def getTabItemIds(self, tabId):
         allIds = self.getStockIds(self.stock)
-        continue
         tabIds = _[1]
         return tabIds
 
@@ -1187,7 +1184,6 @@ class CatalogStoreGUI(SimpleStoreGUI):
 
     
     def createTabs(self):
-        continue
         stockHolidayIds = [](_[1])
         if not stockHolidayIds:
             return None
@@ -1470,7 +1466,6 @@ class JewelryStoreGUI(SimpleStoreGUI):
     def getTabItemIds(self, tabId):
         allIds = self.getMerchandiseIds()
         tabType = SimpleJewelryItem.itemTypeFromJewelryType(tabId)
-        continue
         tabIds = _[1]
         return tabIds
 
@@ -1521,7 +1516,6 @@ class TattooStoreGUI(SimpleStoreGUI):
     def getTabItemIds(self, tabId):
         allIds = self.stock.keys()
         tabType = SimpleTattooItem.itemTypeFromTattooType(tabId)
-        continue
         tabIds = _[1]
         return tabIds
 
@@ -1671,7 +1665,6 @@ class MerchantStoreGUI(SimpleStoreGUI):
         
         if item:
             oldTasks = taskMgr.getTasksNamed('inventoryUIHideDetailsTask')
-            continue
             oldTasks = _[1]
             for tsk in oldTasks:
                 taskMgr.remove(tsk)
@@ -1700,7 +1693,6 @@ class MerchantStoreGUI(SimpleStoreGUI):
         
         if item:
             oldTasks = taskMgr.getTasksNamed('inventoryUIShowDetailsTask')
-            continue
             oldTasks = _[1]
             for tsk in oldTasks:
                 taskMgr.remove(tsk)
