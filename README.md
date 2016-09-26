@@ -2,8 +2,6 @@
 ![](https://img.shields.io/badge/VERSION-1.0.0-green.svg)
 ![](https://img.shields.io/badge/STATE-EARLY--DEV-red.svg)
 
-**Warning: This is the development (aka Master) branch. DO NOT clone from this branch when running a production server**
-
 Pirates Online - Private Server is an Astron based, open source project aiming to emulate POTCO using the 2013 source files. It's currently in early stages of development and is not yet ready for public usage.
 
 When commiting, make sure to follow the general commit format "(FILE): (COMMIT)". E.g. Lets say I fixed something within Pirates Client Repository; My commit would look like "PCR: Fixed issue in Pirates Client Repository" (Obiously you would go more in depth in the commit description)
