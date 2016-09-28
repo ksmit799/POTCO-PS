@@ -1,6 +1,4 @@
-# File: T (Python 2.4)
-
-from pandac.PandaModules import *
+from panda3d.core import *
 from direct.task import Task
 from pirates.piratesbase import PiratesGlobals
 from pirates.effects.WaterRipple2 import WaterRipple2
@@ -24,7 +22,6 @@ class TentacleUtils:
         else:
             root = self
         joints = root.findAllMatches('**/def_tent*')
-        continue
         jointList = [ (x.getName(), x) for x in joints ]
         jointList.sort()
         for i in range(len(joints) - 1):

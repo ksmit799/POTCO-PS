@@ -1,8 +1,5 @@
-# File: D (Python 2.4)
-
 import string
-from pandac.PandaModules import TextProperties
-from pandac.PandaModules import TextPropertiesManager
+from panda3d.core import TextProperties, TextPropertiesManager, VBase4
 from direct.showbase.PythonUtil import Functor
 from direct.showbase.PythonUtil import report
 from direct.directnotify import DirectNotifyGlobal
@@ -19,8 +16,8 @@ from direct.gui.OnscreenText import OnscreenText
 from direct.gui.DirectGui import DirectWaitBar, DGG
 from direct.gui.DirectGui import *
 from direct.fsm.StatePush import FunctionCall, StateVar
-from libotp import NametagGroup
-from libotp import CFSpeech, CFQuicktalker, CFTimeout
+from otp.nametag import NametagGroup
+from otp.nametag.NametagConstants import CFSpeech, CFQuicktalker, CFTimeout
 from otp.avatar.DistributedPlayer import DistributedPlayer
 from otp.otpbase import OTPLocalizer
 from otp.otpbase import OTPGlobals
@@ -93,9 +90,11 @@ from pirates.piratesgui.DialMeter import DialMeter
 from pirates.quest import QuestDB
 from pirates.piratesbase import Freebooter
 from pirates.inventory import ItemConstants
+from pirates.util.BpDb import *
 
 class bp:
-    loginCfg = bpdb.bpGroup(iff = False, cfg = 'loginCfg', static = 1)
+    bpdb = BpDb()
+    loginCfg = bpdb.bpPreset(iff = False, cfg = 'loginCfg', static = 1)
 
 
 class DistributedPlayerPirate(DistributedPirateBase, DistributedPlayer, DistributedBattleAvatar, DistributedQuestAvatar, PAvatarHandle):
@@ -568,7 +567,7 @@ class DistributedPlayerPirate(DistributedPirateBase, DistributedPlayer, Distribu
             self.injuredFrame.setLightOff()
             innerFrame = DirectFrame(parent = self.injuredFrame, relief = None, pos = (0.0, -0.029999999999999999, 0.0), image = circleBase, image_scale = 1.8, sortOrder = 2)
             icon = DirectFrame(parent = self.injuredFrame, relief = None, pos = (0.0, -0.040000000000000001, 0.0), image = injuredIcon, image_scale = 2.7000000000000002, sortOrder = 3)
-            knockoutLabel = DirectLabel(parent = self.injuredDial, relief = None, state = DGG.DISABLED, text = '\x1injuredRed\x1\n%s\x2\n' % PLocalizer.InjuredFlag, text_scale = PiratesGuiGlobals.TextScaleLarge * 5, text_align = TextNode.ACenter, text_shadow = PiratesGuiGlobals.TextShadow, text_font = PiratesGlobals.getPirateBoldOutlineFont(), pos = (0.0, 0, -0.40000000000000002), sortOrder = 4)
+            knockoutLabel = DirectLabel(parent = self.injuredDial, relief = None, state = DGG.DISABLED, text = '\x01injuredRed\x01\n%s\x02\n' % PLocalizer.InjuredFlag, text_scale = PiratesGuiGlobals.TextScaleLarge * 5, text_align = TextNode.ACenter, text_shadow = PiratesGuiGlobals.TextShadow, text_font = PiratesGlobals.getPirateBoldOutlineFont(), pos = (0.0, 0, -0.40000000000000002), sortOrder = 4)
         
         self.injuredDial.update(self.injuredTimeLeft, PiratesGlobals.REVIVE_TIME_OUT)
         self.injuredFrame.show()
@@ -1296,24 +1295,24 @@ class DistributedPlayerPirate(DistributedPirateBase, DistributedPlayer, Distribu
             if self.inPvp and self != localAvatar:
                 levelColor = self.cr.battleMgr.getExperienceColor(base.localAvatar, self)
             else:
-                levelColor = '\x1white\x1'
+                levelColor = '\x01white\x01'
             x2XPTempAwardIndicator = ''
             if self.tempDoubleXPStatus:
-                x2XPTempAwardIndicator = '\x5x2XPAwardIcon\x5'
+                x2XPTempAwardIndicator = '\x05x2XPAwardIcon\x05'
             
             if self.guildName == PLocalizer.GuildNoGuild:
-                text = '%s%s  \x1smallCaps\x1%s%s%s%s\x2\x2' % (self.title, self.name, levelColor, PLocalizer.Lv, level, x2XPTempAwardIndicator)
+                text = '%s%s  \x01smallCaps\x01%s%s%s%s\x02\x02' % (self.title, self.name, levelColor, PLocalizer.Lv, level, x2XPTempAwardIndicator)
             else:
-                text = '%s%s  \x1smallCaps\x1%s%s%s%s\x2\x2\n\x1guildName\x1%s\x2' % (self.title, self.name, levelColor, PLocalizer.Lv, level, x2XPTempAwardIndicator, guildName)
+                text = '%s%s  \x01smallCaps\x01%s%s%s%s\x02\x02\n\x01guildName\x01%s\x02' % (self.title, self.name, levelColor, PLocalizer.Lv, level, x2XPTempAwardIndicator, guildName)
             nameText['text'] = text
             if Freebooter.getPaidStatus(self.doId):
                 if self.getFounder():
                     nameText['fg'] = (1, 1, 1, 1)
                     nameText['font'] = PiratesGlobals.getPirateOutlineFont()
                     if not base.config.GetBool('want-land-infamy', 0) or base.config.GetBool('want-sea-infamy', 0):
-                        nameText['text'] = '\x5goldFounderIcon\x5 \x1goldFounder\x1%s\x2' % text
+                        nameText['text'] = '\x05goldFounderIcon\x05 \x01goldFounder\x01%s\x02' % text
                     else:
-                        nameText['text'] = '\x1goldFounder\x1%s\x2' % text
+                        nameText['text'] = '\x01goldFounder\x01%s\x02' % text
                 else:
                     nameText['fg'] = (0.40000000000000002, 0.29999999999999999, 0.94999999999999996, 1)
                     nameText['font'] = PiratesGlobals.getPirateOutlineFont()
@@ -1322,19 +1321,19 @@ class DistributedPlayerPirate(DistributedPirateBase, DistributedPlayer, Distribu
             prefix = ''
             if self.injuredSetup and 0:
                 if self.injuredTimeLeft:
-                    prefix = '\x1injuredRedTimer\x1%s\x2\x1injuredRed\x1\n%s\x2\n' % PLocalizer.InjuredFlag
+                    prefix = '\x01injuredRedTimer\x01%s\x02\x01injuredRed\x01\n%s\x02\n' % PLocalizer.InjuredFlag
                 else:
-                    prefix = '\x1injuredRed\x1%s\x2\n' % PLocalizer.InjuredFlag
+                    prefix = '\x01injuredRed\x01%s\x02\n' % PLocalizer.InjuredFlag
             elif base.cr.avatarFriendsManager.checkIgnored(self.doId):
-                prefix = '\x1ignoredPink\x1%s\x2\n' % PLocalizer.IngoredFlag
+                prefix = '\x01ignoredPink\x01%s\x02\n' % PLocalizer.IngoredFlag
             elif self.isAFK:
-                prefix = '\x1afkGray\x1%s\x2\n' % PLocalizer.AFKFlag
+                prefix = '\x01afkGray\x01%s\x02\n' % PLocalizer.AFKFlag
             elif self.getLookingForCrew():
-                prefix = '\x1crewPurple\x1%s\x2\n' % PLocalizer.CrewLookingForAd
+                prefix = '\x01crewPurple\x01%s\x02\n' % PLocalizer.CrewLookingForAd
             
             badges = ''
             if self.isConfused:
-                prefix = '\x5confusedIcon\x5\n'
+                prefix = '\x05confusedIcon\x05\n'
             elif self.badge and Freebooter.getPaidStatus(self.doId):
                 if base.config.GetBool('want-land-infamy', 0) or base.config.GetBool('want-sea-infamy', 0):
                     if self.badge[0]:
@@ -1343,13 +1342,13 @@ class DistributedPlayerPirate(DistributedPirateBase, DistributedPlayer, Distribu
                             if not Freebooter.getFounderStatus(self.doId):
                                 pass
                             else:
-                                badges += '\x1white\x1\x5badge-%s-%s\x5\x2 ' % (self.badge[0], 1)
-                                nameText['text'] = '\x1%s\x1%s\x2' % (textProp, nameText['text'])
+                                badges += '\x01white\x01\x05badge-%s-%s\x05\x02 ' % (self.badge[0], 1)
+                                nameText['text'] = '\x01%s\x01%s\x02' % (textProp, nameText['text'])
                         elif textProp:
-                            badges += '\x1white\x1\x5badge-%s-%s\x5\x2 ' % (self.badge[0], self.badge[1])
-                            nameText['text'] = '\x1%s\x1%s\x2' % (textProp, nameText['text'])
+                            badges += '\x01white\x01\x05badge-%s-%s\x05\x02 ' % (self.badge[0], self.badge[1])
+                            nameText['text'] = '\x01%s\x01%s\x02' % (textProp, nameText['text'])
                         else:
-                            badges += '\x1white\x1\x5badge-%s-%s\x5\x2 ' % (self.badge[0], self.badge[1])
+                            badges += '\x01white\x01\x05badge-%s-%s\x05\x02 ' % (self.badge[0], self.badge[1])
                     
                 
             nameText['text'] = prefix + badges + nameText['text']
@@ -1362,14 +1361,14 @@ class DistributedPlayerPirate(DistributedPirateBase, DistributedPlayer, Distribu
             if self.getCrewIcon() and not (self.gmNameTagEnabled):
                 if self.getCrewIcon() != 2:
                     oldLabelText = nameText['text']
-                    nameText['text'] = '\x1white\x1\x5crewIcon%s\x5\x2\n%s' % (self.hasCrewIcon, oldLabelText)
+                    nameText['text'] = '\x01white\x01\x05crewIcon%s\x05\x02\n%s' % (self.hasCrewIcon, oldLabelText)
                 
             
             if self.gmNameTagEnabled and self.isGM():
                 if self.getCrewIcon():
-                    nameText['text'] = '\x5gmNameTagLogo\x5\x1white\x1\x5crewIcon%s\x5\x2\n\x1%s\x1%s\x2\n%s' % (self.hasCrewIcon, self.getGMNameTagColor(), self.gmNameTagString, nameText['text'])
+                    nameText['text'] = '\x05gmNameTagLogo\x05\x01white\x01\x05crewIcon%s\x05\x02\n\x01%s\x01%s\x02\n%s' % (self.hasCrewIcon, self.getGMNameTagColor(), self.gmNameTagString, nameText['text'])
                 else:
-                    nameText['text'] = '\x5gmNameTagLogo\x5\n\x1%s\x1%s\x2\n%s' % (self.getGMNameTagColor(), self.gmNameTagString, nameText['text'])
+                    nameText['text'] = '\x05gmNameTagLogo\x05\n\x01%s\x01%s\x02\n%s' % (self.getGMNameTagColor(), self.gmNameTagString, nameText['text'])
             
         
 
@@ -3187,7 +3186,8 @@ class DistributedPlayerPirate(DistributedPirateBase, DistributedPlayer, Distribu
         print self.teleportFlags, '-' * 80
         while iter.getWord():
             if (iter & self.teleportFlags).getWord():
-                print '%-4s' % iter.getHighestOnBit()if not self.getNoTeleportString(iter):
+                print '%-4s' % iter.getHighestOnBit()
+                if not self.getNoTeleportString(iter):
                     pass
                 print self.getNoTeleportToString(iter)
             
@@ -3387,7 +3387,7 @@ class DistributedPlayerPirate(DistributedPirateBase, DistributedPlayer, Distribu
         for mod in mods:
             index = mod[0]
             length = (mod[1] - mod[0]) + 1
-            newText = text[0:index] + length * '\x7' + text[index + length:]
+            newText = text[0:index] + length * '\x07' + text[index + length:]
             text = newText
         
         words = text.split(' ')
@@ -3403,14 +3403,14 @@ class DistributedPlayerPirate(DistributedPirateBase, DistributedPlayer, Distribu
             if word == '':
                 newwords.append(word)
                 continue
-            if word[0] == '\x7':
-                newwords.append('\x1WLDisplay\x1' + random.choice(PLocalizer.WhitelistScrubList) + '\x2')
+            if word[0] == '\x07':
+                newwords.append('\x01WLDisplay\x01' + random.choice(PLocalizer.WhitelistScrubList) + '\x02')
                 scrubbed = 1
                 continue
             if base.whiteList.isWord(word):
                 newwords.append(word)
                 continue
-            newwords.append('\x1WLDisplay\x1' + word + '\x2')
+            newwords.append('\x01WLDisplay\x01' + word + '\x02')
             scrubbed = 1
         
         newText = ' '.join(newwords)

@@ -1,8 +1,6 @@
-# File: P (Python 2.4)
-
 from direct.showbase.ShowBaseGlobal import *
 from direct.gui.DirectGui import *
-from pandac.PandaModules import *
+from panda3d.core import *
 from direct.task import Task
 from otp.avatar import Avatar
 from otp.otpbase import OTPGlobals
@@ -1008,13 +1006,13 @@ class PirateProfilePage(SocialPage.SocialPage):
         elif self.guildName == '0' or self.guildName == '':
             self.guildName = PLocalizer.GuildDefaultName % self.guildId
         
-        self.guildLabel['text'] = '\x1slant\x1%s\x2' % self.guildName
+        self.guildLabel['text'] = '\x01slant\x01%s\x02' % self.guildName
         if self.accountName == '':
             self.accountLabel['text'] = self.accountName
         else:
             self.accountLabel['text'] = PLocalizer.ProfilePageAccountName % self.accountName
         self.islandLabel['text'] = self.islandName
-        self.locationLabel['text'] = '\x1slant\x1%s\x2' % self.locationName
+        self.locationLabel['text'] = '\x01slant\x01%s\x02' % self.locationName
         if self.locationName == '':
             self.islandLabel.setScale(PiratesGuiGlobals.TextScaleLarge)
             self.islandLabel.setPos(-0.46500000000000002, -0.29299999999999998)

@@ -1,9 +1,7 @@
-# File: D (Python 2.4)
-
 import random
 import re
 import imp
-from pandac.PandaModules import *
+from panda3d.core import *
 from direct.actor import *
 from direct.distributed.DistributedCartesianGrid import DistributedCartesianGrid
 from direct.task import Task
@@ -12,7 +10,7 @@ from direct.interval.IntervalGlobal import *
 from direct.gui.OnscreenText import OnscreenText
 from direct.gui.DirectGui import DGG
 from direct.distributed.StagedObject import StagedObject
-from libotp import Nametag, NametagGroup
+from otp.nametag import Nametag, NametagGroup
 from otp.otpbase import OTPGlobals
 from otp.otpbase import OTPRender
 from pirates.ai import HolidayGlobals
@@ -1333,7 +1331,6 @@ class DistributedIsland(DistributedGameArea, DistributedCartesianGrid, ZoneLOD, 
                 
             
             tsSet = lavaGeom.findAllTextureStages()
-            continue
             tsSet = [ tsSet[x] for x in range(tsSet.getNumTextureStages()) ]
             tsSet.sort(key = lambda x: x.getSort())
             if not tsSet:

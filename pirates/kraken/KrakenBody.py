@@ -1,15 +1,14 @@
-# File: K (Python 2.4)
-
 from direct.directnotify import DirectNotifyGlobal
 from otp.otpbase import OTPGlobals
 from pirates.creature.Creature import Creature
 from pirates.kraken.BodyGameFSM import BodyGameFSM
 from pirates.piratesbase import PiratesGlobals
-from pandac.PandaModules import *
+from panda3d.core import *
+from pirates.util.BpDb import *
 
 class bp:
+    bpdb = BpDb()
     kraken = bpdb.bpPreset(cfg = 'kraken', static = 1)
-
 
 class KrakenBody(Creature):
     ModelInfo = ('models/char/live_kraken_zero', 'models/char/live_kraken_zero')

@@ -1,8 +1,6 @@
-# File: D (Python 2.4)
-
 from direct.directnotify import DirectNotifyGlobal
 from direct.interval.IntervalGlobal import *
-from pandac.PandaModules import *
+from panda3d.core import *
 from pirates.battle.DistributedBattleNPC import DistributedBattleNPC
 from pirates.piratesbase import PLocalizer
 from pirates.pirate import AvatarTypes
@@ -264,7 +262,7 @@ class DistributedCreature(DistributedBattleNPC):
             name = self.name
         elif self.level:
             color = self.cr.battleMgr.getExperienceColor(base.localAvatar, self)
-            name = '%s  %s\x1smallCaps\x1%s%s\x2\x2' % (self.name, color, PLocalizer.Lv, self.level)
+            name = '%s  %s\x01smallCaps\x01%s%s\x02\x02' % (self.name, color, PLocalizer.Lv, self.level)
         else:
             name = self.name
         self.getNameText()['text'] = name

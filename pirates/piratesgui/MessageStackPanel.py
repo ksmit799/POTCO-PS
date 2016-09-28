@@ -1,11 +1,9 @@
-# File: M (Python 2.4)
-
 from direct.gui.DirectGui import DirectFrame, DirectButton, DGG, OnscreenImage
 from direct.gui.OnscreenText import OnscreenText
 from direct.interval.IntervalGlobal import *
 from direct.showbase.PythonUtil import report, Functor
 from otp.otpgui import OTPDialog
-from pandac.PandaModules import *
+from panda3d.core import *
 from pirates.piratesgui import PiratesGuiGlobals
 from pirates.piratesbase import PiratesGlobals
 from pirates.piratesgui.BorderFrame import BorderFrame
@@ -618,9 +616,9 @@ class MessageStackPanel(DirectFrame):
         if name or playerName:
             msg['text_fg'] = (0, 0, 0, 0)
             if name:
-                nameArray = ('\x1CPOrangeHEAD\x1' + name + '\x2', '\x1CPOrangeHEAD\x1' + name + '\x2', '\x1CPOrangeOVER\x1' + name + '\x2', '\x1CPOrangeHEAD\x1' + name + '\x2')
+                nameArray = ('\x01CPOrangeHEAD\x01' + name + '\x02', '\x01CPOrangeHEAD\x01' + name + '\x02', '\x01CPOrangeOVER\x01' + name + '\x02', '\x01CPOrangeHEAD\x01' + name + '\x02')
             else:
-                nameArray = ('\x1CPOrangeHEAD\x1' + playerName + '\x2', '\x1CPOrangeHEAD\x1' + playerName + '\x2', '\x1CPOrangeOVER\x1' + playerName + '\x2', '\x1CPOrangeHEAD\x1' + playerName + '\x2')
+                nameArray = ('\x01CPOrangeHEAD\x01' + playerName + '\x02', '\x01CPOrangeHEAD\x01' + playerName + '\x02', '\x01CPOrangeOVER\x01' + playerName + '\x02', '\x01CPOrangeHEAD\x01' + playerName + '\x02')
             if name:
                 nameButton = DirectButton(parent = NodePath(), relief = None, text = nameArray, text_align = TextNode.ALeft, text_shadow = PiratesGuiGlobals.TextShadow, textMayChange = 0, command = self.handleAvatarTextPress, extraArgs = [
                     avId,
@@ -632,9 +630,9 @@ class MessageStackPanel(DirectFrame):
             (left, right, bottom, top) = nameButton.getBounds()
             nameGFX = TextGraphic(nameButton, left, right, 0, 1)
             if name:
-                buttonName = '\x5' + name + '\x5'
+                buttonName = '\x05' + name + '\x05'
             else:
-                buttonName = '\x5' + playerName + '\x5'
+                buttonName = '\x05' + playerName + '\x05'
             buttonText = buttonText % buttonName
             tpMgr = TextPropertiesManager.getGlobalPtr()
             if name:
@@ -670,13 +668,13 @@ class MessageStackPanel(DirectFrame):
         msg = ModalStackMessage(parent = self, buttonStyle = buttonStyle, noCallback = noCallback, yesCallback = yesCallback, cancelCallback = cancelCallback, text = text, text_wordwrap = 15.5, text_align = TextNode.ALeft, text_scale = 0.035000000000000003, text_fg = color, text_pos = (0.17000000000000001, -0.071999999999999995, 0), textMayChange = 1, time = seconds, priority = priority, icon = icon, modelName = modelName)
         if name:
             msg['text_fg'] = (0, 0, 0, 0)
-            nameArray = ('\x1CPOrangeHEAD\x1' + name + '\x2', '\x1CPOrangeHEAD\x1' + name + '\x2', '\x1CPOrangeOVER\x1' + name + '\x2', '\x1CPOrangeHEAD\x1' + name + '\x2')
+            nameArray = ('\x01CPOrangeHEAD\x01' + name + '\x02', '\x01CPOrangeHEAD\x01' + name + '\x02', '\x01CPOrangeOVER\x01' + name + '\x02', '\x01CPOrangeHEAD\x01' + name + '\x02')
             nameButton = DirectButton(parent = NodePath(), relief = None, text = nameArray, text_align = TextNode.ALeft, text_shadow = PiratesGuiGlobals.TextShadow, textMayChange = 0, command = self.handleAvatarModalPress, extraArgs = [
                 avId,
                 name])
             (left, right, bottom, top) = nameButton.getBounds()
             nameGFX = TextGraphic(nameButton, left, right, 0, 1)
-            buttonName = '\x5' + name + '\x5'
+            buttonName = '\x05' + name + '\x05'
             buttonText = text % buttonName
             tpMgr = TextPropertiesManager.getGlobalPtr()
             tpMgr.setGraphic(name, nameGFX)

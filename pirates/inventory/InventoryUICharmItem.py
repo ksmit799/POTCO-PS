@@ -1,7 +1,5 @@
-# File: I (Python 2.4)
-
 from direct.gui.DirectGui import *
-from pandac.PandaModules import *
+from panda3d.core import *
 from pirates.piratesgui import GuiPanel, PiratesGuiGlobals
 from pirates.piratesbase import PiratesGlobals
 from pirates.piratesbase import PLocalizer
@@ -158,7 +156,7 @@ class InventoryUICharmItem(InventoryUIItem.InventoryUIItem):
         runningVertPosition -= tHeight
         runningSize += tHeight
         labels.append(titleLabel)
-        subtitleLabel = DirectLabel(parent = self, relief = None, text = '\x1slant\x1%s %s\x2' % (rarityText, subtypeText), text_scale = subtitleScale, text_fg = PiratesGuiGlobals.TextFG2, text_shadow = PiratesGuiGlobals.TextShadow, text_align = TextNode.ACenter, pos = (0.0, 0.0, runningVertPosition), text_pos = (0.0, -textScale))
+        subtitleLabel = DirectLabel(parent = self, relief = None, text = '\x01slant\x01%s %s\x02' % (rarityText, subtypeText), text_scale = subtitleScale, text_fg = PiratesGuiGlobals.TextFG2, text_shadow = PiratesGuiGlobals.TextShadow, text_align = TextNode.ACenter, pos = (0.0, 0.0, runningVertPosition), text_pos = (0.0, -textScale))
         subtHeight = 0.050000000000000003
         subtitleLabel.setZ(subtHeight * 0.5 + runningVertPosition)
         runningVertPosition -= subtHeight

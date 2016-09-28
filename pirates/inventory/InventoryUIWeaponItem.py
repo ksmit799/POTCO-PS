@@ -1,7 +1,5 @@
-# File: I (Python 2.4)
-
 from direct.gui.DirectGui import *
-from pandac.PandaModules import *
+from panda3d.core import *
 from pirates.piratesgui import GuiPanel, PiratesGuiGlobals
 from pirates.piratesbase import PiratesGlobals
 from pirates.piratesbase import PLocalizer
@@ -196,7 +194,7 @@ class InventoryUIWeaponItem(InventoryUIItem.InventoryUIItem):
         runningVertPosition -= tHeight
         runningSize += tHeight
         labels.append(titleLabel)
-        subtitleLabel = DirectLabel(parent = self, relief = None, text = '\x1slant\x1%s %s\x2' % (rarityText, subtypeText), text_scale = subtitleScale, text_fg = PiratesGuiGlobals.TextFG2, text_shadow = PiratesGuiGlobals.TextShadow, text_align = TextNode.ACenter, pos = (0.0, 0.0, runningVertPosition), text_pos = (0.0, -textScale))
+        subtitleLabel = DirectLabel(parent = self, relief = None, text = '\x01slant\x01%s %s\x02' % (rarityText, subtypeText), text_scale = subtitleScale, text_fg = PiratesGuiGlobals.TextFG2, text_shadow = PiratesGuiGlobals.TextShadow, text_align = TextNode.ACenter, pos = (0.0, 0.0, runningVertPosition), text_pos = (0.0, -textScale))
         subtHeight = 0.050000000000000003
         subtitleLabel.setZ(subtHeight * 0.5 + runningVertPosition)
         runningVertPosition -= subtHeight
@@ -265,10 +263,10 @@ class InventoryUIWeaponItem(InventoryUIItem.InventoryUIItem):
         
         goldLabel = DirectLabel(parent = self, relief = None, image = coinImage, image_scale = 0.12, image_pos = Vec3(0.025000000000000001, 0, -0.02), text = str(itemCost), text_scale = subtitleScale, text_align = TextNode.ARight, text_fg = PiratesGuiGlobals.TextFG1, text_shadow = PiratesGuiGlobals.TextShadow, pos = (halfWidth - 0.050000000000000003, 0.0, runningVertPosition + 0.080000000000000002), text_pos = (0.0, -textScale))
         labels.append(goldLabel)
-        infoText = PLocalizer.ItemAttackStrength % '\x1%s\x1%s\x2' % (itemColor, ItemGlobals.getPower(itemId))
+        infoText = PLocalizer.ItemAttackStrength % '\x01%s\x01%s\x02' % (itemColor, ItemGlobals.getPower(itemId))
         if itemType == ItemGlobals.GUN:
-            infoText += '     %s' % PLocalizer.ItemBarrels % '\x1%s\x1%s\x2' % (itemColor, ItemGlobals.getBarrels(itemId))
-            infoText += '     %s' % PLocalizer.ItemRangeStrength % '\x1%s\x1%s\x2' % (itemColor, PLocalizer.getItemRangeName(WeaponGlobals.getRange(itemId)))
+            infoText += '     %s' % PLocalizer.ItemBarrels % '\x01%s\x01%s\x02' % (itemColor, ItemGlobals.getBarrels(itemId))
+            infoText += '     %s' % PLocalizer.ItemRangeStrength % '\x01%s\x01%s\x02' % (itemColor, PLocalizer.getItemRangeName(WeaponGlobals.getRange(itemId)))
         
         infoLabel = DirectLabel(parent = self, relief = None, text = infoText, text_scale = textScale, text_align = TextNode.ACenter, pos = (0.0, 0.0, runningVertPosition), text_pos = (0.0, -textScale))
         iHeight = 0.080000000000000002

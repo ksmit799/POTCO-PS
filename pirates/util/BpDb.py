@@ -184,6 +184,7 @@ class BpDb:
         self.lastBp = None
         self.pdbAliases = {}
         self.configCallback = None
+        self.setEnabledCallback(self.configCallback)
 
     def setEnabledCallback(self, callback):
         self.enabledCallback = callback
