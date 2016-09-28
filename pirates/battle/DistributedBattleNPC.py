@@ -1,5 +1,3 @@
-# File: D (Python 2.4)
-
 from direct.interval.IntervalGlobal import *
 from direct.directnotify import DirectNotifyGlobal
 from direct.distributed.ClockDelta import *
@@ -319,7 +317,8 @@ class DistributedBattleNPC(DistributedBattleAvatar):
                 
                 try:
                     eval('self.' + self.questMod[0] + '(' + self.questMod[1] + ')')
-                self.notify.warning('error executing npc mod funcion %s for quest %s' % (self.questMod, self._associatedQuests))
+                except:
+                    self.notify.warning('error executing npc mod funcion %s for quest %s' % (self.questMod, self._associatedQuests))
 
             
         

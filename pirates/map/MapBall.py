@@ -1,14 +1,12 @@
-# File: M (Python 2.4)
-
-from pandac.PandaModules import *
-from direct.showbase.PythonUtil import clampScalar
+from panda3d.core import *
+from pirates.util.PythonUtilPOD import clampScalar
 from pirates.map.ArcBall import ArcBall
 import math
 
 class MapBall(ArcBall):
     
     def __init__(self, name, worldMap, maxTilt = math.pi / 4, mapSize = 2.0, *args, **kwargs):
-        ArcBall.__init__(self, name, *args, **args)
+        ArcBall.__init__(self, name, *args, **kwargs)
         self.worldMap = worldMap
         maxTilt = clampScalar(0, math.pi / 4.0, maxTilt)
         _maxDist = math.tan(maxTilt * 2)
@@ -40,6 +38,12 @@ class MapBall(ArcBall):
 
     
     def _loadModels(self):
+        self._models = {
+            'globe': loader.loadModel('models/worldmap/world_map_globe') }
+        self.attachForRotation(self._models['globe'])
+        self._models['globe'].setBin('background', 0)
+        self._models['globe'].setDepthWrite(0)
+        '''
         self._modelInfo = {
             'globe': 'models/worldmap/world_map_globe' }
         self._models = dict(zip(self._modelInfo, lambda [outmost-iterable]: for name in [outmost-iterable]:
@@ -47,5 +51,5 @@ loader.loadModel(self._modelInfo[name])(self._modelInfo)))
         self.attachForRotation(self._models['globe'])
         self._models['globe'].setBin('background', 0)
         self._models['globe'].setDepthWrite(0)
-
+        '''
 

@@ -1,6 +1,4 @@
-# File: M (Python 2.4)
-
-from pandac.PandaModules import *
+from panda3d.core import *
 from direct.gui.OnscreenText import OnscreenText
 from direct.gui.DirectGui import DirectButton
 from direct.showbase.PythonUtil import Enum
@@ -16,11 +14,11 @@ from pirates.ship.ShipMeter import ShipMeter
 class Item(NodePath):
     
     def __init__(self, name, *args, **kwargs):
-        NodePath.__init__(self, name, *args, **args)
+        NodePath.__init__(self, name, *args, **kwargs)
 
     
     def setPosition(self, worldNorth, *args, **kwargs):
-        self.setPos(*args, **args)
+        self.setPos(*args, **kwargs)
 
     
     def setRotation(self, worldNorth, rotation):
@@ -35,7 +33,7 @@ class Item(NodePath):
 class Billboard(Item):
     
     def __init__(self, name, nodePath = NodePath(), *args, **kwargs):
-        Item.__init__(self, name, *args, **args)
+        Item.__init__(self, name, *args, **kwargs)
         self._initBillboard(nodePath)
         self.setBin('fixed', 100)
         self.setDepthTest(0)
@@ -54,7 +52,7 @@ class Billboard(Item):
 class Spline(Item):
     
     def __init__(self, name, verts, *args, **kwargs):
-        Item.__init__(self, name, *args, **args)
+        Item.__init__(self, name, *args, **kwargs)
         self.name = name
         self.verts = verts
         self._initRope()
@@ -154,7 +152,7 @@ class Ship(Item):
         self.shipModel.reparentTo(self)
         self.shipModel.setScale(0.13)
         self.shipModel.setTwoSided(1)
-        formattedName = '\x1smallCaps\x1\x1slant\x1' + name.replace(' ', '\n') + '\x2\x2'
+        formattedName = '\x01smallCaps\x01\x01slant\x01' + name.replace(' ', '\n') + '\x02\x02'
         self.text = Text(name + '-text', NodePath(), 0.0, formattedName, 0, scale = 0.017000000000000001)
         self.text.reparentTo(self)
         if self.shipModel.getBounds().isEmpty():
@@ -314,7 +312,7 @@ class TextIsland(Island):
                 out = '%s\n%s' % (out, token)
             
             out.strip()
-            return '\x1smallCaps\x1%s\x2' % (out,)
+            return '\x01smallCaps\x01%s\x02' % (out,)
 
         formattedName = formatName(self.name, 10)
         self.text = Text(name + '-text', nodePath, offset, formattedName, stencilId)
@@ -509,7 +507,7 @@ class OceanAreaText(Text):
         for l in range(len(name)):
             text = text + name[l] + ' '
         
-        text = '\x1slant\x1\x1smallCaps\x1' + text + '\x2\x2'
+        text = '\x01slant\x01\x01smallCaps\x01' + text + '\x02\x02'
         Text.__init__(self, name, NodePath(), 0, text, 0, 0.017000000000000001)
         self.uid = areaUid
         self.fadeIval = None

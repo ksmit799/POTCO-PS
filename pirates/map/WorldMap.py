@@ -1,7 +1,6 @@
-# File: W (Python 2.4)
-
-from pandac.PandaModules import *
-from direct.showbase.PythonUtil import clampScalar, lerp, report
+from panda3d.core import *
+from pirates.util.PythonUtilPOD import clampScalar
+from pirates.util.PythonUtil import lerp, report
 from direct.interval.IntervalGlobal import Sequence, Parallel, LerpFunc, Func, Wait
 from direct.gui.DirectGui import DirectFrame, DirectButton, DGG
 from pirates.map.SceneBuffer import SceneBuffer
@@ -30,7 +29,6 @@ class WorldMap(DirectFrame):
         self.camY = [
             -0.29999999999999999,
             0.25]
-        continue
         self.tiltLimit = [ x * math.pi / 180 for x in (27, 33) ]
         self.mapBall = DecoratedMapBall('WorldMapArcBall', self, self.tiltLimit[1], mapSize = 242000, radius = self.radius, scrollFactor = 0.125, camera = b.camera, keepUpright = 1, mouseDownEvent = self.getMouseDownEvent(), mouseUpEvent = self.getMouseUpEvent())
         self.render = b.getSceneRoot()

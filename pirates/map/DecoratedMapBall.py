@@ -1,7 +1,6 @@
-# File: D (Python 2.4)
-
-from pandac.PandaModules import *
-from direct.showbase.PythonUtil import clampScalar, report
+from panda3d.core import *
+from pirates.util.PythonUtilPOD import clampScalar
+from pirates.util.PythonUtil import report
 from direct.task.Task import Task
 from direct.directnotify.DirectNotifyGlobal import directNotify
 from pirates.map.MapBall import MapBall
