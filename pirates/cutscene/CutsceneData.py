@@ -1,6 +1,4 @@
-# File: C (Python 2.4)
-
-from direct.showbase.PythonUtil import POD
+from pirates.util.PythonUtilPOD import POD
 from pirates.cutscene.CutsceneActor import *
 from pirates.pirate.AvatarTypes import *
 from pirates.ship import ShipGlobals
@@ -569,7 +567,7 @@ class CutsceneDesc(POD):
         'focalLength': 30 }
     
     def __init__(self, *args, **kwArgs):
-        POD.__init__(self, *args, **args)
+        POD.__init__(self, *args, **kwArgs)
         self.filename = CutsceneFilenames[self.id]
 
 

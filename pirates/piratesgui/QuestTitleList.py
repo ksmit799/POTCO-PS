@@ -1,7 +1,5 @@
-# File: Q (Python 2.4)
-
 from direct.gui.DirectGui import *
-from pandac.PandaModules import *
+from panda3d.core import *
 from pirates.piratesgui import PiratesGuiGlobals
 from pirates.piratesgui import InventoryItemGui
 from pirates.piratesbase import PiratesGlobals
@@ -268,7 +266,7 @@ class QuestTitleList(DirectScrolledFrame):
             else:
                 text += questId
         elif indent == 0:
-            format = '\x1questTitle2\x1%s\x2'
+            format = '\x01questTitle2\x01%s\x02'
         else:
             format = '%s'
         localizerText = PLocalizer.QuestStrings.get(questId)
@@ -289,10 +287,10 @@ class QuestTitleList(DirectScrolledFrame):
             if quest and quest.getTasks() and not filter(lambda x: isinstance(quest.getTasks()[0], x), [
                 VisitTaskDNA,
                 DeliverItemTaskDNA]):
-                text += '   \x1questComplete\x1' + PLocalizer.QuestTitleComplete + '\x2'
+                text += '   \x01questComplete\x01' + PLocalizer.QuestTitleComplete + '\x02'
             
         elif not container.viewedInGUI:
-            text += '   \x1questNew\x1' + PLocalizer.QuestTitleNew + '\x2'
+            text += '   \x01questNew\x01' + PLocalizer.QuestTitleNew + '\x02'
         elif not isContainer:
             progressList = container.getTaskProgress()
             for prog in progressList:
@@ -301,35 +299,32 @@ class QuestTitleList(DirectScrolledFrame):
                 if progress < goal:
                     quest = localAvatar.getQuestById(container.getQuestId())
                     if goal > 1 and quest and quest.getTasks() and not isinstance(quest.getTasks()[0], DowsingRodTaskDNA):
-                        text += '   \x1questPercent\x1%d of %d\x2' % (progress, goal)
+                        text += '   \x01questPercent\x01%d of %d\x02' % (progress, goal)
                     
                 not isinstance(quest.getTasks()[0], DowsingRodTaskDNA)
-                text += '   \x1questComplete\x1' + PLocalizer.QuestTitleComplete + '\x2'
+                text += '   \x01questComplete\x01' + PLocalizer.QuestTitleComplete + '\x02'
             
         elif container.isChoice():
             (count, total, length) = container.getProgress(showComplete = True)
             if total == length:
-                text += '   \x1questPercent\x1%d of %d\x2' % (count, total)
+                text += '   \x01questPercent\x01%d of %d\x02' % (count, total)
             else:
-                text += '   \x1questPercent\x1%d of %d (of %d)\x2' % (count, total, length)
-            format = ' \x1questPercent\x1%s\x2'
+                text += '   \x01questPercent\x01%d of %d (of %d)\x02' % (count, total, length)
+            format = ' \x01questPercent\x01%s\x02'
             if localizerText:
                 text += format % localizerText.get('items', 'Items')
             else:
                 text += format % 'Items'
         else:
-            for None in localAvatar.getQuests():
-                quest = None
-                if container.hasQuest(quest.getQuestId()):
-                    questId = quest.getQuestId()
-                    break
-                    continue
+            quest = None
+            if container.hasQuest(quest.getQuestId()):
+                questId = quest.getQuestId()
             
             (compCont, cont) = QuestLadderDB.getPercentComplete(container.getName(), questId)
             compNum = 0
             if compCont > 0 and cont > 0:
                 compNum = int((float(compCont) / float(cont)) * 100.0)
-                text += '   \x1questPercent\x1%d%%\x2' % compNum
+                text += '   \x01questPercent\x01%d%%\x02' % compNum
             
         return text
 

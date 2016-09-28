@@ -1,6 +1,4 @@
-# File: E (Python 2.4)
-
-from pandac.PandaModules import *
+from panda3d.core import *
 from direct.interval.IntervalGlobal import *
 from direct.showbase.DirectObject import *
 from pirates.mockup import PythonNodePath
@@ -31,6 +29,7 @@ from pirates.effects import CausticsProjector
 from pirates.effects import ExplodingBarrel
 from pirates.world import WorldGlobals
 from pirates.piratesbase import PLocalizerEnglish
+from pirates.piratesbase import PLocalizer
 LOD_STATE_NORMAL = 0
 LOD_STATE_HIGH = 1
 LOD_STATE_LOW = 2
@@ -266,9 +265,9 @@ def getShipEnumerations():
     shipClasses = ShipGlobals.__shipConfigs.keys()
     shipClasses.sort()
     for shipClass in shipClasses:
-        shipStr = str(shipClass) + ': ' + PLocalizerEnglish.ShipClassNames[shipClass]
+        shipStr = str(shipClass) + ': ' + PLocalizer.ShipClassNames[shipClass]
         enums.append(shipStr)
-    
+
     return enums
 
 
@@ -276,16 +275,14 @@ def getStyleEnumerations():
     styleInfo = PLocalizerEnglish.ShipStyleNames
     styles = styleInfo.keys()
     styles.sort()
-    continue
-    return _[1] + [ str(x) + ': ' + styleInfo[x] for x in styles ]
+    return [1] + [ str(x) + ': ' + styleInfo[x] for x in styles ]
 
 
 def getLogoEnumerations():
     logoInfo = PLocalizerEnglish.ShipLogoNames
     logos = logoInfo.keys()
     logos.sort()
-    continue
-    return _[1] + [ str(x) + ': ' + logoInfo[x] for x in logos ]
+    return [1] + [ str(x) + ': ' + logoInfo[x] for x in logos ]
 
 
 def getShipInfo(objectData):

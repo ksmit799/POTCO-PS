@@ -1,9 +1,7 @@
-# File: S (Python 2.4)
-
 from direct.showbase import DirectObject
 from direct.gui.DirectGui import *
 from direct.task.Task import Task
-from pandac.PandaModules import *
+from panda3d.core import *
 from pirates.piratesbase import PLocalizer
 from pirates.piratesgui import PiratesGuiGlobals
 from pirates.piratesgui.BorderFrame import BorderFrame
@@ -180,7 +178,7 @@ class SkillpageGuiButton(DirectButton):
         
         skillInfo = PLocalizer.SkillDescriptions.get(self.skillId)
         skillTitle = PLocalizer.InventoryTypeNames.get(self.skillId)
-        skillType = '\x1slant\x1' + skillInfo[0] + '\x2\n\n'
+        skillType = '\x01slant\x01' + skillInfo[0] + '\x02\n\n'
         description = skillInfo[1]
         if damage < 0:
             description += ' ' + PLocalizer.DealsDamage
@@ -245,7 +243,7 @@ class SkillpageGuiButton(DirectButton):
         if self.skillId in SkillComboReq and SkillComboReq[self.skillId] and self.skillRank <= 1:
             description += ' ' + SkillComboReq[self.skillId]
         
-        skillDesc = '\x1gold\x1\x1smallCaps\x1' + skillTitle + '\x2\x2\n' + skillType + description + '\n\x1green\x1' + upgradeInfo + '\x2'
+        skillDesc = '\x01gold\x01\x01smallCaps\x01' + skillTitle + '\x02\x02\n' + skillType + description + '\n\x01green\x01' + upgradeInfo + '\x02'
         stats = []
         if manaCost:
             stats.append(abs(manaCost))
@@ -304,7 +302,7 @@ class SkillpageGuiButton(DirectButton):
         
         stats = tuple(stats)
         if self.skillRank:
-            self.rankText = DirectFrame(parent = self, relief = None, text = ('\x1gold\x1\x1smallCaps\x1' + PLocalizer.Rank + ' %d' + '\x2\x2') % self.skillRank, text_align = TextNode.ARight, text_scale = PiratesGuiGlobals.TextScaleSmall, text_fg = PiratesGuiGlobals.TextFG2, text_wordwrap = 15, text_shadow = (0, 0, 0, 1), pos = (0.45000000000000001, 0, 0), textMayChange = 1, sortOrder = 92, state = DGG.DISABLED)
+            self.rankText = DirectFrame(parent = self, relief = None, text = ('\x01gold\x01\x01smallCaps\x01' + PLocalizer.Rank + ' %d' + '\x02\x02') % self.skillRank, text_align = TextNode.ARight, text_scale = PiratesGuiGlobals.TextScaleSmall, text_fg = PiratesGuiGlobals.TextFG2, text_wordwrap = 15, text_shadow = (0, 0, 0, 1), pos = (0.45000000000000001, 0, 0), textMayChange = 1, sortOrder = 92, state = DGG.DISABLED)
         
         self.helpText = DirectFrame(parent = self, relief = None, text = skillDesc % stats, text_align = TextNode.ALeft, text_scale = PiratesGuiGlobals.TextScaleSmall, text_fg = PiratesGuiGlobals.TextFG2, text_wordwrap = 15, text_shadow = (0, 0, 0, 1), textMayChange = 1, sortOrder = 91, state = DGG.DISABLED)
         height = -(self.helpText.getHeight() + 0.01)

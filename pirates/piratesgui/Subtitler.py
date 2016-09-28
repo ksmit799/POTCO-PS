@@ -1,7 +1,5 @@
-# File: S (Python 2.4)
-
 from direct.gui.DirectGui import *
-from pandac.PandaModules import *
+from panda3d.core import *
 from direct.showbase import DirectObject
 from direct.interval.IntervalGlobal import *
 from pirates.piratesbase import PLocalizer
@@ -86,7 +84,7 @@ class Subtitler(DirectObject.DirectObject):
 
     
     def _Subtitler__processChatMessage(self, message):
-        self._Subtitler__chatPages = message.split('\x7')
+        self._Subtitler__chatPages = message.split('\x07')
         self._Subtitler__chatMessage = message
         self._Subtitler__chatSet = 0
         self._Subtitler__chatPageNumber = 0

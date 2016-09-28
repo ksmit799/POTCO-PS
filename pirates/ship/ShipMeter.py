@@ -107,19 +107,18 @@ class ShipMeter(DirectObject, NodePath):
         self.modelRoot = self.attachNewNode('modelRoot')
         if not (self.shipSailPattern) and not (self.shipHullType) or not (self.shipRiggingType):
             shipOVs = base.cr.getOwnerViewDoList(DistributedPlayerSimpleShipOV)
-            continue
             shipOVs = _[1]
             for currShipOV in shipOVs:
                 self.shipSailPattern = currShipOV.customSailPattern
                 self.shipHullType = currShipOV.customHull
                 self.shipRiggingType = currShipOV.customRigging
+                continue
             
         
         if shipClass and mastInfo:
             self.setShipInfo(shipClass, mastInfo)
         elif self.shipId:
             shipOVs = base.cr.getOwnerViewDoList(DistributedPlayerSimpleShipOV)
-            continue
             shipOVs = _[1]
             for currShipOV in shipOVs:
                 self.setHullType(currShipOV.shipClass)
@@ -165,7 +164,6 @@ class ShipMeter(DirectObject, NodePath):
     def shipCustomColor(self, info = None):
         if self.shipId:
             shipOVs = base.cr.getOwnerViewDoList(DistributedPlayerSimpleShipOV)
-            continue
             shipOVs = _[1]
             for currShipOV in shipOVs:
                 self.shipSailPattern = currShipOV.customSailPattern

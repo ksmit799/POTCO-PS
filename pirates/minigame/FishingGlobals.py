@@ -1,6 +1,4 @@
-# File: F (Python 2.4)
-
-from pandac.PandaModules import Vec3, Vec4, Point3
+from panda3d.core import Vec3, Vec4, Point3
 from pirates.inventory import ItemGlobals
 from pirates.piratesbase import PLocalizer
 from pirates.uberdog.UberDogGlobals import InventoryType
@@ -1206,7 +1204,6 @@ for fish in allFishData:
 
 def giveMeAFish(location, depth, fishHisto):
     rarity = DropGlobals.rollDistribution(fishRarityDistribution)
-    continue
     potentialFish = _[1]
     if potentialFish:
         return random.choice(potentialFish)
@@ -1214,7 +1211,7 @@ def giveMeAFish(location, depth, fishHisto):
     for x in range(3):
         if x != rarity:
             continue
-        _[1][x]
+        [1][x]
         continue
     
 
@@ -1238,10 +1235,8 @@ def getFishData(collectionId):
 def inFishingCollection(value):
     return value in CollectionToData
 
-continue
-legendaryFishDistribution = _[1]([ x['chanceThisFishAppears'] for x in legendaryFishData ], legendaryFishData)
-continue
-modelToLegendaryFishData = _[1]([ (x['model'], x) for x in legendaryFishData ])
+legendaryFishDistribution = ([ x['chanceThisFishAppears'] for x in legendaryFishData ], legendaryFishData)
+modelToLegendaryFishData = ([ (x['model'], x) for x in legendaryFishData ])
 
 def getALegendaryFish(model = None):
     if model:

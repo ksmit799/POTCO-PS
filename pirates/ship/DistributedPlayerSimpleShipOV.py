@@ -58,9 +58,7 @@ class DistributedPlayerSimpleShipOV(DistributedObjectOV.DistributedObjectOV, Tea
 
     
     def updateLocalHealth(self):
-        continue
         self.mastHealth = [ x[0] * (x[1] / 100.0) for x in zip(self.maxMastHealth, self.mastStates) ]
-        continue
         self.armor = [ x[0] * (x[1] / 100.0) for x in zip(self.maxArmor, self.armorStates) ]
         self.Hp = self.maxHp * (self.healthState / 100.0)
         self.Sp = sum(self.mastHealth)

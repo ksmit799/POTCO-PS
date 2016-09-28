@@ -1,6 +1,4 @@
-# File: O (Python 2.4)
-
-from pandac.PandaModules import VBase3
+from panda3d.core import VBase3
 from pirates.npc import Skeleton
 from pirates.npc import Townfolk
 from pirates.npc import NavySailor
@@ -148,20 +146,26 @@ GHOST_COLORS = [
     '0.0,1.0,1.0']
 from pirates.leveleditor.LevelEntity import LevelEntity
 from pirates.effects.AmbientSoundFX import AmbientSoundFX
+
 ENTITY_DICT = {
     'LevelEntity': LevelEntity,
     'AmbientSoundFX': AmbientSoundFX }
-continue
+#TODO: Fix
+'''
 PROP_UI_COMBO[[]] = [
-    _[1],
+    [1],
     [ x for x in range(-1, 10) ] + [
         26,
         28,
         30]]
-'Properties'['Defaults'] = {
+'''
+Properties = {}
+PlayerSpawnNode = {}
+CellIndex = {}
+Properties['Defaults'] = {
     'Spawnables': 'All',
     'Index': -1 }
-'Player Spawn Node'['Player Boot Node'] = {
+PlayerSpawnNode['Player Boot Node'] = {
     'NonRpmNode': 1,
     'Create': None,
     'Raycast': 1,
@@ -177,7 +181,7 @@ PROP_UI_COMBO[[]] = [
             PROP_UI_ENTRY] },
     'Defaults': {
         'AreaUid': '' } }
-'Player Spawn Node'['Quest Node'] = {
+PlayerSpawnNode['Quest Node'] = {
     'NonRpmNode': 1,
     'Create': None,
     'Raycast': 1,
@@ -246,7 +250,7 @@ PROP_UI_COMBO[[]] = [
                 -500,
                 1],
             'self.updateQuestNodeVis'] } }
-'Player Spawn Node'['Harbor Node'] = {
+PlayerSpawnNode['Harbor Node'] = {
     'NonRpmNode': 1,
     'Create': None,
     'Raycast': 1,
@@ -289,7 +293,7 @@ PROP_UI_COMBO[[]] = [
     'Defaults': {
         'SubType': 'Ship Spawn',
         'Station': '0' } }
-'Player Spawn Node'['Ship Movement Node'] = {
+PlayerSpawnNode['Ship Movement Node'] = {
     'NonRpmNode': 1,
     'Create': None,
     'Raycast': 1,
@@ -308,7 +312,7 @@ PROP_UI_COMBO[[]] = [
         'Models': [
             'models/misc/smiley'],
         'Offset': (0, 0, 1.0) } }
-'Player Spawn Node'['Ship Spawn Node'] = {
+PlayerSpawnNode['Ship Spawn Node'] = {
     'NonRpmNode': 1,
     'Create': None,
     'Raycast': 1,
@@ -345,7 +349,7 @@ PROP_UI_COMBO[[]] = [
         'Spawnables': 'MERCHANTL1',
         'Level': '3',
         'Flagship': False } }
-'Player Spawn Node'['Cannon Defense Movement Node'] = {
+PlayerSpawnNode['Cannon Defense Movement Node'] = {
     'NonRpmNode': 1,
     'Create': None,
     'Raycast': 1,
@@ -372,7 +376,7 @@ PROP_UI_COMBO[[]] = [
         'Models': [
             'models/misc/smiley'],
         'Offset': (0, 0, 1.0) } }
-'Player Spawn Node'['Spawn Node'] = {
+PlayerSpawnNode['Spawn Node'] = {
     'NonRpmNode': 1,
     'Create': None,
     'Raycast': 1,
@@ -553,7 +557,7 @@ PROP_UI_COMBO[[]] = [
         'spawnTimeBegin': 0.0,
         'spawnTimeEnd': 0.0,
         'Start State': 'Patrol' } }
-'Player Spawn Node'['Dormant NPC Spawn Node'] = {
+PlayerSpawnNode['Dormant NPC Spawn Node'] = {
     'NonRpmNode': 1,
     'Create': None,
     'Raycast': 1,
@@ -726,7 +730,7 @@ PROP_UI_COMBO[[]] = [
         'Pause Duration': 30,
         'Pause Chance': 100,
         'Start State': 'Patrol' } }
-'Player Spawn Node'['Invasion NPC Spawn Node'] = {
+PlayerSpawnNode['Invasion NPC Spawn Node'] = {
     'NonRpmNode': 1,
     'Create': None,
     'Raycast': 1,
@@ -888,7 +892,7 @@ PROP_UI_COMBO[[]] = [
         'Pause Duration': 30,
         'Pause Chance': 100,
         'Start State': 'Patrol' } }
-'Player Spawn Node'['Cutscene Origin Node'] = {
+PlayerSpawnNode['Cutscene Origin Node'] = {
     'NonRpmNode': 1,
     'Create': None,
     'Raycast': 1,
@@ -905,7 +909,7 @@ PROP_UI_COMBO[[]] = [
             CutsceneData.CutsceneIds] },
     'Defaults': {
         'CutsceneId': CutsceneData.CutsceneIds[0] } }
-'Player Spawn Node'['Effect Node'] = {
+PlayerSpawnNode['Effect Node'] = {
     'Create': None,
     'Raycast': 1,
     'Selectable': 1,
@@ -922,7 +926,7 @@ PROP_UI_COMBO[[]] = [
             'self.setEffects'] },
     'Defaults': {
         'EffectName': EnvironmentEffects.EffectNodeNames[0] } }
-'Player Spawn Node'['Object Spawn Node'] = {
+PlayerSpawnNode['Object Spawn Node'] = {
     'NonRpmNode': 1,
     'Create': None,
     'Raycast': 1,
@@ -952,7 +956,7 @@ PROP_UI_COMBO[[]] = [
         'SpawnDelay': '20',
         'startingDepth': '12',
         'Priority': '1' } }
-'Player Spawn Node'['Node Link'] = {
+PlayerSpawnNode['Node Link'] = {
     'NonRpmNode': 1,
     'Virtual': 1,
     'Properties': {
@@ -962,16 +966,16 @@ PROP_UI_COMBO[[]] = [
                 'Bi-directional',
                 'Direction 1',
                 'Direction 2']] } }
-continue
+#TODO: Fix
+'''
 PROP_UI_COMBO[[]] = [
     _[1],
     [ x for x in range(0, 10) ]]
-continue
 PROP_UI_COMBO[[]] = [
     _[1],
     [ x for x in range(1, 6) ]]
-'Cell Index'['Cell Index'] = 'Level'
-'Properties'[{
+CellIndex['Cell Index'] = 'Level'
+Properties[{
     'Defaults': {
         'Cell Index': 0,
         'Level': 1 },
@@ -995,6 +999,7 @@ PROP_UI_COMBO[[]] = [
     'Create': None,
     'Raycast': 1,
     'Selectable': 1 }
+'''
 AVAIL_OBJ_LIST = {
     CONNECTOR_TUNNEL: {
         'NonRpmNode': 1,

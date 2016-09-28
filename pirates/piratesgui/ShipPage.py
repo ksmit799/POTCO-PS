@@ -1,6 +1,4 @@
-# File: S (Python 2.4)
-
-from pandac.PandaModules import *
+from panda3d.core import *
 from direct.gui.DirectGui import *
 from direct.interval.IntervalGlobal import *
 from pirates.piratesgui import PiratesGuiGlobals
@@ -180,14 +178,16 @@ class ShipPage(InventoryPage):
             self.clearTabs()
             for id in range(len(shipIds), 3):
                 self.addPanel(id)
+                continue
             
-            continue
             validShips = _[1]
             for shipId in validShips:
                 self.makeTab(shipId)
+                continue
             
             for x in range(len(validShips), 3):
                 self.makeTab(x)
+                continue
             
             activeShipId = localAvatar.getActiveShipId()
             if activeShipId:
