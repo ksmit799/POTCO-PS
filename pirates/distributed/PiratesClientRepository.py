@@ -1,8 +1,4 @@
-import types
-import random
-import gc
-import time
-import __builtin__
+import types, random, gc, time, __builtin__
 base.loadingScreen.beginStep('PCR', 20, 15)
 from direct.showbase.ShowBaseGlobal import *
 base.loadingScreen.tick()
@@ -113,6 +109,7 @@ class PiratesClientRepository(OTPClientRepository):
         self.createAvatarClass = DistributedPlayerPirate.DistributedPlayerPirate
         self.tradeManager = None
         self.pvpManager = None
+        self.CentralLogger = self.generateGlobalObject(OtpDoGlobals.OTP_DO_ID_CENTRAL_LOGGER, 'CentralLogger')
         self.avatarManager = self.generateGlobalObject(OtpDoGlobals.OTP_DO_ID_PIRATES_AVATAR_MANAGER, 'DistributedAvatarManager')
         self.chatManager = self.generateGlobalObject(OtpDoGlobals.OTP_DO_ID_CHAT_MANAGER, 'DistributedChatManager')
         self.crewMatchManager = self.generateGlobalObject(OtpDoGlobals.OTP_DO_ID_PIRATES_CREW_MATCH_MANAGER, 'DistributedCrewMatchManager')

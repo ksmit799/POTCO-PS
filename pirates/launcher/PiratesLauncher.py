@@ -21,3 +21,24 @@ class PiratesLauncher:
 
     def setPandaWindowOpen(self):
         pass
+
+    def isDummy(self):
+        return False
+
+    def getRegistry(self, arg):
+        pass
+
+    def getBlue(self):
+        pass
+
+    def getPlayToken(self):
+        return 'dev'
+
+    def getDISLToken(self):
+        return 'dev'
+
+    def getNeedPwForSecretKey(self):
+        return False
+
+    def getParentPasswordSet(self):
+        return False

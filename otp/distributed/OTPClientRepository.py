@@ -1,12 +1,5 @@
-import sys
-import time
-import string
-import types
-import random
-import gc
-import os
-from pandac.PandaModules import *
-from pandac.PandaModules import *
+import sys, time, string, types, random, gc, os
+from panda3d.core import *
 from direct.gui.DirectGui import *
 from otp.distributed.OtpDoGlobals import *
 from direct.interval.IntervalGlobal import ivalMgr
@@ -61,123 +54,29 @@ class OTPClientRepository(ClientRepositoryBase):
         self.launcher = launcher
         base.launcher = launcher
         self._OTPClientRepository__currentAvId = 0
-        self.productName = config.GetString('product-name', 'DisneyOnline-US')
         self.createAvatarClass = None
         self.systemMessageSfx = None
-        reg_deployment = ''
-        if self.productName == 'DisneyOnline-US':
-            if self.launcher:
-                if self.launcher.isDummy():
-                    reg_deployment = self.launcher.getDeployment()
-                else:
-                    reg_deployment = self.launcher.getRegistry('DEPLOYMENT')
-                    if reg_deployment != 'UK' and reg_deployment != 'AP':
-                        reg_deployment = self.launcher.getRegistry('GAME_DEPLOYMENT')
-                    
-                    self.notify.info('reg_deployment=%s' % reg_deployment)
-                if reg_deployment == 'UK':
-                    self.productName = 'DisneyOnline-UK'
-                elif reg_deployment == 'AP':
-                    self.productName = 'DisneyOnline-AP'
-                
-            
-        
-        self.blue = None
-        if self.launcher:
-            self.blue = self.launcher.getBlue()
-        
-        fakeBlue = config.GetString('fake-blue', '')
-        if fakeBlue:
-            self.blue = fakeBlue
         
         self.playToken = None
-        if self.launcher:
+        try:
             self.playToken = self.launcher.getPlayToken()
+        except:
+            self.notify.warning("A PlayToken could not be found. Please launch through the launcher.")
+            sys.exit(0)
         
-        fakePlayToken = config.GetString('fake-playtoken', '')
-        if fakePlayToken:
-            self.playToken = fakePlayToken
-        
-        self.DISLToken = None
-        if self.launcher:
-            self.DISLToken = self.launcher.getDISLToken()
-        
-        fakeDISLToken = config.GetString('fake-DISLToken', '')
-        fakeDISLPlayerName = config.GetString('fake-DISL-PlayerName', '')
-        if fakeDISLToken:
-            self.DISLToken = fakeDISLToken
-        elif fakeDISLPlayerName:
-            defaultId = 42
-            defaultNumAvatars = 4
-            defaultNumAvatarSlots = 4
-            defaultNumConcur = 1
-            subCount = config.GetInt('fake-DISL-NumSubscriptions', 1)
-            playerAccountId = config.GetInt('fake-DISL-PlayerAccountId', defaultId)
-            self.DISLToken = 'ACCOUNT_NAME=%s' % fakeDISLPlayerName + '&ACCOUNT_NUMBER=%s' % playerAccountId + '&ACCOUNT_NAME_APPROVAL=%s' % config.GetString('fake-DISL-PlayerNameApproved', 'YES') + '&SWID=%s' % config.GetString('fake-DISL-SWID', '{1763AC36-D73F-41C2-A54A-B579E58B69C8}') + '&FAMILY_NUMBER=%s' % config.GetString('fake-DISL-FamilyAccountId', '-1') + '&familyAdmin=%s' % config.GetString('fake-DISL-FamilyAdmin', '1') + '&PIRATES_ACCESS=%s' % config.GetString('fake-DISL-PiratesAccess', 'FULL') + '&PIRATES_MAX_NUM_AVATARS=%s' % config.GetInt('fake-DISL-MaxAvatars', defaultNumAvatars) + '&PIRATES_NUM_AVATAR_SLOTS=%s' % config.GetInt('fake-DISL-MaxAvatarSlots', defaultNumAvatarSlots) + '&expires=%s' % config.GetString('fake-DISL-expire', '1577898000') + '&OPEN_CHAT_ENABLED=%s' % config.GetString('fake-DISL-OpenChatEnabled', 'YES') + '&CREATE_FRIENDS_WITH_CHAT=%s' % config.GetString('fake-DISL-CreateFriendsWithChat', 'YES') + '&CHAT_CODE_CREATION_RULE=%s' % config.GetString('fake-DISL-ChatCodeCreation', 'YES') + '&FAMILY_MEMBERS=%s' % config.GetString('fake-DISL-FamilyMembers') + '&PIRATES_SUB_COUNT=%s' % subCount
-            for i in range(subCount):
-                self.DISLToken += '&PIRATES_SUB_%s_ACCESS=%s' % (i, config.GetString('fake-DISL-Sub-%s-Access' % i, 'FULL')) + '&PIRATES_SUB_%s_ACTIVE=%s' % (i, config.GetString('fake-DISL-Sub-%s-Active' % i, 'YES')) + '&PIRATES_SUB_%s_ID=%s' % (i, config.GetInt('fake-DISL-Sub-%s-Id' % i, playerAccountId) + config.GetInt('fake-DISL-Sub-Id-Offset', 0)) + '&PIRATES_SUB_%s_LEVEL=%s' % (i, config.GetInt('fake-DISL-Sub-%s-Level' % i, 3)) + '&PIRATES_SUB_%s_NAME=%s' % (i, config.GetString('fake-DISL-Sub-%s-Name' % i, fakeDISLPlayerName)) + '&PIRATES_SUB_%s_NUM_AVATARS=%s' % (i, config.GetInt('fake-DISL-Sub-%s-NumAvatars' % i, defaultNumAvatars)) + '&PIRATES_SUB_%s_NUM_CONCUR=%s' % (i, config.GetInt('fake-DISL-Sub-%s-NumConcur' % i, defaultNumConcur)) + '&PIRATES_SUB_%s_OWNERID=%s' % (i, config.GetInt('fake-DISL-Sub-%s-OwnerId' % i, playerAccountId)) + '&PIRATES_SUB_%s_FOUNDER=%s' % (i, config.GetString('fake-DISL-Sub-%s-Founder' % i, 'YES'))
-            
-            self.DISLToken += '&WL_CHAT_ENABLED=%s' % config.GetString('fake-DISL-WLChatEnabled', 'YES') + '&valid=true'
-            print self.DISLToken
-        
-        self.requiredLogin = config.GetString('required-login', 'auto')
-        if self.requiredLogin == 'auto':
-            self.notify.info('required-login auto.')
-        elif self.requiredLogin == 'green':
-            self.notify.error('The green code is out of date')
-        elif self.requiredLogin == 'blue':
-            if not (self.blue):
-                self.notify.error('The tcr does not have the required blue login')
-            
-        elif self.requiredLogin == 'playToken':
-            if not (self.playToken):
-                self.notify.error('The tcr does not have the required playToken login')
-            
-        elif self.requiredLogin == 'DISLToken':
-            if not (self.DISLToken):
-                self.notify.error('The tcr does not have the required DISL token login')
-            
-        elif self.requiredLogin == 'gameServer':
-            self.notify.info('Using game server name/password.')
-            self.DISLToken = None
-        else:
-            self.notify.error('The required-login was not recognized.')
-        self.computeValidateDownload()
-        self.wantMagicWords = base.config.GetString('want-magic-words', '')
         if self.launcher and hasattr(self.launcher, 'http'):
             self.http = self.launcher.http
         else:
             self.http = HTTPClient()
+
         self.allocateDcFile()
-        self.accountOldAuth = config.GetBool('account-old-auth', 0)
-        self.accountOldAuth = config.GetBool('%s-account-old-auth' % game.name, self.accountOldAuth)
-        self.useNewTTDevLogin = base.config.GetBool('use-tt-specific-dev-login', False)
-        if self.useNewTTDevLogin:
-            self.loginInterface = LoginTTSpecificDevAccount.LoginTTSpecificDevAccount(self)
-            self.notify.info('loginInterface: LoginTTSpecificDevAccount')
-        elif self.accountOldAuth:
-            self.loginInterface = LoginGSAccount.LoginGSAccount(self)
-            self.notify.info('loginInterface: LoginGSAccount')
-        elif self.blue:
-            self.loginInterface = LoginGoAccount.LoginGoAccount(self)
-            self.notify.info('loginInterface: LoginGoAccount')
-        elif self.playToken:
-            self.loginInterface = LoginWebPlayTokenAccount(self)
-            self.notify.info('loginInterface: LoginWebPlayTokenAccount')
-        elif self.DISLToken:
-            self.loginInterface = LoginDISLTokenAccount(self)
-            self.notify.info('loginInterface: LoginDISLTokenAccount')
-        else:
-            self.loginInterface = LoginTTAccount.LoginTTAccount(self)
-            self.notify.info('loginInterface: LoginTTAccount')
-        self.secretChatAllowed = base.config.GetBool('allow-secret-chat', 0)
-        self.openChatAllowed = base.config.GetBool('allow-open-chat', 0)
-        if base.config.GetBool('secret-chat-needs-parent-password', 0) and self.launcher:
-            pass
-        self.secretChatNeedsParentPassword = self.launcher.getNeedPwForSecretKey()
-        if base.config.GetBool('parent-password-set', 0) and self.launcher:
-            pass
-        self.parentPasswordSet = self.launcher.getParentPasswordSet()
+
+        self.loginInterface = LoginWebPlayTokenAccount(self)
+        self.notify.info('loginInterface: Login with PlayToken')
+
+        self.secretChatAllowed = base.config.GetBool('allow-secret-chat', True)
+        self.openChatAllowed = base.config.GetBool('allow-open-chat', True)
+
         self.userSignature = base.config.GetString('signature', 'none')
         self.freeTimeExpiresAt = -1
         self._OTPClientRepository__isPaid = 0
@@ -378,30 +277,7 @@ class OTPClientRepository(ClientRepositoryBase):
     exitLoginOff = report(types = [
         'args',
         'deltaStamp'], dConfigParam = 'teleport')(exitLoginOff)
-    
-    def computeValidateDownload(self):
-        if self.launcher:
-            hash = HashVal()
-            hash.mergeWith(launcher.launcherFileDbHash)
-            hash.mergeWith(launcher.serverDbFileHash)
-            self.validateDownload = hash.asHex()
-        else:
-            self.validateDownload = ''
-            if not os.path.expandvars('$TOONTOWN'):
-                pass
-            basePath = './toontown'
-            downloadParFilename = Filename.expandFrom(basePath + '/src/configfiles/download.par')
-            if downloadParFilename.exists():
-                downloadPar = open(downloadParFilename.toOsSpecific())
-                for line in downloadPar.readlines():
-                    i = string.find(line, 'VALIDATE_DOWNLOAD=')
-                    if i != -1:
-                        self.validateDownload = string.strip(line[i + 18:])
-                        break
-                
-            
 
-    
     def getServerVersion(self):
         return self.serverVersion
 

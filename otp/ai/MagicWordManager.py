@@ -1,6 +1,4 @@
-# File: M (Python 2.4)
-
-from pandac.PandaModules import *
+from panda3d.core import *
 from direct.showbase import GarbageReport, ContainerReport, MessengerLeakDetector
 from direct.distributed import DistributedObject
 from direct.directnotify import DirectNotifyGlobal
@@ -397,9 +395,10 @@ class MagicWordManager(DistributedObject.DistributedObject):
                 
                 try:
                     cycleLimit = int(arg)
+                except:
+                    pass
+					
                 continue
-                continue
-
             
             GarbageReport.GarbageLogger('~garbage', fullReport = full, threaded = True, safeMode = safeMode, delOnly = delOnly, cycleLimit = cycleLimit, doneCallback = self.garbageReportDone)
         elif wordIs('~guicreates'):
@@ -782,11 +781,9 @@ class MagicWordManager(DistributedObject.DistributedObject):
             try:
                 bitmask |= BitMask32.bit(int(w))
                 print bitmask
-            continue
             except ValueError:
                 invalid += ' ' + w
-                continue
-            
+            continue
 
         
         if invalid:
