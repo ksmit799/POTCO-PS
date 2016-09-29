@@ -14,6 +14,10 @@ default-model-extension .bam
 # Server
 server-version piratesremake-1.0.0
 
+#DC-Files
+dc-file astron/dclass/pirates.dc
+dc-file astron/dclass/otp.dc
+
 #Resolution
 win-size 800 600
 
