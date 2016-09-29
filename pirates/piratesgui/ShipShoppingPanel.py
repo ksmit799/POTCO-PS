@@ -1,8 +1,6 @@
-# File: S (Python 2.4)
-
 from direct.directnotify.DirectNotifyGlobal import directNotify
 from direct.gui.DirectGui import *
-from pandac.PandaModules import *
+from panda3d.core import *
 from pirates.ship import ShipGlobals
 from pirates.piratesgui import PiratesGuiGlobals
 from pirates.piratesbase import PiratesGlobals
@@ -71,8 +69,7 @@ class ShipShoppingPanel(ShipSelectionPanel):
         shipFrame = ShipFrameShopping(parent = self.scrollFrame.getCanvas(), relief = None, shipId = shipId, shipName = shipOV.name, shipClass = shipOV.shipClass, mode = self.mode, command = callback, extraArgs = myArgs)
         if repaired:
             shipOV.setHealthState(100.0)
-            continue
-            _[1](*[ min(1, x) * 100 for x in shipOV.mastStates ])
+            [1](*[ min(1, x) * 100 for x in shipOV.mastStates ])
         
         shipFrame.enableStatsOV(shipOV)
         self.addFrame(shipFrame, index)

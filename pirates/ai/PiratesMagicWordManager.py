@@ -1,6 +1,3 @@
-# Source Generated with Decompyle++
-# File: pirates/ai/PiratesMagicWordManager.pyc (Python 2.4)
-
 from direct.showbase.ShowBaseGlobal import *
 from direct.distributed import DistributedObject
 from direct.directnotify import DirectNotifyGlobal
@@ -1037,8 +1034,9 @@ class PiratesMagicWordManager(MagicWordManager.MagicWordManager):
             
             DistributedSimpleShip = DistributedSimpleShip
             import pirates.ship
-            clientShips = filter(lambda x: if isinstance(x, DistributedSimpleShip.DistributedSimpleShip):
-passx is not localAvatar.ship, base.cr.doId2do.values())
+            clientShips = []
+            #clientShips = filter(lambda x: if isinstance(x, DistributedSimpleShip.DistributedSimpleShip):
+#passx is not localAvatar.ship, base.cr.doId2do.values())
             cleared = False
             for currShip in clientShips:
                 shipCollWall = currShip.hull[0].collisions.find('**/collision_hull')

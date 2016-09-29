@@ -9,7 +9,6 @@ from otp.ai import MagicWordManager/AI
 from otp.avatar import DistributedAvatar/AI/UD
 from otp.avatar import DistributedPlayer/AI
 from otp.avatar import AvatarHandle
-from otp.chat import ChatAgent/UD
 from otp.distributed import Account/AI/UD
 from otp.distributed import ObjectServer/AI/UD
 from otp.distributed import DistributedDistrict/AI/UD
@@ -22,9 +21,6 @@ from otp.friends import PlayerFriendsManager/UD
 from otp.friends import GuildManager/AI/UD
 from otp.friends import FriendInfo
 from otp.friends import AvatarFriendInfo
-from otp.snapshot import SnapshotDispatcher/AI/UD
-from otp.snapshot import SnapshotRenderer/AI/UD
-from otp.status import StatusDatabase/UD
 from otp.uberdog import OtpAvatarManager/AI/UD
 from otp.uberdog import DistributedChatManager/AI/UD
 from otp.uberdog import SpeedchatRelay/UD
@@ -315,11 +311,6 @@ dclass DistributedChatManager : DistributedObject {
   whisperIgnored(uint32);
 };
 
-dclass ChatAgent : DistributedObject {
-  adminChat(uint32, string);
-  chatMessage(string(0-256)) clsend;
-};
-
 dclass FriendManager : DistributedObject {
   friendQuery(int32) airecv clsend;
   cancelFriendQuery(int32) airecv clsend;
@@ -491,21 +482,6 @@ dclass PlayerFriendsManager : DistributedObject, TalkPath_account {
   removePlayerFriend(uint32);
 };
 
-dclass SnapshotDispatcher : DistributedObject {
-  online();
-  requestRender(uint32);
-  avatarDeleted(uint32);
-  requestNewWork(uint32);
-  errorFetchingAvatar(uint32, uint32);
-  errorRenderingAvatar(uint32, uint32);
-  renderSuccessful(uint32, uint32);
-};
-
-dclass SnapshotRenderer : DistributedObject {
-  online();
-  requestRender(uint32, uint32, string);
-};
-
 dclass SpeedchatRelay : DistributedObject, TalkPath_account {
   forwardSpeedchat(uint32, uint8, uint32 [], uint32, string(0-256), uint8) clsend;
 };
@@ -518,11 +494,6 @@ dclass CentralLogger : DistributedObject {
 dclass SettingsMgr : DistributedObject {
   requestAllChangedSettings() airecv clsend;
   settingChange(string, string) airecv;
-};
-
-dclass StatusDatabase : DistributedObject {
-  requestOfflineAvatarStatus(uint32 []) airecv clsend;
-  recvOfflineAvatarStatus(uint32, uint32);
 };
 
 dclass CallbackObject {

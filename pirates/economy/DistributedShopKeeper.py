@@ -1,5 +1,3 @@
-# File: D (Python 2.4)
-
 from direct.showbase.ShowBaseGlobal import *
 from direct.directnotify.DirectNotifyGlobal import directNotify
 from otp.uberdog.RejectCode import RejectCode
@@ -96,7 +94,6 @@ class DistributedShopKeeper:
             self.shopInventory = MUSIC_SHELF
         elif self.avatarType.isA(AvatarTypes.Stowaway):
             par = self.getParentObj()
-            continue
             self.shopInventory = _[1]
         elif self.avatarType.isA(AvatarTypes.Fishmaster):
             self.shopInventory = FISHING_LURE_SHELF

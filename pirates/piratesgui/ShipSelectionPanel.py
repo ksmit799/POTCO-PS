@@ -1,7 +1,5 @@
-# File: S (Python 2.4)
-
 from direct.directnotify.DirectNotifyGlobal import directNotify
-from pandac.PandaModules import *
+from panda3d.core import *
 from direct.gui.DirectGui import *
 from pirates.ship import ShipGlobals
 from pirates.piratesgui import PiratesGuiGlobals
@@ -35,8 +33,7 @@ class ShipSelectionPanel(GuiPanel.GuiPanel):
         self.doneCallback = doneCallback
         self.pages = pages[:]
         self.scrollFrame = None
-        self.shipFrames = dict(lambda [outmost-iterable]: for page in [outmost-iterable]:
-(page, [])(self.pages))
+        self.shipFrames = self.generateEmptyShipFrame(self.pages)
         self.closeButton = None
         self.page = -1
         self.tabBackParent = None
@@ -56,8 +53,7 @@ class ShipSelectionPanel(GuiPanel.GuiPanel):
             self.scrollFrame.destroy()
             self.scrollFrame = None
         
-        self.shipFrames = dict(lambda [outmost-iterable]: for page in [outmost-iterable]:
-(page, [])(self.pages))
+        self.shipFrames = self.generateEmptyShipFrame(self.pages)
         if getattr(self, 'shipBar', 0):
             self.shipBar.destroy()
             self.shipBar = None

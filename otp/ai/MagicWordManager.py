@@ -1,15 +1,14 @@
+import string
 from panda3d.core import *
 from direct.showbase import GarbageReport, ContainerReport, MessengerLeakDetector
 from direct.distributed import DistributedObject
 from direct.directnotify import DirectNotifyGlobal
 from direct.showbase.InputStateGlobal import inputState
-from direct.showbase.ObjectCount import ObjectCount
+#from direct.showbase.ObjectCount import ObjectCount
 from direct.task import Task
 from direct.task.TaskProfiler import TaskProfiler
 from otp.avatar import Avatar
-import string
-from direct.showbase import PythonUtil
-from direct.showbase.PythonUtil import Functor, DelayedCall, ScratchPad
+from pirates.util.PythonUtil import Functor, DelayedCall, ScratchPad
 from otp.otpbase import OTPGlobals
 from direct.distributed.ClockDelta import *
 from direct.showutil.TexViewer import TexViewer
