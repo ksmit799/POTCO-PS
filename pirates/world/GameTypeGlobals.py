@@ -1,6 +1,4 @@
-# File: G (Python 2.4)
-
-from pandac.PandaModules import *
+from panda3d.core import *
 import types
 from pirates.piratesbase import PiratesGlobals
 from pirates.piratesbase import PLocalizer
@@ -9,6 +7,7 @@ from pirates.uberdog.UberDogGlobals import InventoryType
 from pandac.PandaModules import ConfigVariable
 from pirates.uberdog import DistributedInventoryBase
 from otp.otpbase import OTPGlobals
+
 GAME_DURATION_SHORT = 0
 GAME_DURATION_MED = 1
 GAME_DURATION_LONG = 2
@@ -255,7 +254,7 @@ GameTypes = {
     PiratesGlobals.GAME_TYPE_TM: {
         'style': gatherGameStyleInfo,
         'hidden': True } }
-pvpMode = ConfigVariableBool('pvp-testing-level', 0).getIntWord(0)
+pvpMode = ConfigVariableInt('pvp-testing-level', 0)
 if pvpMode < 1:
     del GameTypes[PiratesGlobals.GAME_TYPE_PVP]['style'][PiratesGlobals.GAME_STYLE_CTL]
 

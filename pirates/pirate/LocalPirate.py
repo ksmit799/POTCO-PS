@@ -4,7 +4,7 @@ import types
 import random
 from direct.showbase.ShowBaseGlobal import *
 from direct.gui.DirectGui import *
-from pandac.PandaModules import *
+from panda3d.core import *
 from direct.showbase.PythonUtil import *
 from direct.directnotify import DirectNotifyGlobal
 from direct.controls import ControlManager
@@ -80,6 +80,7 @@ from pirates.piratesgui.GameOptions import Options
 from pirates.piratesgui import MessageGlobals
 from pirates.piratesbase import TODGlobals
 from direct.gui import OnscreenText
+from pirates.util.BpDb import *
 globalClock = ClockObject.getGlobalClock()
 if base.config.GetBool('want-pstats', 0):
     import profile
@@ -87,7 +88,8 @@ if base.config.GetBool('want-pstats', 0):
 
 
 class bp:
-    loginCfg = bpdb.bpGroup(iff = False, cfg = 'loginCfg', static = 1)
+    bpdb = BpDb()
+    loginCfg = bpdb.bpPreset(iff = False, cfg = 'loginCfg', static = 1)
 
 from direct.controls.ControlManager import ControlManager
 if base.config.GetBool('want-custom-keys', 0):

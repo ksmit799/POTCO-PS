@@ -1,8 +1,6 @@
-# File: D (Python 2.4)
-
 from direct.interval.IntervalGlobal import *
 from direct.gui.DirectGui import *
-from pandac.PandaModules import *
+from panda3d.core import *
 from direct.gui.OnscreenText import OnscreenText
 from direct.directnotify.DirectNotifyGlobal import directNotify
 from direct.showbase.PythonUtil import Functor, ScratchPad, report, lerp, quickProfile
@@ -266,9 +264,7 @@ class DistributedSimpleShip(DistributedMovingObject, Teamable, DistributedFlagsh
         self.showThrough(OTPRender.EnviroCameraBitmask)
         self.calculateLook()
         self.buildShip()
-        continue
         self.mastHealth = [ x[0] * (x[1] / 100.0) for x in zip(self.maxMastHealth, self.mastStates) ]
-        continue
         self.armor = [ x[0] * (x[1] / 100.0) for x in zip(self.maxArmor, self.armorStates) ]
         self.Sp = sum(self.mastHealth)
         self.model.demandMastStates(self.mastStates, self.maxMastHealth)
@@ -1185,7 +1181,6 @@ class DistributedSimpleShip(DistributedMovingObject, Teamable, DistributedFlagsh
             rear,
             left,
             right]
-        continue
         self.armor = [ x[0] * (x[1] / 100.0) for x in zip(self.maxArmor, self.armorStates) ]
         self.adjustArmorDisplay()
         self.updateShipEffects()
@@ -1238,7 +1233,6 @@ class DistributedSimpleShip(DistributedMovingObject, Teamable, DistributedFlagsh
             newVal != oldVal
         
         self.mastStates = newMastStates
-        continue
         self.mastHealth = [ x[0] * (x[1] / 100.0) for x in zip(self.maxMastHealth, self.mastStates) ]
         self.Sp = sum(self.mastHealth)
         if self.shipTargetPanel:
@@ -2230,7 +2224,6 @@ class DistributedSimpleShip(DistributedMovingObject, Teamable, DistributedFlagsh
         for (mast, distMast) in self.masts.values():
             booms.extend(mast.locators.findAllMatches('**/joint_anchor_net_*;+s'))
         
-        continue
         booms = _[1]([ (node.getDistance(boom), boom) for boom in booms ])
         (dist, closest) = booms[0]
         return closest
@@ -2284,14 +2277,14 @@ class DistributedSimpleShip(DistributedMovingObject, Teamable, DistributedFlagsh
         threatText = ''
         if self.badge:
             if base.config.GetBool('want-land-infamy', 0) or base.config.GetBool('want-sea-infamy', 0):
-                badgeText = ' \x1white\x1\x5badge-%s-%s\x5\x2 ' % (self.badge[0], self.badge[1])
+                badgeText = ' \x01white\x01\x05badge-%s-%s\x05\x02 ' % (self.badge[0], self.badge[1])
             
         if base.config.GetBool('want-ship-threat', 1) and not self.getSiegeTeam():
             if self.getThreatLevel():
-                threatText = '\x1white\x1\x5threat-%s\x5\x2\n\n' % self.getThreatLevel()
+                threatText = '\x01white\x01\x05threat-%s\x05\x02\n\n' % self.getThreatLevel()
             elif self.getHunterLevel():
                 hunterName = HighSeasGlobals.HUNTER_LEVEL_NAME_DICT.get(self.getHunterLevel(), '')
-                threatText = '\x1white\x1\x5hunterTAG\x5\x2 \x1red\x1%s\x2\n\n' % hunterName
+                threatText = '\x01white\x01\x05hunterTAG\x05\x02 \x01red\x01%s\x02\n\n' % hunterName
             
         
         if self.nametag:

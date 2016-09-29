@@ -1,32 +1,22 @@
 import PiratesPreloader
-print 'PiratesStart: Starting the game.'
+print ':PiratesStart: Starting the game.'
 import __builtin__
+import random, gc, sys, os, time
+from pirates.launcher.PiratesLauncher import PiratesLauncher
 
 class game:
     name = 'pirates'
     process = 'client'
 
 __builtin__.game = game()
-import time
-import os
-import sys
-import random
-import __builtin__
-import gc
-gc.disable()
+__builtin__.launcher = PiratesLauncher()
 
-try:
-    pass
-except:
-    print 'Creating PiratesDummyLauncher'
-    from pirates.launcher.PiratesDummyLauncher import PiratesDummyLauncher
-    launcher = PiratesDummyLauncher()
-    __builtin__.launcher = launcher
+gc.disable()
 
 from direct.gui import DirectGuiGlobals
 import PiratesGlobals
 DirectGuiGlobals.setDefaultFontFunc(PiratesGlobals.getInterfaceFont)
-#launcher.setPandaErrorCode(7)
+launcher.setPandaErrorCode(7)
 from pandac.PandaModules import *
 loadPrcFile("config/config_dev.prc")
 import PiratesBase
@@ -39,8 +29,8 @@ if base.win == None:
     print 'Unable to open window; aborting.'
     sys.exit()
 
-#launcher.setPandaErrorCode(0)
-#launcher.setPandaWindowOpen()
+launcher.setPandaErrorCode(0)
+launcher.setPandaWindowOpen()
 base.sfxPlayer.setCutoffDistance(500.0)
 from pirates.audio import SoundGlobals
 from pirates.audio.SoundGlobals import loadSfx

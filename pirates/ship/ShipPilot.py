@@ -1,6 +1,4 @@
-# File: S (Python 2.4)
-
-from pandac.PandaModules import *
+from panda3d.core import *
 from direct.directnotify.DirectNotifyGlobal import directNotify
 from direct.showbase.InputStateGlobal import inputState
 from direct.task.Task import Task
@@ -106,4 +104,5 @@ class ShipPilot(PhysicsWalker):
 
     
     def setCollisionsActive(self, active = 1):
-        if active
+		if active:
+		    self.setupCollisons()

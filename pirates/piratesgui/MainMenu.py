@@ -1,10 +1,8 @@
-# File: M (Python 2.4)
-
 import copy
 import string
 import os
 from direct.gui.DirectGui import *
-from pandac.PandaModules import *
+from panda3d.core import *
 from direct.interval.IntervalGlobal import *
 from pirates.piratesbase import PiratesGlobals
 from pirates.piratesgui import PiratesGuiGlobals
@@ -70,9 +68,7 @@ class MainMenu(DirectFrame):
         magicWordConfig = getBase().config.GetString('want-menu-magic', '')
         if magicWordConfig:
             self.magicButtons = []
-            continue
             magicWords = _[1]
-            continue
             magicWords = [ choice(mw[0] == '~', mw, '~%s' % mw) for mw in magicWords ]
             for mw in magicWords:
                 if hotkeyConfig:
@@ -208,10 +204,9 @@ class MainMenu(DirectFrame):
                     
                     self.hideMenuIval.start()
                     base.cr.logout()
-
-        
-
-    
+            except:
+                pass
+					
     def buildShowHideMenuIvals(self):
         showSequence = Sequence(Func(self.show), ProjectileInterval(self.parentFrame, duration = 0.20000000000000001, endPos = Point3(0, 0, -0.10000000000000001)), ProjectileInterval(self.parentFrame, duration = 0.14999999999999999, endPos = Point3(0, 0, -0.050000000000000003), gravityMult = -1), ProjectileInterval(self.parentFrame, duration = 0.14999999999999999, endPos = Point3(0, 0, -0.10000000000000001)))
         self.showMenuIval = showSequence

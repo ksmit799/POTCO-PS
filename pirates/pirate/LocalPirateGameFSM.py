@@ -1,15 +1,13 @@
-# File: L (Python 2.4)
-
 import random
 import math
-from pandac.PandaModules import *
+from panda3d.core import *
 from direct.gui.DirectGui import *
 from direct.interval.IntervalGlobal import *
 from direct.fsm import FSM
 from direct.task import Task
 from direct.showbase.PythonUtil import lerp, report, getShortestRotation
 from direct.directnotify.DirectNotifyGlobal import directNotify
-from libotp import NametagGlobals
+from otp.nametag import NametagGlobals
 from pirates.battle import WeaponGlobals
 from pirates.piratesbase import PiratesGlobals
 from pirates.piratesbase import EmoteGlobals

@@ -1,5 +1,3 @@
-# File: S (Python 2.4)
-
 import sys
 sys.path = [
     '']

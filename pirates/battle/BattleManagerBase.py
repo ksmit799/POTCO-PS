@@ -1,5 +1,3 @@
-# File: B (Python 2.4)
-
 from direct.directnotify import DirectNotifyGlobal
 from pirates.battle import WeaponGlobals
 from pirates.minigame import PotionGlobals
@@ -1233,15 +1231,15 @@ class BattleManagerBase:
     def getExperienceColor(self, av, target):
         levelRank = self.getModifiedExperienceGrade(av, target, currentWeaponId = av.currentWeaponId, forColor = True)
         if levelRank >= EnemyGlobals.RED:
-            color = '\x1red\x1'
+            color = '\x01red\x01'
         elif levelRank >= EnemyGlobals.YELLOW:
-            color = '\x1yellow\x1'
+            color = '\x01yellow\x01'
         elif levelRank >= EnemyGlobals.GREEN:
-            color = '\x1midgreen\x1'
+            color = '\x01midgreen\x01'
         elif levelRank == EnemyGlobals.GREY:
-            color = '\x1grey\x1'
+            color = '\x01grey\x01'
         else:
-            color = '\x1white\x1'
+            color = '\x01white\x01'
         return color
 
     

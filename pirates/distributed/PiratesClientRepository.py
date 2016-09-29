@@ -91,9 +91,11 @@ from pirates.quest.QuestChoiceDynMap import QuestChoiceDynMap
 from pirates.npc import NPCManager
 from pirates.audio import SoundGlobals
 from pirates.audio.SoundGlobals import loadSfx
+from pirates.util.BpDb import *
 
 class bp:
-    loginCfg = bpdb.bpGroup(iff = True, cfg = 'loginCfg', static = 1)
+    bpdb = BpDb()
+    loginCfg = bpdb.bpPreset(iff = True, cfg = 'loginCfg', static = 1)
 
 
 class PiratesClientRepository(OTPClientRepository):

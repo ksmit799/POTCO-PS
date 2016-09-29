@@ -1,8 +1,6 @@
-# File: C (Python 2.4)
-
 from pirates.minigame import CannonDefenseGlobals
 from pirates.pirate.CannonCamera import CannonCamera
-from direct.showbase.PythonUtil import ParamObj
+from pirates.util.PythonUtilPOD import ParamObj
 
 class CannonDefenseCamera(CannonCamera):
     

@@ -1,5 +1,3 @@
-# File: P (Python 2.4)
-
 import sys
 import os
 import time
@@ -344,5 +342,3 @@ class PiratesQuickLauncher(LauncherBase):
         eventMgr.restart()
         PiratesStart = PiratesStart
         import pirates.piratesbase
-
-
