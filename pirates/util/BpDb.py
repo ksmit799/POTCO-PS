@@ -484,13 +484,14 @@ class BpDb:
 
 class bp:
     def __init__(self, id=None, grp=None, cfg=None, frameCount=1):
+        bpdb = BpDb()
         #check early out conditions 
         self.disabled = False
         if not bpdb.enabled:
             self.disabled = True
             return
-        
         #default cfg, grp, id from calling code info
+		
         moduleName, className, lineNumber = bpdb.getFrameCodeInfo(frameCount=frameCount+1)
         if moduleName:  #use only leaf module name
             moduleName = moduleName.split('.')[-1]

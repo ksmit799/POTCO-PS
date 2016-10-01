@@ -1,14 +1,12 @@
-# File: F (Python 2.4)
-
 if __name__ == '__main__':
     from direct.showbase import ShowBase
 
-from direct.showbase import PythonUtil
+import FlagGlobals
+import random
+from pirates.util import PythonUtil
 from direct.distributed.PyDatagram import PyDatagram
 from direct.distributed.PyDatagramIterator import PyDatagramIterator
 from otp.avatar import AvatarDNA
-import FlagGlobals
-import random
 
 class FlagDNA(AvatarDNA.AvatarDNA):
     DefaultShapeData = 0
@@ -154,7 +152,6 @@ class FlagDNA(AvatarDNA.AvatarDNA):
     def flattenEmblemIndices(self):
         indices = self.getEmblemIndices()
         indices.sort()
-        continue
         newEmblems = range(len(indices))([](_[1], [ self.emblems[x] for x in indices ]))
         self.emblems = newEmblems
 

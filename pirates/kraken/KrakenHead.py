@@ -1,8 +1,8 @@
-# File: K (Python 2.4)
-
 from pirates.creature.DistributedCreature import DistributedCreature
+from pirates.util.BpDb import *
 
 class bp:
+    bpdb = BpDb()
     kraken = bpdb.bpPreset(cfg = 'kraken', static = 1)
 
 

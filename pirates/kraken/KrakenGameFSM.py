@@ -1,9 +1,9 @@
-# File: K (Python 2.4)
-
 from direct.directnotify import DirectNotifyGlobal
 from direct.fsm.FSM import FSM
+from pirates.util.BpDb import *
 
 class bp:
+    bpdb = BpDb()
     kraken = bpdb.bpPreset(cfg = 'krakenfsm', static = 1)
     krakenCall = bpdb.bpPreset(cfg = 'krakenfsm', call = 1, static = 1)
 
@@ -19,21 +19,24 @@ class KrakenGameFSM(FSM):
     def enterRam(self):
         pass
 
-    enterRam = bp.krakenCall()(enterRam)
+    enterRam = None
+    #enterRam = bp.krakenCall()(enterRam)
     
     def exitRam(self):
         pass
 
-    exitRam = bp.krakenCall()(exitRam)
+    exitRam = None
+    #exitRam = bp.krakenCall()(exitRam)
     
     def enterGrab(self):
         self.av.emergeInterval.pause()
         self.av.submergeInterval.start()
 
-    enterGrab = bp.krakenCall()(enterGrab)
+    enterGarb = None
+    #enterGrab = bp.krakenCall()(enterGrab)
     
     def exitGrab(self):
         pass
 
-    exitGrab = bp.krakenCall()(exitGrab)
-
+    exitGrab = None
+    #exitGrab = bp.krakenCall()(exitGrab)

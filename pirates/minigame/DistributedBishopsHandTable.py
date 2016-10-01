@@ -1,9 +1,7 @@
-# File: D (Python 2.4)
-
 from direct.directnotify import DirectNotifyGlobal
 from direct.gui.DirectGui import *
 from direct.task.Task import Task
-from pandac.PandaModules import *
+from panda3d.core import *
 from direct.distributed.ClockDelta import *
 from direct.showbase import PythonUtil
 from pirates.pirate import HumanDNA
@@ -31,7 +29,6 @@ class DistributedBishopsHandTable(DistributedGameTable.DistributedGameTable):
         self.pendingStakes = 0
         self.activeStakes = 0
         self.runningStakes = 0
-        continue
         self.seatStatus = [ [
             0,
             -1] for x in range(self.NumSeats) ]

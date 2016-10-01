@@ -1,8 +1,7 @@
-# File: F (Python 2.4)
-
-from direct.showbase.PythonUtil import *
-from pandac.PandaModules import *
 import math
+from pirates.util.PythonUtil import *
+from panda3d.core import *
+
 Shapes = Enum('Default,Square,Cut,TwoCut,                LongTaper,LongTaperCut,ShortTaper,ShortTaperCut')
 ShapeCount = len(Shapes)
 Layouts = Enum('Square,Circle,Hex')
@@ -112,7 +111,6 @@ YPosHiCount = 200
 LayoutScaleMin = 0.125
 LayoutScaleMax = 1.0
 LayoutScaleResolutionFactor = 16
-continue
 LayoutScales = [ LayoutScaleMin + (float(x) / (LayoutScaleResolutionFactor - 1)) * (LayoutScaleMax - LayoutScaleMin) for x in range(LayoutScaleResolutionFactor) ]
 LayoutScaleCount = len(LayoutScales)
 EmblemScales = LayoutScales

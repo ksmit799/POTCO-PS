@@ -1,11 +1,5 @@
-# File: A (Python 2.4)
-
-import random
-import re
-import types
-import copy
-import marshal
-from pandac.PandaModules import *
+import random, re, types, copy, marshal
+from panda3d.core import *
 from direct.task.Task import Task
 from direct.showbase import DirectObject
 from direct.actor import *
@@ -1296,7 +1290,6 @@ class AreaBuilderBase(DirectObject.DirectObject):
         modelDef.root.node().setPreserveTransform(True)
         switchRoot = modelDef.root.attachNewNode(SwitchNode('Switch Prop'))
         switchRoot.setTag('Switch Class', objData['Switch Class'])
-        continue
         subDefs = [ (key, self.makeModelDef(loader.loadModel(visualData['Model']))) for (key, visualData) in objData['Visual'].iteritems() ]
         subDefs.sort()
         for (key, subDef) in subDefs:
@@ -1305,8 +1298,8 @@ class AreaBuilderBase(DirectObject.DirectObject):
                 switchRoot.attachNewNode('blank-%d' % x)
                 x += 1
             subDef.root.reparentTo(switchRoot)
+            continue
         
-        continue
         return (_[1], [ subDef[1] for subDef in subDefs ])
 
     
@@ -1694,7 +1687,6 @@ class AreaBuilderBase(DirectObject.DirectObject):
     
     def getMinimapCapturePointNodes(self, holidayName):
         nodes = self.areaGeometry.findAllMatches('MinimapCapturePointNode;+s')
-        continue
         nodes = _[1]
         return nodes
 

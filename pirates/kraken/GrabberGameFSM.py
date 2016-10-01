@@ -1,10 +1,10 @@
-# File: G (Python 2.4)
-
 from direct.interval.IntervalGlobal import *
 from pirates.pirate.BattleAvatarGameFSM import BattleAvatarGameFSM
+from pirates.util.BpDb import *
 import random
 
 class bp:
+    bpdb = BpDb()
     off = bpdb.bpPreset(cfg = 'krakengrabberfsm', grp = 'off', static = 1)
     offCall = bpdb.bpPreset(cfg = 'krakengrabberfsm', grp = 'off', call = 1, static = 1)
     idle = bpdb.bpPreset(cfg = 'krakengrabberfsm', grp = 'idle', static = 1)

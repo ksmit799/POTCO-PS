@@ -1,5 +1,3 @@
-# File: P (Python 2.4)
-
 import time
 from direct.interval.IntervalGlobal import Sequence, Func
 from direct.showbase.ShowBaseGlobal import *
@@ -8,8 +6,8 @@ from direct.gui.DirectGui import *
 from direct.showbase import DirectObject
 from direct.actor import Actor
 from direct.task import Task
-from pandac.PandaModules import *
-from pandac.PandaModules import CardMaker
+from panda3d.core import *
+from panda3d.core import CardMaker
 from pirates.piratesgui.GuiPanel import *
 from pirates.piratesgui import GuiButton
 from pirates.piratesgui import PiratesGuiGlobals
@@ -79,7 +77,6 @@ class PotionRecipePicker(DirectFrame):
                                         raise brewable
                                         continue
                             
-                continue
                 except brewable:
                     pass
                 

@@ -1,6 +1,4 @@
-# File: G (Python 2.4)
-
-from pandac.PandaModules import *
+from panda3d.core import *
 from direct.directnotify import DirectNotifyGlobal
 from direct.distributed.ClockDelta import *
 from otp.otpbase import OTPRender
@@ -8,8 +6,10 @@ from pirates.creature.DistributedCreature import DistributedCreature
 from pirates.creature.Monstrous import Monstrous
 from pirates.kraken.GrabberGameFSM import GrabberGameFSM
 from pirates.piratesbase import PiratesGlobals
+from pirates.util.BpDb import *
 import math
 import random
+bpdb = BpDb()
 bp = bpdb.bpPreset('Kraken')
 
 class GrabberTentacle(DistributedCreature, Monstrous):

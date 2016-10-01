@@ -1,7 +1,5 @@
-# File: R (Python 2.4)
-
 import random
-from pandac.PandaModules import NodePath, TextNode
+from panda3d.core import NodePath, TextNode
 from direct.gui.DirectGui import DirectFrame, DirectLabel
 from direct.interval.IntervalGlobal import Sequence, Func, Parallel, LerpPosInterval, Wait, LerpColorScaleInterval
 from pandac.PandaModules import TextPropertiesManager, TextProperties
@@ -120,11 +118,11 @@ class RepairGameGUI(DirectFrame):
             seconds = completionTime % 60
             minutes = int(completionTime / 60.0)
             if minutes == 0:
-                time = '\x1gold\x1%i %s\x2' % (seconds, PLocalizer.Minigame_Repair_Seconds)
+                time = '\x01gold\x01%i %s\x02' % (seconds, PLocalizer.Minigame_Repair_Seconds)
             elif seconds < 10:
-                time = '\x1gold\x1%i:0%i %s\x2' % (minutes, seconds, PLocalizer.Minigame_Repair_Minutes)
+                time = '\x01gold\x01%i:0%i %s\x02' % (minutes, seconds, PLocalizer.Minigame_Repair_Minutes)
             else:
-                time = '\x1gold\x1%i:%i %s\x2' % (minutes, seconds, PLocalizer.Minigame_Repair_Minutes)
+                time = '\x01gold\x01%i:%i %s\x02' % (minutes, seconds, PLocalizer.Minigame_Repair_Minutes)
             goldAmount = self.repairGame.getReward(localAvatar.doId)
             goldBonus = self.repairGame.getGoldBonus()
             if goldBonus:

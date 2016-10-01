@@ -1,6 +1,5 @@
-# File: K (Python 2.4)
-
-from pandac.PandaModules import *
+import math, time, random
+from panda3d.core import *
 from direct.directnotify import DirectNotifyGlobal
 from pirates.movement.DistributedMovingObject import DistributedMovingObject
 from pirates.creature.DistributedCreature import DistributedCreature
@@ -11,12 +10,11 @@ from direct.interval.IntervalGlobal import *
 from pirates.ship import ShipGlobals
 from otp.otpbase import OTPGlobals
 from pirates.piratesbase import PiratesGlobals
-import math
-import time
-import random
 from otp.otpbase import OTPRender
+from pirates.util.BpDb import *
 
 class bp:
+    bpdb = BpDb()
     startup = bpdb.bpPreset(cfg = 'kraken', grp = 'startup', static = 1)
     startupCall = bpdb.bpPreset(cfg = 'kraken', grp = 'startup', static = 1, call = 1)
     shutdown = bpdb.bpPreset(cfg = 'kraken', grp = 'shutdown', static = 1)
@@ -172,7 +170,6 @@ class Kraken(DistributedCreature, Monstrous):
     
     def getRollAngle(self):
         dampen = 0
-        continue
         dampenAmounts = [ grabber.getRockingDampen() for grabber in self.grabberTentacles.itervalues() ]
         if dampenAmounts:
             dampen = max(dampenAmounts)

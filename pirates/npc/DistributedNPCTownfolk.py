@@ -1,8 +1,5 @@
-# File: D (Python 2.4)
-
-import random
-import re
-from pandac.PandaModules import *
+import random, re
+from panda3d.core import *
 from direct.interval.IntervalGlobal import *
 from direct.directnotify import DirectNotifyGlobal
 from direct.gui.DirectGui import *
@@ -41,7 +38,7 @@ from pirates.battle import WeaponGlobals
 import random
 from direct.showbase import PythonUtil
 from pirates.reputation import ReputationGlobals
-from libotp import CFSpeech, CFTimeout
+#from libotp import CFSpeech, CFTimeout
 import PotionInstructionPanel
 from pirates.minigame.LegendaryTellGUI import LegendaryTellGUI
 from pirates.piratesbase import Freebooter
