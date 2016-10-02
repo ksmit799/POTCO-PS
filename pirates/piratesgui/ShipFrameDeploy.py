@@ -1,7 +1,5 @@
-# File: S (Python 2.4)
-
 from direct.gui.DirectGui import *
-from pandac.PandaModules import *
+from panda3d.core import *
 from pirates.piratesbase import PiratesGlobals
 from pirates.piratesbase import PLocalizer
 from pirates.piratesgui import PiratesGuiGlobals
@@ -37,16 +35,16 @@ class ShipFrameDeploy(ShipFrameSelect):
         stateStr = PLocalizer.ShipAtSea
         if hp <= 0:
             self.button['state'] = DGG.DISABLED
-            stateStr = '\x1red\x1%s\x2' % (PLocalizer.ShipSunk,)
+            stateStr = '\x01red\x01%s\x02' % (PLocalizer.ShipSunk,)
             self['shipColorScale'] = VBase4(0.80000000000000004, 0.29999999999999999, 0.29999999999999999, 1)
         elif crew >= hullInfo['maxCrew']:
             self.button['state'] = DGG.DISABLED
-            stateStr = '\x1red\x1%s\x2' % (PLocalizer.ShipFull,)
+            stateStr = '\x01red\x01%s\x02' % (PLocalizer.ShipFull,)
             self['shipColorScale'] = VBase4(0.40000000000000002, 0.40000000000000002, 0.40000000000000002, 1)
         else:
             self.button['state'] = DGG.NORMAL
         if typeStr:
-            self.typeLabel['text'] = '\x1smallCaps\x1(%s)\x2' % typeStr
+            self.typeLabel['text'] = '\x01smallCaps\x01(%s)\x02' % typeStr
         
 
     
@@ -67,7 +65,7 @@ class ShipFrameDeploy(ShipFrameSelect):
         if hp <= 0:
             self.button['state'] = DGG.DISABLED
             self.button['text'] = PLocalizer.DeployShip
-            stateStr = '\x1Ired\x1%s\x2' % PLocalizer.ShipSunk
+            stateStr = '\x01Ired\x01%s\x02' % PLocalizer.ShipSunk
             self['shipColorScale'] = VBase4(1, 0.40000000000000002, 0.40000000000000002, 1)
             self.button['image3_color'] = VBase4(*PiratesGuiGlobals.ButtonColor3[2])
             self.button['geom3_color'] = VBase4(0.40000000000000002, 0.40000000000000002, 0.40000000000000002, 0.40000000000000002)
@@ -77,13 +75,13 @@ class ShipFrameDeploy(ShipFrameSelect):
             self.button['state'] = DGG.DISABLED
             self.button['text'] = PLocalizer.BoardShip
             self.button['helpText'] = PLocalizer.ShipFull
-            stateStr = '\x1red\x1%s\x2' % (PLocalizer.ShipFull,)
+            stateStr = '\x01red\x01%s\x02' % (PLocalizer.ShipFull,)
             self['shipColorScale'] = VBase4(0.40000000000000002, 0.40000000000000002, 0.40000000000000002, 1)
         elif localAvatar.getActiveShipId() and shipOV.doId != localAvatar.getActiveShipId():
             self.button['state'] = DGG.DISABLED
             self.button['text'] = PLocalizer.DeployShip
             self.button['helpText'] = PLocalizer.OtherShipOut
-            stateStr = '\x1Ired\x1%s\x2' % PLocalizer.OtherShipOut
+            stateStr = '\x01Ired\x01%s\x02' % PLocalizer.OtherShipOut
             self['shipColorScale'] = VBase4(0.40000000000000002, 0.40000000000000002, 0.40000000000000002, 1)
         elif shipOV.state in 'Off':
             self.button['state'] = DGG.NORMAL
@@ -110,7 +108,7 @@ class ShipFrameDeploy(ShipFrameSelect):
             
         
         if typeStr:
-            self.typeLabel['text'] = '\x1smallCaps\x1(%s)\x2' % typeStr
+            self.typeLabel['text'] = '\x01smallCaps\x01(%s)\x02' % typeStr
         
 
     

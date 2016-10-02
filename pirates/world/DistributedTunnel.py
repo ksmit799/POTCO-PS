@@ -1,6 +1,4 @@
-# File: D (Python 2.4)
-
-from pandac.PandaModules import *
+from panda3d.core import *
 from direct.distributed.DistributedObject import DistributedObject
 from direct.distributed.DistributedNode import DistributedNode
 from direct.distributed.StagedObject import StagedObject
@@ -114,7 +112,6 @@ class DistributedTunnel(DistributedNode, StagedObject):
 
     
     def calcAmbientNames(self):
-        continue
         self.ambientNames = [ self.calcOneAmbientName(self._links[index][self.L_AREA_NODE]) for index in (0, 1) ]
 
     
@@ -151,9 +148,7 @@ class DistributedTunnel(DistributedNode, StagedObject):
 
     
     def setupConnectorNodes(self):
-        continue
         locatorNodes = [ self.find('**/' + locator) for locator in self.connectorNodes ]
-        continue
         self.connectorNodePosHpr = [ [
             self.getPos(node),
             self.getHpr(node)] for node in locatorNodes ]

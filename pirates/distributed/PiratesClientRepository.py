@@ -125,7 +125,7 @@ class PiratesClientRepository(OTPClientRepository):
         self.codeRedemption = self.generateGlobalObject(OtpDoGlobals.OTP_DO_ID_PIRATES_CODE_REDEMPTION, 'CodeRedemption')
         base.loadingScreen.tick()
         self.settingsMgr = self.generateGlobalObject(OtpDoGlobals.OTP_DO_ID_PIRATES_SETTINGS_MANAGER, 'PiratesSettingsMgr')
-        self.statusDatabase = self.generateGlobalObject(OtpDoGlobals.OTP_DO_ID_STATUS_DATABASE, 'StatusDatabase')
+        #self.statusDatabase = self.generateGlobalObject(OtpDoGlobals.OTP_DO_ID_STATUS_DATABASE, 'StatusDatabase')
         self.wantSeapatch = base.config.GetBool('want-seapatch', 1)
         self.wantSpecialEffects = base.config.GetBool('want-special-effects', 1)
         self.wantMakeAPirate = base.config.GetBool('wantMakeAPirate', 0)

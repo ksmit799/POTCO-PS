@@ -150,18 +150,6 @@ from pirates.shipparts import DistributedShippart/AI/UD
 from pirates.shipparts import DistributedSteeringWheel/AI/UD
 from pirates.shipparts import DistributedCDSteeringWheel/AI/UD
 from pirates.shipparts import DistributedShipRepairSpot/AI
-from pirates.snapshot import PSnapshotRenderer/AI/UD
-from pirates.teleport import DistributedFSM/AI/OV
-from pirates.teleport import DistributedTeleportActor/AI/OV
-from pirates.teleport import TutorialTeleportActor/AI/OV
-from pirates.teleport import AreaTeleportActor/AI/OV
-from pirates.teleport import InstanceTeleportActor/AI/OV
-from pirates.teleport import PlayerAreaTeleportActor/AI/OV
-from pirates.teleport import DoorTeleportActor/AI/OV
-from pirates.teleport import InteriorDoorTeleportActor/AI/OV
-from pirates.teleport import ExteriorDoorTeleportActor/AI/OV
-from pirates.teleport import JailTeleportActor/AI/OV
-from pirates.teleport import ShipTeleportActor/AI/OV
 from pirates.testobject import TestObject/AI
 from pirates.trades import Trade/AI
 from pirates.trades import TradeManager/AI
@@ -2373,9 +2361,6 @@ dclass DistributedShipDeployer : DistributedNode {
   shipExitedBarrier(uint32) clsend airecv;
 };
 
-dclass PSnapshotRenderer : SnapshotRenderer {
-};
-
 dclass DistributedPopulationTracker : DistributedObject {
   setShardId(uint32) required broadcast ram;
   setPopulation(uint16) required broadcast ram;
@@ -2839,5 +2824,3 @@ dclass DistributedQuestProp : DistributedBattleable, Lootable {
   sendUpdateMessage(uint8) broadcast;
   sendLocalSound(uint8, bool);
 };
-
-

@@ -1,7 +1,5 @@
-# File: D (Python 2.4)
-
 import math
-from pandac.PandaModules import *
+from panda3d.core import *
 from direct.distributed.DistributedNode import DistributedNode
 from direct.distributed.GridChild import GridChild
 from direct.showbase.PythonUtil import report
@@ -204,12 +202,11 @@ class DistributedShipDeployer(DistributedNode, GridChild):
         
         padding = 3
         numSpheres = len(self.deploySpheres)
-        for sphere in lambda [outmost-iterable]: for s in [outmost-iterable]:
-s % numSpheres(xrange(sphereId - padding, sphereId + padding + 1)):
+        for sphere in xrange(sphereId - padding, sphereId + padding + 1):
             self.deploySpheres[sphere].unstash()
-        
 
-    
+
+			
     def handleShipCollideExit(self, colEntry):
         shipId = colEntry.getFromNodePath().getNetTag('shipId')
         shipId = int(shipId)

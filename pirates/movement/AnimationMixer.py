@@ -1,5 +1,3 @@
-# File: A (Python 2.4)
-
 from direct.interval.IntervalGlobal import *
 from direct.interval.ActorInterval import ActorInterval
 from direct.directnotify import DirectNotifyGlobal
@@ -345,8 +343,11 @@ class AnimationMixer:
     
     def __init__(self, actor):
         self.actor = actor
-        channelCount = [](_[1])
-        self.partMixers = self.sectionNames([](_[1], [ PartMixer(self, channelCount, actor, self.getPartsNameList(part)) for part in self.sectionNames ]))
+        channelCount = max(*self.ACTION.values())
+        channelCount = max(channelCount, *self.LOOP.values()) + 1
+        self.partMixers = {}
+        for part in self.sectionNames:
+            self.partMixers[part] = PartMixer(self, channelCount, actor, self.getPartsNameList(part))
         self.ownedIvals = []
 
     

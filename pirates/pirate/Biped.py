@@ -1,6 +1,4 @@
-# File: B (Python 2.4)
-
-from pandac.PandaModules import *
+from panda3d.core import *
 from direct.task import Task
 from direct.interval.IntervalGlobal import *
 from direct.directnotify import DirectNotifyGlobal
@@ -15,6 +13,7 @@ from pirates.movement.UsesAnimationMixer import UsesAnimationMixer
 from pirates.audio import SoundGlobals
 from otp.otpbase import OTPRender
 import random
+
 NA_INDEX = -1
 STAND_INDEX = 0
 WALK_INDEX = 1

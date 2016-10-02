@@ -1,6 +1,4 @@
-# File: D (Python 2.4)
-
-from pandac.PandaModules import *
+from panda3d.core import *
 from direct.directnotify import DirectNotifyGlobal
 from direct.interval.IntervalGlobal import *
 from pirates.battle import DistributedBattleNPC
@@ -201,8 +199,8 @@ class DistributedJollyRoger(DistributedBattleNPC.DistributedBattleNPC, JollyRoge
 
     
     def setMonsterNameTag(self):
-        color = '\x1red\x1'
-        name = '%s  %s\x1smallCaps\x1%s%s\x2\x2' % (self.name, color, PLocalizer.Lv, PLocalizer.InvasionLv)
+        color = '\x01red\x01'
+        name = '%s  %s\x01smallCaps\x01%s%s\x02\x02' % (self.name, color, PLocalizer.Lv, PLocalizer.InvasionLv)
         self.getNameText()['text'] = name
 
     
