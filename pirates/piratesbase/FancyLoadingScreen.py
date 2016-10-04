@@ -1,5 +1,4 @@
-# File: F (Python 2.4)
-
+import random
 from pirates.piratesbase import PiratesGlobals
 from pirates.piratesbase import PLocalizer
 from pirates.piratesgui import PiratesGuiGlobals
@@ -13,14 +12,14 @@ from direct.gui.DirectGui import *
 from pirates.uberdog.UberDogGlobals import InventoryType
 from pirates.world.LocationConstants import *
 from otp.otpbase import OTPGlobals
-import random
-from pandac.PandaModules import HTTPClient
-from pandac.PandaModules import HTTPCookie
-from pandac.PandaModules import URLSpec
-from pandac.PandaModules import Ramfile
-from pandac.PandaModules import Ostream
-from pandac.PandaModules import HTTPDate
-from pandac.PandaModules import DocumentSpec
+from panda3d.core import HTTPClient
+from panda3d.core import HTTPCookie
+from panda3d.core import URLSpec
+from panda3d.core import Ramfile
+from panda3d.core import Ostream
+from panda3d.core import HTTPDate
+from panda3d.core import DocumentSpec
+from panda3d.core import LineSegs, CardMaker, NodePathCollection, GeomVertexData, GeomVertexWriter, Geom, TextNode, ConfigVariableBool
 IDEALX = 1280
 IDEALY = 1024
 tutorialShots = [
@@ -621,10 +620,10 @@ class FancyLoadingScreen(DirectObject.DirectObject):
         self.currentTime += min(10, (realTime - self.lastUpdateTime) * 250)
         self.lastUpdateTime = realTime
         if self.debugMode:
-            self.overallLabel['text'] = '%3.1f' % self.overallPercent / self.loadScale
-            self.tickLabel['text'] = '%3.1f' % self.currPercent * 100.0
+            self.overallLabel['text'] = '%3.1f' % (self.overallPercent / self.loadScale)
+            self.tickLabel['text'] = '%3.1f' % (self.currPercent * 100.0)
         else:
-            self.percentLabel['text'] = '%d%%' % self.overallPercent / self.loadScale
+            self.percentLabel['text'] = '%d%%' % (self.overallPercent / self.loadScale)
         if self.currStage != 'unmapped':
             if self.debugMode:
                 self.currPoly.detachNode()
@@ -739,11 +738,12 @@ class FancyLoadingScreen(DirectObject.DirectObject):
                 island = getParentIsland(targetId)
                 screenshot = screenShots_Locations.get(island, [
                     random.choice(screenShots)])[0]
-        elif len(screenshot) > 1:
+
+        if isinstance(screenshot, list):
             screenshot = random.choice(screenshot)
-        else:
-            screenshot = screenshot[0]
+
         self._FancyLoadingScreen__setLoadingArt(screenshot)
+
         if pickapirate:
             targetName = PLocalizer.LoadingScreen_PickAPirate
         elif exit:
@@ -770,7 +770,11 @@ class FancyLoadingScreen(DirectObject.DirectObject):
         if self.parent and hasattr(base, 'localAvatar') and base.localAvatar.style.getTutorial() < PiratesGlobals.TUT_MET_JOLLY_ROGER and screenshot not in tutorialShots:
             screenshot = random.choice(tutorialShots)
         
-        self.currScreenshot = loader.loadModel(screenshot).findAllTextures()[0]
+        try:
+            self.currScreenshot = loader.loadModel(screenshot).findAllTextures()[0]
+        except:
+            self.currScreenshot = loader.loadModel(random.choice(screenshot)).findAllTextures()[0]
+
         if not self.debugMode:
             self.screenshot.setTexture(self.currScreenshot)
         

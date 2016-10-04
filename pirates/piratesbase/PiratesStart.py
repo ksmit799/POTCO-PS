@@ -17,7 +17,7 @@ from direct.gui import DirectGuiGlobals
 import PiratesGlobals
 DirectGuiGlobals.setDefaultFontFunc(PiratesGlobals.getInterfaceFont)
 launcher.setPandaErrorCode(7)
-from pandac.PandaModules import *
+from panda3d.core import *
 loadPrcFile("config/config_dev.prc")
 import PiratesBase
 PiratesBase.PiratesBase()

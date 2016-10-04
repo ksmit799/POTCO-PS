@@ -1,6 +1,4 @@
-import sys
-import time
-import os
+import sys, time, os
 from pandac.PandaModules import *
 from otp.nametag import NametagGlobals, NametagGlobals 
 from otp.margins import MarginManager, ChatBalloon
@@ -186,10 +184,13 @@ class PiratesBase(OTPBase):
             wp.setFullscreen(options.getFullscreen())
             self.openDefaultWindow(props = wp)
         self.eventMgr.doEvents()
-        loadingMode = config.GetInt('loading-screen', 0)
+        loadingMode = config.GetInt('loading-screen', 1)
         if loadingMode == 0:
             self.loadingScreen = LoadingScreen.LoadingScreen(None)
+        elif loadingMode == 1:
+            self.loadingScreen = FancyLoadingScreen.FancyLoadingScreen(None)
         else:
+            self.notify.warning('Error initialzing loading screen, using default')
             self.loadingScreen = FancyLoadingScreen.FancyLoadingScreen(None)
         try:
             self.loadingScreen.showTarget(pickapirate = True)
@@ -198,7 +199,7 @@ class PiratesBase(OTPBase):
         except:
             try:
                 print("Fatal Error: Unable to create main window")
-                #launcher.setPandaErrorCode(7)
+                launcher.setPandaErrorCode(7)
             except:
                 pass
             sys.exit(1)
