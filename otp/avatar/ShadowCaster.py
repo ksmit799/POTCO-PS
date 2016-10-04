@@ -1,7 +1,4 @@
-# File: S (Python 2.4)
-
-from pandac.PandaModules import *
-from pandac.PandaModules import *
+from panda3d.core import *
 from direct.directnotify import DirectNotifyGlobal
 from direct.showbase.ShadowPlacer import ShadowPlacer
 from otp.otpbase import OTPGlobals
@@ -40,8 +37,8 @@ class ShadowCaster:
         if hasattr(base, 'wantDynamicShadows') and base.wantDynamicShadows:
             messenger.accept('globalDropShadowFlagChanged', self, self._ShadowCaster__globalDropShadowFlagChanged)
             messenger.accept('globalDropShadowGrayLevelChanged', self, self._ShadowCaster__globalDropShadowGrayLevelChanged)
+        return
         
-
     
     def delete(self):
         if hasattr(base, 'wantDynamicShadows') and base.wantDynamicShadows:
@@ -50,6 +47,7 @@ class ShadowCaster:
         
         self.deleteDropShadow()
         self.shadowJoint = None
+        return
 
     
     def initializeDropShadow(self, hasGeomNode = True):
@@ -88,7 +86,7 @@ class ShadowCaster:
         if self.dropShadow:
             self.dropShadow.removeNode()
             self.dropShadow = None
-        
+        return
 
     
     def setActiveShadow(self, isActive = 1):
@@ -108,6 +106,7 @@ class ShadowCaster:
                     self.shadowPlacer.on()
                 else:
                     self.shadowPlacer.off()
+        return
             
         
 
@@ -156,12 +155,11 @@ class ShadowCaster:
                 self.setActiveShadow(1)
             
             self.showShadow()
+        return
         
 
     
     def _ShadowCaster__globalDropShadowGrayLevelChanged(self):
         if self.dropShadow != None:
             self.dropShadow.setColor(0.0, 0.0, 0.0, globalDropShadowGrayLevel, 1)
-        
-
-
+        return

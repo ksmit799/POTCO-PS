@@ -31,7 +31,8 @@ class Avatar(Actor, ShadowCaster):
         self.name = ''
         
         try:
-            return None
+            self.Avatar_initialized
+            return
         except:
             self.Avatar_initialized = 1
 
@@ -79,6 +80,7 @@ class Avatar(Actor, ShadowCaster):
         self._Avatar__chatLocal = 0
         self._Avatar__currentDialogue = None
         self.whitelistChatFlags = 0
+        return
 
     
     def delete(self):

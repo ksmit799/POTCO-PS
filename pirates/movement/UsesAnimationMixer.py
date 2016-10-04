@@ -1,5 +1,3 @@
-# File: U (Python 2.4)
-
 from direct.interval.IntervalGlobal import ActorInterval
 from direct.actor.Actor import Actor
 from direct.fsm.FSM import FSM
