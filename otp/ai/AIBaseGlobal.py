@@ -24,6 +24,3 @@ if ((not __debug__) and __dev__):
     notify = directNotify.newCategory('ShowBaseGlobal')
     notify.error("You must set 'want-dev' to false in non-debug mode.")
 taskMgr.finalInit()
-
-#+++ okay decompyling
-# decompiled 1 files: 1 okay, 0 failed, 0 verify failed

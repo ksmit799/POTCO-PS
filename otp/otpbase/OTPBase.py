@@ -1,5 +1,3 @@
-# File: O (Python 2.4)
-
 from direct.showbase.ShowBase import ShowBase
 from pandac.PandaModules import Camera, TPLow, VBase4, ColorWriteAttrib, Filename, getModelPath, NodePath
 import OTPRender

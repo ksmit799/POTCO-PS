@@ -15,17 +15,9 @@ uberdogs:
       id: 4688
       anonymous: false
 
-    - class: ClientServicesManager
-      id: 4665
-      anonymous: true
-
     - class: DistributedAvatarManager
       id: 4674
       anonymous: true
-
-    - class: ChatAgent
-      id: 4681
-      anonymous: false
 
     - class: FriendManager
       id: 4501
@@ -37,10 +29,6 @@ uberdogs:
 
     - class: PlayerFriendsManager
       id: 4687
-      anonymous: false
-
-    - class: PiratesFriendsManager
-      id: 4680
       anonymous: false
 
     - class: PiratesSpeedchatRelay
@@ -66,7 +54,7 @@ uberdogs:
 roles:
     - type: clientagent
       bind: 0.0.0.0:7199
-      version: "pol-dev"
+      version: "piratesremake-1.0.0"
       client:
           relocate: true
           add_interest: enabled

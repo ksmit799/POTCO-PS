@@ -1,26 +1,17 @@
-#Rewritten from orignal File
-#TODO: Get language from cfg file
-language = "English"
-'''
-try:
-    language = getConfigExpress().GetString('language', 'english')
-    checkLanguage = getConfigExpress().GetBool('check-language', 0)
-except:
-    language = simbase.config.GetString('language', 'english')
-    checkLanguage = simbase.config.GetBool('check-language', 0)
-'''
+from direct.directnotify.DirectNotifyGlobal import directNotify
+from panda3d.core import ConfigVariableString
 
-def getLanguage():
-    return language
+notify = directNotify.newCategory('OTPLocalizer')
 
+language = ConfigVariableString('language', 'English').getValue()
 _languageModule = 'otp.otpbase.OTPLocalizer' + language
 
 try:
 	exec 'from ' + _languageModule + ' import *'
-	print 'OTPLocalizer: Running in language: %s' % language
+	notify.info("Running in language: %s" % language)
 except:
-	print("OPT Localizer: Error, Language not found!")
-	print("OPT Localizer: Setting language to default (English)")
+	notify.warning("Language '%s' not found! Setting as default (English)" % language)
 	from otp.otpbase.OTPLocalizerEnglish import *
     
-
+def getLanguage():
+    return language

@@ -1,20 +1,9 @@
-#Rewritten from orignal File
-#TODO: Get language from cfg file
-language = "English"
-'''
-try:
-    #language = getConfigExpress().GetString('language', 'english')
-    #checkLanguage = getConfigExpress().GetBool('check-language', 1)
-except:
-    #language = simbase.config.GetString('language', 'english')
-    #checkLanguage = simbase.config.GetBool('check-language', 1)
-	#Why would it except????? .-.
-	print("Error setting language")
-'''
+from direct.directnotify.DirectNotifyGlobal import directNotify
+from panda3d.core import ConfigVariableString
 
-def getLanguage():
-    return language
+notify = directNotify.newCategory('PLocalizer')
 
+language = ConfigVariableString('language', 'English').getValue()
 _PLocalizer = 'pirates.piratesbase.PLocalizer' + language
 _PQuestStrings = 'pirates.piratesbase.PQuestStrings' + language
 _PDialogStrings = 'pirates.piratesbase.PDialogStrings' + language
@@ -25,11 +14,13 @@ try:
 	exec 'from ' + _PQuestStrings + ' import *'
 	exec 'from ' + _PDialogStrings + ' import *'
 	exec 'from ' + _PGreetingStrings + ' import *'
-	print 'PLocalizer: Running in language: %s' % language
+	notify.info("Running in language: %s" % language)
 except:
-	print("PLocalizer: Error, Language not found!")
-	print("PLocalizer: Setting language to default (English)")
+	notify.warning("Language '%s' not found! Setting as default (English)" % language)
 	from pirates.piratesbase.PLocalizerEnglish import *
 	from pirates.piratesbase.PQuestStringsEnglish import *
 	from pirates.piratesbase.PDialogStringsEnglish import *
 	from pirates.piratesbase.PGreetingStringsEnglish import *
+
+def getLanguage():
+    return language
