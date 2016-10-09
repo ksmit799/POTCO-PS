@@ -579,18 +579,14 @@ class Biped(UsesAnimationMixer, Avatar, UsesEffectNode):
         cls.setupAnimInfoState('BayonetLandRoam', (('bayonet_idle', 1.0), ('bayonet_walk', 1.0), ('bayonet_run', 1.0), ('bayonet_walk', -1.0), ('strafe_left', 1), ('strafe_right', 1), ('run_diagonal_left', 1), ('run_diagonal_right', 1), ('walk_back_diagonal_left', 1), ('walk_back_diagonal_right', 1), ('fall_ground', 1), ('fall_ground', 1), ('spin_left', 1.0), ('spin_right', 1.0)))
 
     setupAnimInfo = classmethod(setupAnimInfo)
-    
+
+    @classmethod
     def initSfx(cls):
         for (name, effect) in cls.SfxNames.iteritems():
             if name not in cls.sfx:
                 sound = SoundGlobals.loadSfx(effect)
                 if sound and sound.getActive():
                     cls.sfx[name] = sound
-                
-            sound.getActive()
-        
-
-    initSfx = classmethod(initSfx)
 
 Biped.setupAnimInfo()
 Biped.initSfx()

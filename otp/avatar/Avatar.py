@@ -43,12 +43,12 @@ class Avatar(Actor, ShadowCaster):
         self.avatarType = ''
         self.nametagNodePath = None
         self._Avatar__nameVisible = 1
-        self.nametag = NametagGroup()
+        self.nametag = NametagGroup.NametagGroup()
         self.nametag.setAvatar(self)
         self.nametag.setFont(OTPGlobals.getInterfaceFont())
-        self.nametag2dContents = Nametag.CName | Nametag.CSpeech
-        self.nametag2dDist = Nametag.CName | Nametag.CSpeech
-        self.nametag2dNormalContents = Nametag.CName | Nametag.CSpeech
+        self.nametag2dContents = Nametag.Nametag.CName | Nametag.Nametag.CSpeech
+        self.nametag2dDist = Nametag.Nametag.CName | Nametag.Nametag.CSpeech
+        self.nametag2dNormalContents = Nametag.Nametag.CName | Nametag.Nametag.CSpeech
         self.nametag3d = self.attachNewNode('nametag3d')
         self.nametag3d.setTag('cam', 'nametag')
         self.nametag3d.setLightOff()

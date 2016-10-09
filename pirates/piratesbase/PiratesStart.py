@@ -4,6 +4,10 @@ import __builtin__
 import random, gc, sys, os, time
 from pirates.launcher.PiratesLauncher import PiratesLauncher
 
+from panda3d.core import NodePath
+for dtool in ('children', 'parent', 'name'):
+    del NodePath.DtoolClassDict[dtool]
+
 class game:
     name = 'pirates'
     process = 'client'

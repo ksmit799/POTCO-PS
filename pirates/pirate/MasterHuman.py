@@ -1065,34 +1065,34 @@ class MasterHuman(HumanBase.HumanBase, Biped.Biped):
             for k in xrange(0, len(slider[0])):
                 jointCtl = slider[0][k]
                 jointName = jointCtl[0]
+
                 matrixF[jointName].append(names[i])
+
                 pos = matrixI[jointName][0]
                 hpr = matrixI[jointName][1]
                 scl = matrixI[jointName][2]
+
                 if jointCtl[1] < 3:
                     posDelta = jointCtl[4] - pos[jointCtl[1]]
                     jointCtl[4] = posDelta
                     if len(slider) > 1:
                         jointCtl = slider[1][k]
                         jointCtl[4] = posDelta
-                    
-                len(slider) > 1
-                if jointCtl[1] > 2 and jointCtl[1] < 6:
+
+                elif jointCtl[1] > 2 and jointCtl[1] < 6:
                     hprDelta = jointCtl[4] - hpr[jointCtl[1] - 3]
                     jointCtl[4] = hprDelta
                     if len(slider) > 1:
                         jointCtl = slider[1][k]
                         jointCtl[4] = hprDelta
-                    
-                len(slider) > 1
-                sclDelta = jointCtl[4] - scl[jointCtl[1] - 6]
-                jointCtl[4] = sclDelta
-                if len(slider) > 1:
-                    jointCtl = slider[1][k]
+
+                else:
+                    sclDelta = jointCtl[4] - scl[jointCtl[1] - 6]
                     jointCtl[4] = sclDelta
-                    continue
-            
-        
+                    if len(slider) > 1:
+                        jointCtl = slider[1][k]
+                        jointCtl[4] = sclDelta
+
         matrixF['initialized'].append('initialized')
 
     
