@@ -5,7 +5,6 @@ import random
 def loadSfx(audioName):
     return loader.loadSfx('audio/' + audioName)
 
-
 def loadSfxString(audioName):
     return 'audio/' + audioName
 
