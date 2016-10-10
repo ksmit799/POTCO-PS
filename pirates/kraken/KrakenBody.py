@@ -21,7 +21,6 @@ class KrakenBody(Creature):
 
     
     def setupCollisions(self):
-        from pandac.PandaModules import *
         coll = CollisionSphere((0, 0, 0), 1)
         cn = CollisionNode('KrakenCollisions')
         cn.addSolid(coll)
