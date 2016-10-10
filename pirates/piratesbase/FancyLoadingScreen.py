@@ -19,7 +19,7 @@ from panda3d.core import Ramfile
 from panda3d.core import Ostream
 from panda3d.core import HTTPDate
 from panda3d.core import DocumentSpec
-from panda3d.core import LineSegs, CardMaker, NodePathCollection, GeomVertexData, GeomVertexWriter, Geom, TextNode, ConfigVariableBool
+from panda3d.core import LineSegs, CardMaker, NodePathCollection, GeomVertexData, GeomVertexWriter, Geom, TextNode, ConfigVariableBool, NodePath
 IDEALX = 1280
 IDEALY = 1024
 tutorialShots = [

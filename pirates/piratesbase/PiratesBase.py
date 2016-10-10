@@ -189,6 +189,8 @@ class PiratesBase(OTPBase):
             self.loadingScreen = LoadingScreen.LoadingScreen(None)
         elif loadingMode == 1:
             self.loadingScreen = FancyLoadingScreen.FancyLoadingScreen(None)
+        elif loadingMode == 2:
+            self.loadingScreen = FancyLoadingScreen.FancyLoadingScreen(None)
         else:
             self.notify.warning('Error initialzing loading screen, using default')
             self.loadingScreen = FancyLoadingScreen.FancyLoadingScreen(None)
