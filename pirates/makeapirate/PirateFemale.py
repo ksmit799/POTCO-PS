@@ -1,6 +1,4 @@
-# File: P (Python 2.4)
-
-from pandac.PandaModules import *
+from panda3d.core import *
 from direct.showbase import DirectObject
 from direct.directnotify import DirectNotifyGlobal
 from pirates.pirate import HumanDNA
@@ -4517,7 +4515,7 @@ class PirateFemale(DirectObject.DirectObject):
                                     hairData.addPath(hairCut[j])
                                     cutFound = 1
                                 
-                            hairCut[j].getName().find(cuts[hatIdx + 1]) >= 0
+                            #hairCut[j].getName().find(cuts[hatIdx + 1]) >= 0
                         
                         if not cutFound:
                             if partIdx == 2:
@@ -4608,7 +4606,7 @@ class PirateFemale(DirectObject.DirectObject):
                             geomNode.setGeomState(j, geomState.removeAttrib(TextureAttrib.getClassType()))
                         
                     
-                geomState.getAttrib(TextureAttrib.getClassType()).getTexture()
+                #geomState.getAttrib(TextureAttrib.getClassType()).getTexture()
             
         
         geomSet = flattenMe.findAllMatches('**/+GeomNode')
