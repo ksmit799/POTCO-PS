@@ -74,6 +74,6 @@ if base.options:
     base.options.options_to_config()
     base.options.setRuntimeOptions()
     if launcher.isDummy() and not Thread.isTrueThreads():
-        run()
+        base.run()
     elif __name__ == '__main__':
-        run()
+        base.run()

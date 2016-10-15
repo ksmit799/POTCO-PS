@@ -32,4 +32,4 @@ multisamples 2
 want-preloader 1
 
 #Loading screen
-loading-screen 2
+loading-screen 1

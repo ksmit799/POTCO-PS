@@ -42,3 +42,6 @@ class PiratesLauncher:
 
     def getParentPasswordSet(self):
         return False
+
+    def getPhaseComplete(self, arg):
+        return True

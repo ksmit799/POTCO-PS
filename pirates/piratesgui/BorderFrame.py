@@ -15,7 +15,7 @@ class BorderFrame(DirectFrame):
         self.nameTag = None
         self.nameTagLabel = None
         self.defineoptions(kw, optiondefs)
-        DirectFrame.__init__(self, parent = NodePath(), **None)
+        DirectFrame.__init__(self, parent = NodePath(), **kw)
         self.canBringToFront = True
         self.loadGeometry()
         self.initialiseoptions(BorderFrame)
@@ -58,7 +58,9 @@ class BorderFrame(DirectFrame):
     def loadGeometry(self):
         if not self.pieces:
             modelGeom = loader.loadModel('models/gui/' + self['modelName'])
-            self.pieces = self.pieceNames([](_[1], [ modelGeom.find('**/%s' % self.nodeNames[pieceName]) for pieceName in self.pieceNames ]))
+            self.pieces = {}
+            for pieceName in self.pieceNames:
+                self.pieces[pieceName] = modelGeom.find('**/%s' % self.nodeNames[pieceName])
             self.nameTag = modelGeom.find('**/nameTag')
             for k in ('top', 'right', 'bottom', 'left'):
                 tex = self.pieces[k].findTexture(TextureStage.getDefault())
@@ -100,26 +102,21 @@ class BorderFrame(DirectFrame):
         self.background = self.frameParent.attachNewNode('background')
         if not self['modelName']:
             self.background.setColor(0.5, 0.5, 0.5, 1)
-        
         self.behindParent = self.frameParent.attachNewNode(ModelNode('behindParent'))
-        self.guiComponents = {
-            self.pieceNames[0]: self.copyFlattenedChild(self.pieces[self.pieceNames[0]], self.background) }
+        self.guiComponents = {}
+        for pieceName in self.pieceNames:
+            self.guiComponents[pieceName] = self.copyFlattenedChild(self.pieces[pieceName], self.background)
         if self['draggable']:
             zip(self.pieceNames[1:]([](_[1], [ DirectButton(parent = self.frameParent, guiId = self.guiId + '-' + pieceName, relief = None, state = self['state'], geom = self.pieces[pieceName], rolloverSound = None, clickSound = None, pressEffect = 0) for pieceName in self.pieceNames[1:] ])))
-        
-        None(None(None(None, self['draggable'])))
         self.guiComponents['background'].setColorScale(self['bgColorScale'])
         self.guiComponents['background'].setTransparency(self['bgTransparency'])
         for guiComp in self.guiComponents:
             if self.guiComponents[guiComp]:
                 self.guiComponents[guiComp].setColorScale(self['imageColorScale'])
-        
         if not self['showBackground']:
             self.guiComponents['background'].stash()
-        
         if not self['showHeadBoard'] and self.guiComponents['headBoard']:
             self.guiComponents['headBoard'].stash()
-        
         if self['draggable']:
             for piece in self.getDraggableGeometry():
                 piece.bind(DGG.B1PRESS, self.dragStart)
@@ -128,15 +125,10 @@ class BorderFrame(DirectFrame):
                 piece.bind(DGG.B2RELEASE, self.dragStop)
                 piece.bind(DGG.B3PRESS, self.dragStart)
                 piece.bind(DGG.B3RELEASE, self.dragStop)
-            
-        
         if self.nameTag:
             self.nameTag.reparentTo(self.frameParent)
-        
         if not self['nameTag'] and self.nameTag:
             self.nameTag.stash()
-        
-        self.resetDecorations()
 
     
     def resetHBorder(self, scale, frameSize):
@@ -237,7 +229,7 @@ class BorderFrame(DirectFrame):
 
     
     def setFrameSize(self, *args, **kwargs):
-        DirectFrame.setFrameSize(self, *args, **args)
+        DirectFrame.setFrameSize(self, *args, **kwargs)
         if self.guiComponents:
             self.resetDecorations()
         

@@ -1,7 +1,8 @@
 import sys, time, os
 from pandac.PandaModules import *
 from otp.nametag import NametagGlobals, NametagGlobals 
-from otp.margins import MarginManager, ChatBalloon
+from otp.margins.ChatBalloon import ChatBalloon
+from otp.margins.MarginManager import MarginManager
 from direct.showbase.DirectObject import *
 from direct.showbase.PythonUtil import *
 from direct.showbase.Transitions import Transitions
@@ -783,7 +784,7 @@ class PiratesBase(OTPBase):
     
     def doAvatarPhysics(self, state):
         dt = ClockObject.getGlobalClock().getDt()
-        freq = base.config.GetFloat('avatar-physics-freq', 0.0)
+        freq = base.config.GetFloat('avatar-physics-freq', 1.0)
         maxSteps = base.config.GetInt('avatar-physics-maxsteps', 5)
         if not freq:
             self.avatarPhysicsMgr.doPhysics(dt)
@@ -848,8 +849,7 @@ class PiratesBase(OTPBase):
     
     def startShow(self, cr):
         self.cr = cr
-        WorldCreator = WorldCreator
-        import pirates.world
+        from pirates.world import WorldCreator
         self.worldCreator = WorldCreator.WorldCreator(self.cr, None, None)
         
         def nullYield(comment = ''):
@@ -991,9 +991,9 @@ class PiratesBase(OTPBase):
     def initNametagGlobals(self):
         arrow = loader.loadModel('models/gui/arrow')
         card = NodePath('card')
-        speech3d = ChatBalloon(loader.loadModel('models/gui/chatbox').node())
-        thought3d = ChatBalloon(loader.loadModel('models/gui/chatbox_thought_cutout').node())
-        speech2d = ChatBalloon(loader.loadModel('models/gui/chatbox_noarrow').node())
+        speech3d = ChatBalloon(loader.loadModel('models/gui/chatbox'))
+        thought3d = ChatBalloon(loader.loadModel('models/gui/chatbox_thought_cutout'))
+        speech2d = ChatBalloon(loader.loadModel('models/gui/chatbox_noarrow'))
         chatButtonGui = loader.loadModel('models/gui/triangle')
         chatButtonGui.setScale(0.10000000000000001)
         chatButtonGui.flattenStrong()
