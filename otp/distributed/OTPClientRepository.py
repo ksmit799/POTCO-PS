@@ -27,9 +27,7 @@ from otp.otpgui import OTPDialog
 from otp.avatar import DistributedAvatar
 from otp.otpbase import OTPLocalizer
 from otp.login import LoginGSAccount
-from otp.login import LoginGoAccount
-from otp.login.LoginWebPlayTokenAccount import LoginWebPlayTokenAccount
-from otp.login.LoginDISLTokenAccount import LoginDISLTokenAccount
+from otp.login.LoginPiratesAccount import LoginPiratesAccount
 from otp.login import LoginTTAccount
 from otp.login import HTTPUtil
 from otp.otpbase import OTPGlobals
@@ -63,7 +61,7 @@ class OTPClientRepository(ClientRepositoryBase):
         except:
             self.notify.warning("A PlayToken could not be found. Please launch through the launcher.")
             sys.exit(0)
-        
+    
         if self.launcher and hasattr(self.launcher, 'http'):
             self.http = self.launcher.http
         else:
@@ -71,8 +69,8 @@ class OTPClientRepository(ClientRepositoryBase):
 
         self.allocateDcFile()
 
-        self.loginInterface = LoginWebPlayTokenAccount(self)
-        self.notify.info('loginInterface: Login with PlayToken')
+        self.loginInterface = LoginPiratesAccount(self)
+        self.notify.info('loginInterface: Login with PiratesAccount')
 
         self.secretChatAllowed = base.config.GetBool('allow-secret-chat', True)
         self.openChatAllowed = base.config.GetBool('allow-open-chat', True)
@@ -289,7 +287,8 @@ class OTPClientRepository(ClientRepositoryBase):
         self.connectingBox.show()
         self.renderFrame()
         self.handler = self.handleMessageType
-        self.connect(self.serverList, successCallback = self._handleConnected, failureCallback = self.failedToConnect)
+        self.connect(self.serverList, successCallback = self.loginInterface.sendLoginMsg, failureCallback = self.failedToConnect)
+        
 
     enterConnect = report(types = [
         'args',
@@ -2137,7 +2136,9 @@ class OTPClientRepository(ClientRepositoryBase):
 
     
     def handleMessageType(self, msgType, di):
-        if msgType == CLIENT_GO_GET_LOST:
+        if msgType == CLIENT_HELLO_RESP:
+            self._handleConnected()
+        elif msgType == CLIENT_GO_GET_LOST:
             self.handleGoGetLost(di)
         elif msgType == CLIENT_HEARTBEAT:
             self.handleServerHeartbeat(di)

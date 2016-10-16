@@ -12,6 +12,8 @@ model-path resources/phase_5
 default-model-extension .bam
 
 # Server
+game-server 127.0.0.1
+server-port 7199
 server-version piratesremake-1.0.0
 
 #DC-Files

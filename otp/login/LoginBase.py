@@ -1,6 +1,3 @@
-# File: L (Python 2.4)
-
-
 class LoginBase:
     freeTimeExpires = -1
     
@@ -13,10 +10,8 @@ class LoginBase:
 
     
     def getErrorCode(self):
-        return 0
+        return
 
     
     def needToSetParentPassword(self):
-        return 0
-
-
+        return

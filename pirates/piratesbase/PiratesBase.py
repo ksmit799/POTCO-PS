@@ -872,7 +872,7 @@ class PiratesBase(OTPBase):
         else:
             gameServer = 'localhost'
             self.notify.info('Using gameServer localhost')
-        serverPort = base.config.GetInt('server-port', 6667)
+        serverPort = base.config.GetInt('server-port', 7199)
         debugQuests = base.config.GetBool('debug-quests', True)
         self.wantTattoos = base.config.GetBool('want-tattoos', 0)
         self.wantSocks = base.config.GetBool('want-socks', 0)
@@ -880,7 +880,7 @@ class PiratesBase(OTPBase):
         serverList = []
         for name in gameServer.split(';'):
             url = URLSpec(name, 1)
-            url.setScheme('s')
+            url.setScheme('http')
             if not url.hasPort():
                 url.setPort(serverPort)
             

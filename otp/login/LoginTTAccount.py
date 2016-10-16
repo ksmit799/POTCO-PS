@@ -1,6 +1,4 @@
-# File: L (Python 2.4)
-
-from pandac.PandaModules import *
+from panda3d.core import *
 from direct.distributed.MsgTypes import *
 from direct.directnotify import DirectNotifyGlobal
 import LoginBase
@@ -19,7 +17,7 @@ class LoginTTAccount(LoginBase.LoginBase, TTAccount.TTAccount):
 
     
     def supportsRelogin(self):
-        return 1
+        return
 
     
     def sendLoginMsg(self):
