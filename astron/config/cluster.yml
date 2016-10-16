@@ -19,37 +19,53 @@ uberdogs:
       id: 4674
       anonymous: true
 
-    - class: FriendManager
-      id: 4501
-      anonymous: false
+    - class: DistributedChatManager
+      id: 4681
+      anonymous: true
 
-    - class: AvatarFriendsManager
+    - class: DistributedCrewMatchManager
+      id: 4706
+      anonymous: true
+
+    - class: PCAvatarFriendsManager
       id: 4686
-      anonymous: false
+      anonymous: true
 
-    - class: PlayerFriendsManager
+    - class: PCPlayerFriendsManager
       id: 4687
-      anonymous: false
+      anonymous: true
+
+    - class: PCGuildManager
+      id: 4701
+      anonymous: true
 
     - class: PiratesSpeedchatRelay
       id: 4711
-      anonymous: false
+      anonymous: true
+
+    - class: DistributedShipLoader
+      id: 4678
+      anonymous: true
 
     - class: DistributedMatchMaker
       id: 4700
-      anonymous: false
+      anonymous: true
 
-    - class: DistributedGuildManager
-      id: 4701
-      anonymous: false
+    - class: CodeRedemption
+      id: 4703
+      anonymous: true
+
+    - class: PiratesSettingsMgr
+      id: 4704
+      anonymous: true
+
+    #- class: StatusDatabase
+    #  id: 4693
+    #  anonymous: true
 
     - class: DistributedTravelAgent
       id: 4679
-      anonymous: false
-
-    - class: DistributedCrewMatchManager
-      id: 4690
-      anonymous: false
+      anonymous: true
 
 roles:
     - type: clientagent

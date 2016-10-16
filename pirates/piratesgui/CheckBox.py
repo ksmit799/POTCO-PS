@@ -1,7 +1,5 @@
-# File: C (Python 2.4)
-
 from direct.gui.DirectGui import *
-from pandac.PandaModules import *
+from panda3d.core import *
 from direct.task.Task import Task
 from otp.otpbase import OTPLocalizer
 from otp.otpbase import OTPGlobals

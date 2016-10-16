@@ -1,6 +1,4 @@
-# File: O (Python 2.4)
-
-from pandac.PandaModules import *
+from panda3d.core import *
 QuietZone = 1
 UberZone = 2
 WallBitmask = BitMask32(1)
@@ -148,20 +146,16 @@ def setNametagFont(index, path):
 def getDialogClass():
     global DialogClass
     if DialogClass == None:
-        OTPDialog = OTPDialog
-        import otp.otpgui.OTPDialog
+        from otp.otpgui.OTPDialog import OTPDialog
         DialogClass = OTPDialog
-    
     return DialogClass
 
 
 def getGlobalDialogClass():
     global GlobalDialogClass
     if DialogClass == None:
-        GlobalDialog = GlobalDialog
-        import otp.otpgui.OTPDialog
+        from otp.otpgui.OTPDialog import GlobalDialog
         GlobalDialogClass = GlobalDialog
-    
     return GlobalDialogClass
 
 
@@ -172,6 +166,7 @@ def setDialogClasses(dialogClass, globalDialogClass):
 
 
 def getDefaultProductPrefix():
+    global ProductPrefix
     return ProductPrefix
 
 

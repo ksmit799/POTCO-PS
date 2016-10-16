@@ -17,10 +17,6 @@ uberdogs:
       id: 4688
       anonymous: false
 
-    - class: ClientServicesManager
-      id: 4665
-      anonymous: true
-
     - class: DistributedAvatarManager
       id: 4674
       anonymous: true
@@ -61,17 +57,13 @@ uberdogs:
       id: 4703
       anonymous: true
 
-    - class: StatusDatabase
-      id: 4693
-      anonymous: true
-
     - class: PiratesSettingsMgr
       id: 4704
       anonymous: true
 
-    - class: StatusDatabase
-      id: 4693
-      anonymous: true
+    #- class: StatusDatabase
+    #  id: 4693
+    #  anonymous: true
 
     - class: DistributedTravelAgent
       id: 4679
@@ -80,7 +72,7 @@ uberdogs:
 roles:
     - type: clientagent
       bind: 0.0.0.0:7199
-      version: "pol-dev"
+      version: "piratesremake-1.0.0"
       client:
        relocate: true
        add_interest: enabled

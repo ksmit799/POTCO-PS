@@ -484,7 +484,7 @@ class OTPClientRepository(ClientRepositoryBase):
     enterFailedToConnect = report(types = [
         'args',
         'deltaStamp'], dConfigParam = 'teleport')(enterFailedToConnect)
-    
+
     def __handleFailedToConnectAck(self):
         doneStatus = self.failedToConnectBox.doneStatus
         if doneStatus == 'ok':
