@@ -288,7 +288,6 @@ class OTPClientRepository(ClientRepositoryBase):
         self.renderFrame()
         self.handler = self.handleMessageType
         self.connect(self.serverList, successCallback = self.loginInterface.sendLoginMsg, failureCallback = self.failedToConnect)
-        
 
     enterConnect = report(types = [
         'args',
@@ -2138,36 +2137,28 @@ class OTPClientRepository(ClientRepositoryBase):
     def handleMessageType(self, msgType, di):
         if msgType == CLIENT_HELLO_RESP:
             self._handleConnected()
-        elif msgType == CLIENT_GO_GET_LOST:
+        elif msgType == CLIENT_EJECT:
             self.handleGoGetLost(di)
         elif msgType == CLIENT_HEARTBEAT:
             self.handleServerHeartbeat(di)
-        elif msgType == CLIENT_SYSTEM_MESSAGE:
-            self.handleSystemMessage(di)
-        elif msgType == CLIENT_SYSTEMMESSAGE_AKNOWLEDGE:
-            self.handleSystemMessageAknowledge(di)
-        elif msgType == CLIENT_CREATE_OBJECT_REQUIRED:
+        elif msgType == CLIENT_ENTER_OBJECT_REQUIRED:
             self.handleGenerateWithRequired(di)
-        elif msgType == CLIENT_CREATE_OBJECT_REQUIRED_OTHER:
-            self.handleGenerateWithRequiredOther(di)
-        elif msgType == CLIENT_CREATE_OBJECT_REQUIRED_OTHER_OWNER:
+        elif msgType == CLIENT_ENTER_OBJECT_REQUIRED_OTHER:
+            self.handleGenerateWithRequired(di, other=True)
+        elif msgType == CLIENT_ENTER_OBJECT_REQUIRED_OWNER:
+            self.handleGenerateWithRequiredOwner(di)
+        elif msgType == CLIENT_ENTER_OBJECT_REQUIRED_OTHER_OWNER:
             self.handleGenerateWithRequiredOtherOwner(di)
-        elif msgType == CLIENT_OBJECT_UPDATE_FIELD:
+        elif msgType == CLIENT_OBJECT_SET_FIELD:
             self.handleUpdateField(di)
-        elif msgType == CLIENT_OBJECT_DISABLE:
+        elif msgType == CLIENT_OBJECT_LEAVING:
             self.handleDisable(di)
-        elif msgType == CLIENT_OBJECT_DISABLE_OWNER:
-            self.handleDisable(di, ownerView = True)
-        elif msgType == CLIENT_OBJECT_DELETE_RESP:
-            self.handleDelete(di)
+        elif msgType == CLIENT_OBJECT_LEAVING_OWNER:
+            self.handleDisable(di, ownerView=True)
         elif msgType == CLIENT_DONE_INTEREST_RESP:
             self.gotInterestDoneMessage(di)
-        elif msgType == CLIENT_GET_STATE_RESP:
-            pass
         elif msgType == CLIENT_OBJECT_LOCATION:
             self.gotObjectLocationMessage(di)
-        elif msgType == CLIENT_SET_WISHNAME_RESP:
-            self.gotWishnameResponse(di)
         else:
             currentLoginState = self.loginFSM.getCurrentState()
             if currentLoginState:
