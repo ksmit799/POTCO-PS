@@ -1,11 +1,9 @@
-# File: L (Python 2.4)
-
-import os
-import time
+import os, time
 from datetime import datetime
-from pandac.PandaModules import *
+from panda3d.core import *
 from direct.distributed.MsgTypes import *
 from direct.gui.DirectGui import *
+from direct.gui.DirectGuiGlobals import NO_FADE_SORT_INDEX
 from direct.fsm import StateData
 from direct.fsm import ClassicFSM
 from direct.fsm import State
@@ -116,21 +114,9 @@ class LoginScreen(StateData.StateData, GuiScreen.GuiScreen):
 
     
     def enter(self):
-        if self.cr.blue:
-            self.userName = 'blue'
-            self.password = self.cr.blue
-            self.fsm.request('waitForLoginResponse')
-        elif self.cr.playToken:
+        if self.cr.playToken:
             self.userName = '*'
             self.password = self.cr.playToken
-            self.fsm.request('waitForLoginResponse')
-        elif hasattr(self.cr, 'DISLToken') and self.cr.DISLToken:
-            self.userName = '*'
-            self.password = self.cr.DISLToken
-            self.fsm.request('waitForLoginResponse')
-        elif self.AutoLoginName:
-            self.userName = self.AutoLoginName
-            self.password = self.AutoLoginPassword
             self.fsm.request('waitForLoginResponse')
         else:
             self.fsm.request('login')

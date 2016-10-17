@@ -45,3 +45,6 @@ class PiratesLauncher:
 
     def getPhaseComplete(self, arg):
         return True
+
+    def setDisconnectDetailsNormal(self):
+        pass

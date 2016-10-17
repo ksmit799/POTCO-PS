@@ -17,9 +17,16 @@ class LoginPiratesAccount(LoginBase.LoginBase):
         cr = self.cr
         datagram = PyDatagram()
         datagram.addUint16(CLIENT_HELLO)
-        datagram.addUint32(cr.hashVal)
+        datagram.addUint32(0xe7a9a07e)
         datagram.addString(cr.serverVersion)
         cr.send(datagram)
 
     def supportsRelogin(self):
         return False
+
+    def authorize(self, loginName, password):
+        self.loginName = loginName
+        self.password = password
+        self.createFlag = 0
+        self.cr.freeTimeExpiresAt = -1
+        self.cr.setIsPaid(1)
