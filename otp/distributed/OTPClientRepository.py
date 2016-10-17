@@ -116,6 +116,7 @@ class OTPClientRepository(ClientRepositoryBase):
             State('loginOff', self.enterLoginOff, self.exitLoginOff, [
                 'connect']),
             State('connect', self.enterConnect, self.exitConnect, [
+                'noConnection',
                 'login',
                 'failedToConnect',
                 'failedToGetServerConstants']),
@@ -786,29 +787,29 @@ class OTPClientRepository(ClientRepositoryBase):
         self._OTPClientRepository__currentAvId = 0
         self.stopHeartbeat()
         self.stopReaderPollTask()
-        gameUsername = launcher.getValue('GAME_USERNAME', base.cr.userName)
-        if self.bootedIndex != None and OTPLocalizer.CRBootedReasons.has_key(self.bootedIndex):
-            message = OTPLocalizer.CRBootedReasons[self.bootedIndex] % {
-                'name': gameUsername }
-        elif self.bootedText != None:
+        if (self.bootedIndex is not None) and (self.bootedIndex in OTPLocalizer.CRBootedReasons):
+            message = OTPLocalizer.CRBootedReasons[self.bootedIndex]
+        elif self.bootedIndex == 155:
+            message = self.bootedText
+        elif self.bootedText is not None:
             message = OTPLocalizer.CRBootedReasonUnknownCode % self.bootedIndex
         else:
             message = OTPLocalizer.CRLostConnection
         reconnect = 1
         if self.bootedIndex in (152, 127):
             reconnect = 0
-        
-        self.launcher.setDisconnectDetails(self.bootedIndex, message)
+        if self.bootedIndex == 152:
+            message = message % {'name': self.bootedText}
         style = OTPDialog.Acknowledge
         if reconnect and self.loginInterface.supportsRelogin():
             message += OTPLocalizer.CRTryConnectAgain
             style = OTPDialog.TwoChoice
-        
         dialogClass = OTPGlobals.getGlobalDialogClass()
-        self.lostConnectionBox = dialogClass(doneEvent = 'lostConnectionAck', message = message, text_wordwrap = 18, style = style)
+        self.lostConnectionBox = dialogClass(doneEvent ='lostConnectionAck', message = message, text_wordwrap = 18, style = style)
         self.lostConnectionBox.show()
         self.accept('lostConnectionAck', self._OTPClientRepository__handleLostConnectionAck)
         self.notify.warning('Lost connection to server. Notifying user.')
+        return
 
     enterNoConnection = report(types = [
         'args',

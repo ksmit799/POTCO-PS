@@ -20,3 +20,6 @@ class LoginPiratesAccount(LoginBase.LoginBase):
         datagram.addUint32(cr.hashVal)
         datagram.addString(cr.serverVersion)
         cr.send(datagram)
+
+    def supportsRelogin(self):
+        return False
